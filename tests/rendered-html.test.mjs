@@ -40,10 +40,15 @@ test("keeps content centralized and motion locally hosted", async () => {
   assert.match(content, /en:\s*\{/);
   assert.match(content, /zh:\s*\{/);
   assert.match(page, /--scene-title-x/);
+  assert.match(page, /--scene-runner-x/);
+  assert.match(page, /--scene-stamp-x/);
+  assert.match(page, /section-runway-track/);
   assert.match(page, /requestAnimationFrame/);
   assert.match(page, /prefers-reduced-motion/);
   assert.match(css, /scroll-snap-type:\s*y proximity/);
   assert.match(css, /\.title-runner/);
+  assert.match(css, /\.section-runway-track/);
+  assert.match(css, /content:\s*attr\(data-scene\)/);
   assert.match(css, /\.page-progress/);
   assert.match(css, /prefers-reduced-motion:\s*reduce/);
   assert.doesNotMatch(css, /@import\s+url|url\(\s*["']?https?:\/\//i);

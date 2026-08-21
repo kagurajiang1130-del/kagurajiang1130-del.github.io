@@ -6,12 +6,19 @@ import { Locale, localeOptions, siteContent } from "./content";
 const pad = (value: number) => String(value).padStart(2, "0");
 
 function SectionIntro({ number, label, title, intro }: { number: string; label: string; title: string; intro?: string }) {
+  const runwayText = `${number} / ${label} — ${title}`;
+
   return (
     <div className="section-intro reveal">
       <div className="section-meta"><span>{number}</span><span>{label}</span></div>
       <div>
         <h2><span className="title-runner">{title}</span></h2>
         {intro && <p>{intro}</p>}
+      </div>
+      <div className="section-runway" aria-hidden="true">
+        <div className="section-runway-track">
+          <span>{runwayText}</span><span>{runwayText}</span><span>{runwayText}</span>
+        </div>
       </div>
     </div>
   );
@@ -92,6 +99,7 @@ export default function Home() {
       section.dataset.scene = pad(index + 1);
       section.querySelectorAll<HTMLElement>(".reveal").forEach((item, itemIndex) => {
         item.style.setProperty("--reveal-order", String(Math.min(itemIndex, 7)));
+        item.style.setProperty("--reveal-x", `${itemIndex % 2 === 0 ? -34 : 34}px`);
       });
     });
 
@@ -101,7 +109,6 @@ export default function Home() {
     let smoothedVelocity = 0;
 
     const updateMotion = () => {
-      frame = 0;
       const viewportHeight = Math.max(window.innerHeight, 1);
       const scrollY = window.scrollY;
       const now = performance.now();
@@ -109,13 +116,14 @@ export default function Home() {
       const motionScale = reduceMotion ? 0 : window.innerWidth <= 820 ? 0.55 : 1;
       const elapsed = Math.max(now - previousTime, 16);
       const rawVelocity = ((scrollY - previousY) / elapsed) * 16;
-      smoothedVelocity += (rawVelocity - smoothedVelocity) * 0.16;
+      smoothedVelocity += (rawVelocity - smoothedVelocity) * 0.18;
       previousY = scrollY;
       previousTime = now;
+      const velocity = Math.max(-18, Math.min(18, smoothedVelocity)) * motionScale;
 
       const scrollable = Math.max(document.documentElement.scrollHeight - viewportHeight, 1);
       root.style.setProperty("--page-progress", String(Math.min(1, Math.max(0, scrollY / scrollable))));
-      root.style.setProperty("--scroll-velocity", `${(Math.max(-18, Math.min(18, smoothedVelocity)) * motionScale).toFixed(2)}px`);
+      root.style.setProperty("--scroll-velocity", `${velocity.toFixed(2)}px`);
       root.style.setProperty("--header-shift", `${(Math.max(-3, Math.min(0, smoothedVelocity * -0.2)) * motionScale).toFixed(2)}px`);
       root.style.setProperty("--hero-title-x", `${(Math.max(-82, scrollY * -0.12) * motionScale).toFixed(1)}px`);
       root.style.setProperty("--hero-word-x", `${(Math.min(48, scrollY * 0.07) * motionScale).toFixed(1)}px`);
@@ -125,10 +133,14 @@ export default function Home() {
       sections.forEach((section, index) => {
         const rect = section.getBoundingClientRect();
         const entrance = Math.min(1, Math.max(0, (viewportHeight - rect.top) / (viewportHeight * 0.72)));
+        const travel = Math.min(1, Math.max(0, (viewportHeight - rect.top) / (viewportHeight + rect.height)));
         const centerDistance = Math.abs(rect.top + rect.height / 2 - viewportHeight / 2);
         const focus = Math.min(1, Math.max(0, 1 - centerDistance / ((rect.height + viewportHeight) / 2)));
         const direction = index % 2 === 0 ? 1 : -1;
         const titleX = (1 - entrance) * 150 * direction * motionScale;
+        const runnerDistance = window.innerWidth <= 820 ? 118 : 280;
+        const runnerX = (0.5 - travel) * runnerDistance * direction * motionScale + velocity * 2.2;
+        const stampX = (travel - 0.5) * 126 * direction * motionScale + velocity * 3.2;
         const mediaY = (0.5 - focus) * 34 * motionScale;
         const curtain = Math.max(0, 1 - entrance * 1.35) * motionScale;
 
@@ -136,10 +148,20 @@ export default function Home() {
         section.style.setProperty("--scene-focus", focus.toFixed(3));
         section.style.setProperty("--scene-title-x", `${titleX.toFixed(1)}px`);
         section.style.setProperty("--scene-meta-x", `${(-titleX * 0.42).toFixed(1)}px`);
+        section.style.setProperty("--scene-runner-x", `${runnerX.toFixed(1)}px`);
+        section.style.setProperty("--scene-stamp-x", `${stampX.toFixed(1)}px`);
         section.style.setProperty("--scene-media-y", `${mediaY.toFixed(1)}px`);
         section.style.setProperty("--scene-tilt", `${((1 - focus) * 1.1 * direction * motionScale).toFixed(2)}deg`);
         section.style.setProperty("--scene-curtain", curtain.toFixed(3));
       });
+
+      if (!reduceMotion && (Math.abs(smoothedVelocity) > 0.04 || Math.abs(rawVelocity) > 0.04)) {
+        frame = window.requestAnimationFrame(updateMotion);
+      } else {
+        smoothedVelocity = 0;
+        root.style.setProperty("--scroll-velocity", "0px");
+        frame = 0;
+      }
     };
 
     const requestMotionUpdate = () => {
