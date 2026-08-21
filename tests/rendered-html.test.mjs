@@ -21,6 +21,7 @@ test("renders the multilingual brand site", async () => {
 
   const html = await response.text();
   assert.match(html, /<html lang="ja">/i);
+  assert.match(html, /name="robots" content="noindex, nofollow"/i);
   assert.match(html, /\[BRAND NAME\]/);
   assert.match(html, />JP</);
   assert.match(html, />EN</);
@@ -36,6 +37,8 @@ test("keeps content centralized and motion locally hosted", async () => {
   ]);
 
   assert.match(content, /Record<Locale, SiteCopy>/);
+  assert.match(content, /siteSettings/);
+  assert.match(content, /allowIndexing:\s*false/);
   assert.match(content, /ja:\s*\{/);
   assert.match(content, /en:\s*\{/);
   assert.match(content, /zh:\s*\{/);
@@ -52,5 +55,6 @@ test("keeps content centralized and motion locally hosted", async () => {
   assert.match(css, /\.page-progress/);
   assert.match(css, /prefers-reduced-motion:\s*reduce/);
   assert.doesNotMatch(css, /@import\s+url|url\(\s*["']?https?:\/\//i);
-  assert.doesNotMatch(`${content}\n${layout}`, /https?:\/\//i);
+  assert.match(layout, /metadataBase:\s*new URL\(siteSettings\.publicUrl\)/);
+  assert.match(layout, /robots:/);
 });

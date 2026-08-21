@@ -43,6 +43,12 @@ export const localeOptions: Array<{ code: Locale; short: string; label: string; 
   { code: "zh", short: "中", label: "简体中文", htmlLang: "zh-CN" },
 ];
 
+export const siteSettings = {
+  publicUrl: "https://kagurajiang1130-del.github.io/",
+  defaultLocale: "ja" as Locale,
+  allowIndexing: false,
+};
+
 const socialLinks = [
   { label: "Gmail", href: "#contact" },
   { label: "Instagram", href: "#contact" },
