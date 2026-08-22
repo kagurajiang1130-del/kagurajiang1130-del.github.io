@@ -167,9 +167,14 @@ test("keeps hosting and long-term completion claims evidence-bounded", async () 
     read("README.md"),
   ]);
 
-  assert.match(hosting, /GitHub Pages 作为免费、公开、HTTPS 的基础入口/);
-  assert.match(hosting, /不能外推为中国大陆真实网络证据/);
-  assert.match(hosting, /Enterprise 客户的单独订阅/);
+  assert.match(hosting, /继续作为免费、公开、HTTPS 的对照入口/);
+  assert.match(hosting, /都不能单独证明“中国大陆稳定可用”/);
+  assert.match(hosting, /China Network 是单独的 Enterprise 订阅/);
+  assert.match(hosting, /EdgeOne Pages（Makers）是下一步优先验证的镜像候选/);
+  assert.match(hosting, /系统生成的预览 URL 有效期为 3 小时，过期后返回 401/);
+  assert.match(hosting, /稳定公开入口都必须使用自定义域名/);
+  assert.match(hosting, /至少完成 \*\*36 次中国大陆冷启动加载\*\*/);
+  assert.match(hosting, /没有部署 EdgeOne、Cloudflare、Netlify、CloudBase 或 Vercel/);
   assert.match(hosting, /确认公开发布新版/);
   assert.doesNotMatch(hosting, /(?:能够|可以|已经|确认|承诺).{0,8}保证.{0,10}中国大陆|中国大陆.{0,10}(?:保证可用|稳定可用已获证明)/);
 
@@ -204,21 +209,25 @@ test("keeps first-wave outreach on rechecked business-safe channels", async () =
     read("business-ops/福冈首批客户研究清单.csv"),
   ]);
 
-  assert.match(leadResearch, /微型巴士及以上团体需预约/);
-  assert.match(leadResearch, /info@yame-tea\.jp/);
-  assert.match(leadResearch, /仅面向茶叶销售与批发的“业务用咨询”表单不用于本项目外联/);
-  assert.match(outreach, /确认进入 A-03 单封发送前复核/);
+  assert.match(leadResearch, /### N-01 LIVLABO/);
+  assert.match(leadResearch, /唯一第一候选，但尚未进入发送前复核/);
+  assert.match(leadResearch, /A-03 牛島製茶[\s\S]*\*\*状态\*\*：BLOCK/);
+  assert.match(leadResearch, /业务用销售及批发/);
+  assert.match(outreach, /LIVLABO 为唯一 S 级和第一候选/);
+  assert.match(outreach, /https:\/\/livlabo\.com\/contact\//);
+  assert.match(outreach, /取材、コラボレーションなど、さまざまなお問い合わせ/);
   assert.match(outreach, /B-08 株式会社源右衛門窯/);
   assert.match(outreach, /営業活動または営利を目的とする行為、またはその準備を目的とする行為/);
   assert.match(outreach, /https:\/\/www\.gen-emon\.co\.jp\/sitepolicy\//);
-  assert.match(outreach, /工場見学の来訪前案内に関する15分ヒアリングのお願い/);
-  assert.doesNotMatch(outreach, /撮影時の注意事項/);
   assert.match(outreach, /B-09 株式会社マルヒロ／HIROPPA/);
-  assert.match(outreach, /不使用仅面向茶叶销售与批发的“业务用咨询”表单/);
-  assert.match(outreach, /初次发送后没有回复，不主动跟进/);
+  assert.match(outreach, /A-03、A-06、B-08、B-09 保持 BLOCK/);
+  assert.match(outreach, /没有回复时不跟进/);
   assert.doesNotMatch(outreach, /7営業日後/);
-  assert.doesNotMatch(outreach, /确认发送第一轮访谈邀请：A-01、A-02、A-03/);
-  assert.match(leadCsv, /A-03,[^\n]*info@yame-tea\.jp/);
+  assert.doesNotMatch(outreach, /确认进入 A-03 单封发送前复核/);
+  assert.doesNotMatch(outreach, /工場見学の来訪前案内に関する15分ヒアリングのお願い/);
+  assert.match(leadCsv, /^A-03,A,BLOCK,/m);
+  assert.match(leadCsv, /^N-01,A,S,LIVLABO,/m);
+  assert.doesNotMatch(leadCsv, /info@yame-tea\.jp/);
 });
 
 test("keeps the free contact path consented, private, and cost bounded", async () => {
@@ -263,8 +272,8 @@ test("keeps the O-01 five-man-yen price behind human and customer evidence", asy
     assert.match(leads, new RegExp(`### ${id}`));
     assert.match(leadCsv, new RegExp(`^${id},`, "m"));
   }
-  assert.match(leads, /首轮最多 1 封/);
-  assert.match(leads, /发送后没有回复即停止，不主动跟进/);
+  assert.match(leads, /当前没有任何对象进入发送前复核/);
+  assert.match(leads, /任何对象无回复即停止，不跟进、不换入口、不绕行/);
   assert.match(leads, /若上次复核超过 30 天/);
 });
 
@@ -276,14 +285,16 @@ test("keeps strict outreach tiers and the single first contact gated", async () 
     read("README.md"),
   ]);
 
-  assert.match(queue, /S 级 2 个、A 级 5 个、BLOCK 12 个/);
-  assert.match(queue, /第一批：最多 1 封/);
+  assert.match(queue, /S 级 1 个、A 级 7 个、BLOCK 15 个/);
+  assert.match(queue, /LIVLABO.*唯一可在全部共同硬门补齐/);
+  assert.match(queue, /当前没有第一批、第二批或任何已启用邮件/);
   assert.match(queue, /A-03 牛島製茶/);
+  assert.match(queue, /B-09 マルヒロ／HIROPPA/);
   assert.match(queue, /`B-08`/);
   assert.match(queue, /www\.gen-emon\.co\.jp\/sitepolicy/);
   assert.match(queue, /无回复时不跟进/);
   assert.match(queue, /任一项为空，发送数继续为 0/);
-  assert.match(queue, /不能虚构/);
+  assert.match(queue, /不虚构客户、案例、团队、资历、组织或合作关系/);
   assert.doesNotMatch(outreach, /可用于B-08表单的真实电话号码/);
   assert.match(index, /20-外联渠道严格分级与发送队列/);
   assert.match(index, /O01_真人计时与验收表_v1\.docx/);
@@ -324,6 +335,49 @@ test("ships the editable O-01 Word timing form", async () => {
   assert.ok(form.length > 40_000);
 });
 
+test("ships the short editable website and first-email input card", async () => {
+  const [form, index, readme] = await Promise.all([
+    readFile(
+      new URL(
+        "../现在只需填写_网站与首封邮件_v1.docx",
+        import.meta.url,
+      ),
+    ),
+    read("business-ops/00-经营系统总览.md"),
+    read("README.md"),
+  ]);
+
+  assert.equal(form.subarray(0, 2).toString("ascii"), "PK");
+  assert.ok(form.length > 40_000);
+  assert.match(index, /现在只需填写_网站与首封邮件_v1\.docx/);
+  assert.match(readme, /现在只需填写_网站与首封邮件_v1\.docx/);
+  assert.match(readme, /当前安全第一候选是 LIVLABO/);
+  assert.match(readme, /不等于发送或发送前复核授权/);
+});
+
+test("separates public market prices from stated and behavioral willingness to pay", async () => {
+  const [pricing, serviceLogic, index, readme] = await Promise.all([
+    read("business-ops/23-市场定价证据与付款意愿测试.md"),
+    read("business-ops/04-服务测试卡与报价逻辑.md"),
+    read("business-ops/00-经营系统总览.md"),
+    read("README.md"),
+  ]);
+
+  assert.match(pricing, /`PUBLIC_LIST_PRICE`/);
+  assert.match(pricing, /`STATED_WTP`/);
+  assert.match(pricing, /`BEHAVIORAL_PRICE_EVIDENCE`/);
+  assert.match(pricing, /安すぎて品質や信頼性に不安/);
+  assert.match(pricing, /お得、または十分に納得/);
+  assert.match(pricing, /高すぎて依頼しない/);
+  assert.match(pricing, /https:\/\/www\.tautranslation\.co\.jp\/rate\.html/);
+  assert.match(pricing, /https:\/\/redassistant\.jp\//);
+  assert.match(pricing, /只有实际到账才能记为已收款/);
+  assert.match(pricing, /网站继续只允许显示“价格验证中／当前不接单”/);
+  assert.match(serviceLogic, /23-市场定价证据与付款意愿测试\.md/);
+  assert.match(index, /23-市场定价证据与付款意愿测试/);
+  assert.match(readme, /23-市场定价证据与付款意愿测试/);
+});
+
 test("keeps unvalidated services unavailable and ties pricing to the current hard gate", async () => {
   const [content, page, serviceLogic, control, index, workflow, release] =
     await Promise.all([
@@ -348,8 +402,9 @@ test("keeps unvalidated services unavailable and ties pricing to the current har
   assert.match(serviceLogic, /至少完成10次真实目标客户访谈/);
   assert.match(serviceLogic, /同一个具体问题至少重复出现3次/);
   assert.match(control, /当前审计应报告 `readyToPublish: false`/);
-  assert.match(control, /第一批只保留 A-03/);
-  assert.match(control, /B-08.*保持 BLOCK/);
+  assert.match(control, /当前没有任何对象进入发送前复核或发送队列/);
+  assert.match(control, /LIVLABO 是唯一 S 级和第一候选/);
+  assert.match(control, /A-03、A-06、B-08、B-09 保持 BLOCK/);
   assert.match(index, /21-网站上线与首轮外联启用总控表/);
   assert.match(workflow, /npm run audit:publication:strict/);
   assert.match(release, /"approved": false/);
