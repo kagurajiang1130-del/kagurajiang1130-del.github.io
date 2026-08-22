@@ -24,7 +24,7 @@ export interface SiteCopy {
   philosophy: { body: string; quote: string; visualLabel: string };
   problems: ListItem[];
   approach: ListItem[];
-  services: Array<{ name: string; summary: string; detail: string }>;
+  services: Array<{ name: string; summary: string; detail: string; status: string; action: string; available: boolean }>;
   experienceGuide: { label: string; title: string; text: string; centerLabel: string; items: string[]; visualLabel: string };
   process: ListItem[];
   cases: CaseStudy[];
@@ -111,14 +111,14 @@ export const siteContent: Record<Locale, SiteCopy> = {
       { title: "信頼される", text: "[アプローチの説明を後ほど追加]" }, { title: "体験される", text: "[アプローチの説明を後ほど追加]" },
     ],
     services: [
-      { name: "中国語コピー・翻訳", summary: "[サービス概要を後ほど追加]", detail: "[詳しいサービス内容を後ほど追加]" },
-      { name: "メニュー・Webサイトの中国語化", summary: "[サービス概要を後ほど追加]", detail: "[詳しいサービス内容を後ほど追加]" },
-      { name: "小紅書アカウント開設", summary: "[サービス概要を後ほど追加]", detail: "[詳しいサービス内容を後ほど追加]" },
-      { name: "中国SNSへのコンテンツ移行", summary: "[サービス概要を後ほど追加]", detail: "[詳しいサービス内容を後ほど追加]" },
-      { name: "コンテンツ企画・投稿", summary: "[サービス概要を後ほど追加]", detail: "[詳しいサービス内容を後ほど追加]" },
-      { name: "文化と体験情報の編集", summary: "[サービス概要を後ほど追加]", detail: "[詳しいサービス内容を後ほど追加]" },
-      { name: "中国語での接客・マナー案内", summary: "[サービス概要を後ほど追加]", detail: "[詳しいサービス内容を後ほど追加]" },
-      { name: "継続運用・プロモーション", summary: "[サービス概要を後ほど追加]", detail: "[詳しいサービス内容を後ほど追加]" },
+      { name: "中国語コピー・翻訳", summary: "将来の対応候補です。提供範囲を検証しています。", detail: "正式な提供内容、納品物、費用は未確定です。現在は受付していません。", status: "計画中", action: "現在受付していません", available: false },
+      { name: "メニュー・Webサイトの中国語化", summary: "将来の対応候補です。提供範囲を検証しています。", detail: "正式な提供内容、納品物、費用は未確定です。現在は受付していません。", status: "計画中", action: "現在受付していません", available: false },
+      { name: "小紅書アカウント開設", summary: "将来の対応候補です。提供範囲を検証しています。", detail: "正式な提供内容、納品物、費用は未確定です。現在は受付していません。", status: "計画中", action: "現在受付していません", available: false },
+      { name: "中国SNSへのコンテンツ移行", summary: "将来の対応候補です。提供範囲を検証しています。", detail: "正式な提供内容、納品物、費用は未確定です。現在は受付していません。", status: "計画中", action: "現在受付していません", available: false },
+      { name: "コンテンツ企画・投稿", summary: "将来の対応候補です。提供範囲を検証しています。", detail: "正式な提供内容、納品物、費用は未確定です。現在は受付していません。", status: "計画中", action: "現在受付していません", available: false },
+      { name: "文化と体験情報の編集", summary: "将来の対応候補です。提供範囲を検証しています。", detail: "正式な提供内容、納品物、費用は未確定です。現在は受付していません。", status: "計画中", action: "現在受付していません", available: false },
+      { name: "中国語での接客・マナー案内", summary: "将来の対応候補です。提供範囲を検証しています。", detail: "正式な提供内容、納品物、費用は未確定です。現在は受付していません。", status: "計画中", action: "現在受付していません", available: false },
+      { name: "継続運用・プロモーション", summary: "将来の対応候補です。提供範囲を検証しています。", detail: "正式な提供内容、納品物、費用は未確定です。現在は受付していません。", status: "計画中", action: "現在受付していません", available: false },
     ],
     experienceGuide: {
       label: "05 — Experience Guide", title: "ルールも、体験の一部に。", text: "[異文化体験デザインの説明を後ほど追加]", centerLabel: "CULTURAL\nEXPERIENCE",
@@ -133,8 +133,8 @@ export const siteContent: Record<Locale, SiteCopy> = {
     cases: caseStudies.ja,
     pricing: [
       { name: "Basic｜小規模診断（検証中）", audience: "来店前案内の課題を小さく整理したい事業者向け", price: "料金策定中", features: ["提供範囲・所要時間・費用を現在検証しています。"], action: "現在受付していません", featured: false },
-      { name: "Standard｜来店情報ローカライズ", audience: "予約・支払い・撮影・注文方法などを中国語で整理したい事業者向け", price: "正式料金 策定中", features: ["原稿量と店舗側の確認体制を確認後にご案内します。"], action: "現在受付準備中", featured: true },
-      { name: "Complete｜中国プラットフォーム支援", audience: "アカウント・素材・継続制作を含む支援を検討する事業者向け", price: "個別見積（受付準備中）", features: ["対応可能な範囲は、プラットフォーム条件と公開体制の確認後に決定します。"], action: "現在受付していません", featured: false },
+      { name: "Standard｜来店情報ローカライズ", audience: "予約・支払い・撮影・注文方法などを中国語で整理したい事業者向け", price: "対応範囲を検証中", features: ["正式な提供範囲、原稿量、確認体制と料金は未確定です。"], action: "現在受付していません", featured: false },
+      { name: "Complete｜中国プラットフォーム支援", audience: "アカウント・素材・継続制作を含む支援を検討する事業者向け", price: "対応範囲を検証中", features: ["プラットフォーム条件、実行体制、納品物と料金は未確定です。"], action: "現在受付していません", featured: false },
     ],
     vision: { label: "09 — Vision", title: "異文化のあいだで、\n到着の先へ。", text: "[目指す未来とブランドビジョンを後ほど追加]" },
     about: { team: "[チーム紹介を後ほど追加]", founder: "[創業者紹介を後ほど追加]", background: "[専門背景を後ほど追加]", philosophy: "[仕事への姿勢を後ほど追加]", teamImage: "[チーム写真]", partnerLogos: ["[パートナーロゴ]", "[パートナーロゴ]", "[パートナーロゴ]", "[パートナーロゴ]"] },
@@ -198,14 +198,14 @@ export const siteContent: Record<Locale, SiteCopy> = {
       { title: "Build trust", text: "[Approach details will be added later]" }, { title: "Be experienced", text: "[Approach details will be added later]" },
     ],
     services: [
-      { name: "Chinese copywriting & translation", summary: "[Service summary will be added later]", detail: "[Detailed scope will be added later]" },
-      { name: "Chinese menus & websites", summary: "[Service summary will be added later]", detail: "[Detailed scope will be added later]" },
-      { name: "RED / Xiaohongshu account setup", summary: "[Service summary will be added later]", detail: "[Detailed scope will be added later]" },
-      { name: "Content migration to Chinese social media", summary: "[Service summary will be added later]", detail: "[Detailed scope will be added later]" },
-      { name: "Content planning & publishing", summary: "[Service summary will be added later]", detail: "[Detailed scope will be added later]" },
-      { name: "Cultural & experience content design", summary: "[Service summary will be added later]", detail: "[Detailed scope will be added later]" },
-      { name: "Chinese visitor information & etiquette", summary: "[Service summary will be added later]", detail: "[Detailed scope will be added later]" },
-      { name: "Ongoing operations & promotion", summary: "[Service summary will be added later]", detail: "[Detailed scope will be added later]" },
+      { name: "Chinese copywriting & translation", summary: "A planned direction. The delivery scope is still being validated.", detail: "The formal scope, deliverables and price are not yet defined. This service is not currently available.", status: "Planned", action: "Not currently available", available: false },
+      { name: "Chinese menus & websites", summary: "A planned direction. The delivery scope is still being validated.", detail: "The formal scope, deliverables and price are not yet defined. This service is not currently available.", status: "Planned", action: "Not currently available", available: false },
+      { name: "RED / Xiaohongshu account setup", summary: "A planned direction. The delivery scope is still being validated.", detail: "The formal scope, deliverables and price are not yet defined. This service is not currently available.", status: "Planned", action: "Not currently available", available: false },
+      { name: "Content migration to Chinese social media", summary: "A planned direction. The delivery scope is still being validated.", detail: "The formal scope, deliverables and price are not yet defined. This service is not currently available.", status: "Planned", action: "Not currently available", available: false },
+      { name: "Content planning & publishing", summary: "A planned direction. The delivery scope is still being validated.", detail: "The formal scope, deliverables and price are not yet defined. This service is not currently available.", status: "Planned", action: "Not currently available", available: false },
+      { name: "Cultural & experience content design", summary: "A planned direction. The delivery scope is still being validated.", detail: "The formal scope, deliverables and price are not yet defined. This service is not currently available.", status: "Planned", action: "Not currently available", available: false },
+      { name: "Chinese visitor information & etiquette", summary: "A planned direction. The delivery scope is still being validated.", detail: "The formal scope, deliverables and price are not yet defined. This service is not currently available.", status: "Planned", action: "Not currently available", available: false },
+      { name: "Ongoing operations & promotion", summary: "A planned direction. The delivery scope is still being validated.", detail: "The formal scope, deliverables and price are not yet defined. This service is not currently available.", status: "Planned", action: "Not currently available", available: false },
     ],
     experienceGuide: {
       label: "05 — Experience Guide", title: "Make the rules part of the experience.", text: "[Cross-cultural experience design copy will be added later]", centerLabel: "CULTURAL\nEXPERIENCE",
@@ -220,8 +220,8 @@ export const siteContent: Record<Locale, SiteCopy> = {
     cases: caseStudies.en,
     pricing: [
       { name: "Basic | Small-scope diagnosis (validation)", audience: "For businesses that want to define one visitor-information problem before commissioning production", price: "Pricing in validation", features: ["Scope, delivery time and cost are being tested before intake opens."], action: "Not currently accepting projects", featured: false },
-      { name: "Standard | Visitor-information localization", audience: "For businesses organizing confirmed booking, payment, photography or ordering information in Chinese", price: "Official price in development", features: ["A quote will only be prepared after source volume and the business review process are confirmed."], action: "Intake in preparation", featured: true },
-      { name: "Complete | China-platform support", audience: "For businesses considering account, asset and ongoing content support", price: "Custom quote (intake in preparation)", features: ["Feasible scope depends on platform requirements, available assets and the publishing process."], action: "Not currently accepting projects", featured: false },
+      { name: "Standard | Visitor-information localization", audience: "For businesses organizing confirmed booking, payment, photography or ordering information in Chinese", price: "Scope in validation", features: ["The formal scope, source volume, review process and price are not yet defined."], action: "Not currently accepting projects", featured: false },
+      { name: "Complete | China-platform support", audience: "For businesses considering account, asset and ongoing content support", price: "Scope in validation", features: ["Platform conditions, delivery capacity, deliverables and price are not yet defined."], action: "Not currently accepting projects", featured: false },
     ],
     vision: { label: "09 — Vision", title: "Between cultures,\nbeyond arrival.", text: "[The future state and brand vision will be added later]" },
     about: { team: "[Team introduction will be added later]", founder: "[Founder introduction will be added later]", background: "[Professional background will be added later]", philosophy: "[Working philosophy will be added later]", teamImage: "[Team photo]", partnerLogos: ["[Partner logo]", "[Partner logo]", "[Partner logo]", "[Partner logo]"] },
@@ -285,14 +285,14 @@ export const siteContent: Record<Locale, SiteCopy> = {
       { title: "被信任", text: "[解决思路将在后续补充]" }, { title: "被体验", text: "[解决思路将在后续补充]" },
     ],
     services: [
-      { name: "中文文案与翻译", summary: "[服务简介将在后续补充]", detail: "[详细服务内容将在后续补充]" },
-      { name: "菜单及网站中文化", summary: "[服务简介将在后续补充]", detail: "[详细服务内容将在后续补充]" },
-      { name: "小红书账号创建", summary: "[服务简介将在后续补充]", detail: "[详细服务内容将在后续补充]" },
-      { name: "中国SNS内容迁移", summary: "[服务简介将在后续补充]", detail: "[详细服务内容将在后续补充]" },
-      { name: "内容策划与发布", summary: "[服务简介将在后续补充]", detail: "[详细服务内容将在后续补充]" },
-      { name: "文化真实性与体验内容整理", summary: "[服务简介将在后续补充]", detail: "[详细服务内容将在后续补充]" },
-      { name: "中文接待信息与礼仪说明", summary: "[服务简介将在后续补充]", detail: "[详细服务内容将在后续补充]" },
-      { name: "长期运营与推广", summary: "[服务简介将在后续补充]", detail: "[详细服务内容将在后续补充]" },
+      { name: "中文文案与翻译", summary: "计划方向，交付范围仍在验证中。", detail: "正式服务内容、交付物和价格尚未确定，当前不接受项目。", status: "计划中", action: "当前尚未开放", available: false },
+      { name: "菜单及网站中文化", summary: "计划方向，交付范围仍在验证中。", detail: "正式服务内容、交付物和价格尚未确定，当前不接受项目。", status: "计划中", action: "当前尚未开放", available: false },
+      { name: "小红书账号创建", summary: "计划方向，交付范围仍在验证中。", detail: "正式服务内容、交付物和价格尚未确定，当前不接受项目。", status: "计划中", action: "当前尚未开放", available: false },
+      { name: "中国SNS内容迁移", summary: "计划方向，交付范围仍在验证中。", detail: "正式服务内容、交付物和价格尚未确定，当前不接受项目。", status: "计划中", action: "当前尚未开放", available: false },
+      { name: "内容策划与发布", summary: "计划方向，交付范围仍在验证中。", detail: "正式服务内容、交付物和价格尚未确定，当前不接受项目。", status: "计划中", action: "当前尚未开放", available: false },
+      { name: "文化真实性与体验内容整理", summary: "计划方向，交付范围仍在验证中。", detail: "正式服务内容、交付物和价格尚未确定，当前不接受项目。", status: "计划中", action: "当前尚未开放", available: false },
+      { name: "中文接待信息与礼仪说明", summary: "计划方向，交付范围仍在验证中。", detail: "正式服务内容、交付物和价格尚未确定，当前不接受项目。", status: "计划中", action: "当前尚未开放", available: false },
+      { name: "长期运营与推广", summary: "计划方向，交付范围仍在验证中。", detail: "正式服务内容、交付物和价格尚未确定，当前不接受项目。", status: "计划中", action: "当前尚未开放", available: false },
     ],
     experienceGuide: {
       label: "05 — Experience Guide", title: "让规则成为体验的一部分。", text: "[跨文化体验设计内容将在后续补充]", centerLabel: "CULTURAL\nEXPERIENCE",
@@ -307,8 +307,8 @@ export const siteContent: Record<Locale, SiteCopy> = {
     cases: caseStudies.zh,
     pricing: [
       { name: "Basic｜小范围诊断（验证中）", audience: "适合希望先明确一项来店前信息问题、再决定是否制作内容的商家", price: "价格验证中", features: ["服务范围、交付时间和成本正在验证，尚未开放接单。"], action: "当前暂不接受项目", featured: false },
-      { name: "Standard｜来店信息本地化", audience: "适合整理预约、支付、拍照或点单等已确认信息的商家", price: "正式价格制定中", features: ["确认原稿量和商家审核流程后，才会提供具体报价。"], action: "接单准备中", featured: true },
-      { name: "Complete｜中国平台支持", audience: "适合考虑账号、素材和持续内容支持的商家", price: "单独报价（接单准备中）", features: ["可执行范围取决于平台条件、现有素材和发布审核机制。"], action: "当前暂不接受项目", featured: false },
+      { name: "Standard｜来店信息本地化", audience: "适合整理预约、支付、拍照或点单等已确认信息的商家", price: "执行范围验证中", features: ["正式范围、原稿量、审核流程和价格尚未确定。"], action: "当前暂不接受项目", featured: false },
+      { name: "Complete｜中国平台支持", audience: "适合考虑账号、素材和持续内容支持的商家", price: "执行范围验证中", features: ["平台条件、执行能力、交付物和价格尚未确定。"], action: "当前暂不接受项目", featured: false },
     ],
     vision: { label: "09 — Vision", title: "不同文化之间，\n不止于抵达。", text: "[理想中的状态与品牌愿景将在后续补充]" },
     about: { team: "[团队介绍将在后续补充]", founder: "[创始人介绍将在后续补充]", background: "[专业背景将在后续补充]", philosophy: "[工作理念将在后续补充]", teamImage: "[团队照片]", partnerLogos: ["[合作伙伴Logo]", "[合作伙伴Logo]", "[合作伙伴Logo]", "[合作伙伴Logo]"] },

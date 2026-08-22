@@ -289,3 +289,34 @@ test("ships the editable O-01 Word timing form", async () => {
   assert.equal(form.subarray(0, 2).toString("ascii"), "PK");
   assert.ok(form.length > 40_000);
 });
+
+test("keeps unvalidated services unavailable and ties pricing to the current hard gate", async () => {
+  const [content, page, serviceLogic, control, index, workflow, release] =
+    await Promise.all([
+      read("app/content.ts"),
+      read("app/page.tsx"),
+      read("business-ops/04-服务测试卡与报价逻辑.md"),
+      read("business-ops/21-网站上线与首轮外联启用总控表.md"),
+      read("business-ops/00-经营系统总览.md"),
+      read(".github/workflows/github-pages.yml"),
+      read("release/publication.json"),
+    ]);
+
+  assert.equal((content.match(/available: false/g) ?? []).length, 24);
+  assert.doesNotMatch(content, /featured: true/);
+  assert.doesNotMatch(content, /個別見積|Custom quote|单独报价/);
+  assert.match(content, /対応範囲を検証中/);
+  assert.match(content, /Scope in validation/);
+  assert.match(content, /执行范围验证中/);
+  assert.match(page, /service-unavailable/);
+
+  assert.match(serviceLogic, /19-O01五万日元试行价激活路径\.md.*权威来源/);
+  assert.match(serviceLogic, /至少完成10次真实目标客户访谈/);
+  assert.match(serviceLogic, /同一个具体问题至少重复出现3次/);
+  assert.match(control, /当前审计应报告 `readyToPublish: false`/);
+  assert.match(control, /第一批 A-03、B-08/);
+  assert.match(index, /21-网站上线与首轮外联启用总控表/);
+  assert.match(workflow, /npm run audit:publication:strict/);
+  assert.match(release, /"approved": false/);
+  assert.match(release, /确认公开发布新版/);
+});

@@ -16,6 +16,7 @@
 - 不改代码的内容入口为 `网站内容与商业输入表_v2.docx`；
 - 价格、工时、现金、报价门与利润目标桥接统一进入 `outputs/019f96e2-f489-7b81-bf8d-b80d5782c1de/澜顷_经营与利润管理台账_v0.4.xlsx`；v0.3 只保留作历史追溯。
 - O-01 的真人计时与价格证据可直接填写 `O01_真人计时与验收表_v1.docx`；外联先按 `business-ops/20-外联渠道严格分级与发送队列.md` 的 S／A／BLOCK 队列逐封复核。
+- 网站、价格、联系入口和首轮外联的启用状态统一看 `business-ops/21-网站上线与首轮外联启用总控表.md`；新版部署前会自动检查用户批准与最终内容，未通过时不会替换旧站。
 
 ## 当前公开入口
 
@@ -53,6 +54,7 @@ npm run dev
 npm run lint
 npm test
 npm run export:pages
+npm run audit:publication
 ```
 
 静态导出结果位于 `out/github-pages/`。

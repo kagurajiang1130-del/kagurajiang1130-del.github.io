@@ -34,6 +34,9 @@ jobs:
       - name: Install dependencies
         run: npm ci
 
+      - name: Verify publication approval and final content
+        run: npm run audit:publication:strict
+
       - name: Build website
         run: npm run build
 

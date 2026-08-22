@@ -317,8 +317,8 @@ export default function Home() {
         <div className="service-list">
           {c.services.map((service, index) => (
             <details className="service-item reveal" key={service.name}>
-              <summary><span>{pad(index + 1)}</span><h3>{service.name}</h3><p>{service.summary}</p><i>＋</i></summary>
-              <div className="service-detail"><div className="service-icon">{pad(index + 1)}</div><p>{service.detail}</p><a href="#contact">{c.ui.consultService} <span>→</span></a></div>
+              <summary><span>{pad(index + 1)}</span><h3>{service.name}<small>{service.status}</small></h3><p>{service.summary}</p><i>＋</i></summary>
+              <div className="service-detail"><div className="service-icon">{pad(index + 1)}</div><p>{service.detail}</p>{service.available ? <a href="#contact">{service.action} <span>→</span></a> : <span className="service-unavailable" aria-disabled="true">{service.action}</span>}</div>
             </details>
           ))}
         </div>

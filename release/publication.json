@@ -1,0 +1,10 @@
+{
+  "schemaVersion": 1,
+  "status": "draft",
+  "approved": false,
+  "approvalPhrase": "",
+  "approvedAt": null,
+  "approvedBy": "",
+  "approvedContentParts": [],
+  "notes": "只有用户明确回复“确认公开发布新版”，且 Part 01-10 与公开字段完成批准后，才可由 Codex 更新本文件。"
+}
