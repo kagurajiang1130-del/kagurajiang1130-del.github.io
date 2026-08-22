@@ -156,7 +156,7 @@ test("keeps the year-end profit bridge evidence-led and capacity-gated", async (
   assert.match(serviceLogic, /O-01和O-02两行都不能被当作可报价结果/);
   assert.match(serviceLogic, /O-04 单平台持续内容运营/);
   assert.match(index, /15-2026年末10万元净利润目标桥接与每周控制/);
-  assert.match(index, /澜顷_经营与利润管理台账_v0\.4\.xlsx/);
+  assert.match(index, /澜顷_经营与利润管理台账_v0\.5\.xlsx/);
 });
 
 test("keeps hosting and long-term completion claims evidence-bounded", async () => {
@@ -181,18 +181,18 @@ test("keeps hosting and long-term completion claims evidence-bounded", async () 
 
   assert.match(index, /16-免费托管与中国访问决策记录/);
   assert.match(index, /17-长期目标完成度与证据矩阵/);
-  assert.match(readme, /澜顷_经营与利润管理台账_v0\.4\.xlsx/);
+  assert.match(readme, /澜顷_经营与利润管理台账_v0\.5\.xlsx/);
   assert.doesNotMatch(readme, /台账为 `[^`]*v0\.3\.xlsx`/);
 });
 
-test("keeps operational recording instructions on the v0.4 workbook", async () => {
+test("keeps operational recording instructions on the v0.5 workbook", async () => {
   const [templatePack, leadResearch] = await Promise.all([
     read("business-ops/05-客户访谈报价交付模板包.md"),
     read("business-ops/06-福冈首批客户研究清单.md"),
   ]);
 
-  assert.match(templatePack, /澜顷_经营与利润管理台账_v0\.4\.xlsx/);
-  assert.match(leadResearch, /澜顷_经营与利润管理台账_v0\.4\.xlsx/);
+  assert.match(templatePack, /澜顷_经营与利润管理台账_v0\.5\.xlsx/);
+  assert.match(leadResearch, /澜顷_经营与利润管理台账_v0\.5\.xlsx/);
   assert.doesNotMatch(templatePack, /澜顷_经营与利润管理台账_v0\.3\.xlsx/);
   assert.doesNotMatch(leadResearch, /澜顷_经营与利润管理台账_v0\.3\.xlsx/);
 });
@@ -207,10 +207,16 @@ test("keeps first-wave outreach on rechecked business-safe channels", async () =
   assert.match(leadResearch, /微型巴士及以上团体需预约/);
   assert.match(leadResearch, /info@yame-tea\.jp/);
   assert.match(leadResearch, /仅面向茶叶销售与批发的“业务用咨询”表单不用于本项目外联/);
-  assert.match(outreach, /确认进入第一轮逐封发送前复核：A-03、B-08/);
+  assert.match(outreach, /确认进入 A-03 单封发送前复核/);
   assert.match(outreach, /B-08 株式会社源右衛門窯/);
+  assert.match(outreach, /営業活動または営利を目的とする行為、またはその準備を目的とする行為/);
+  assert.match(outreach, /https:\/\/www\.gen-emon\.co\.jp\/sitepolicy\//);
+  assert.match(outreach, /工場見学の来訪前案内に関する15分ヒアリングのお願い/);
+  assert.doesNotMatch(outreach, /撮影時の注意事項/);
   assert.match(outreach, /B-09 株式会社マルヒロ／HIROPPA/);
   assert.match(outreach, /不使用仅面向茶叶销售与批发的“业务用咨询”表单/);
+  assert.match(outreach, /初次发送后没有回复，不主动跟进/);
+  assert.doesNotMatch(outreach, /7営業日後/);
   assert.doesNotMatch(outreach, /确认发送第一轮访谈邀请：A-01、A-02、A-03/);
   assert.match(leadCsv, /A-03,[^\n]*info@yame-tea\.jp/);
 });
@@ -257,11 +263,12 @@ test("keeps the O-01 five-man-yen price behind human and customer evidence", asy
     assert.match(leads, new RegExp(`### ${id}`));
     assert.match(leadCsv, new RegExp(`^${id},`, "m"));
   }
-  assert.match(leads, /先发最多 2 封，至少观察 2 个工作日/);
+  assert.match(leads, /首轮最多 1 封/);
+  assert.match(leads, /发送后没有回复即停止，不主动跟进/);
   assert.match(leads, /若上次复核超过 30 天/);
 });
 
-test("keeps strict outreach tiers and the first two contacts gated", async () => {
+test("keeps strict outreach tiers and the single first contact gated", async () => {
   const [queue, outreach, index, readme] = await Promise.all([
     read("business-ops/20-外联渠道严格分级与发送队列.md"),
     read("business-ops/07-首批访谈外联与回复处理草稿.md"),
@@ -269,16 +276,43 @@ test("keeps strict outreach tiers and the first two contacts gated", async () =>
     read("README.md"),
   ]);
 
-  assert.match(queue, /S 级 3 个、A 级 5 个、BLOCK 11 个/);
-  assert.match(queue, /第一批：最多 2 封/);
+  assert.match(queue, /S 级 2 个、A 级 5 个、BLOCK 12 个/);
+  assert.match(queue, /第一批：最多 1 封/);
   assert.match(queue, /A-03 牛島製茶/);
-  assert.match(queue, /B-08 株式会社源右衛門窯/);
+  assert.match(queue, /`B-08`/);
+  assert.match(queue, /www\.gen-emon\.co\.jp\/sitepolicy/);
+  assert.match(queue, /无回复时不跟进/);
   assert.match(queue, /任一项为空，发送数继续为 0/);
   assert.match(queue, /不能虚构/);
-  assert.match(outreach, /可用于B-08表单的真实电话号码/);
+  assert.doesNotMatch(outreach, /可用于B-08表单的真实电话号码/);
   assert.match(index, /20-外联渠道严格分级与发送队列/);
   assert.match(index, /O01_真人计时与验收表_v1\.docx/);
   assert.match(readme, /O01_真人计时与验收表_v1\.docx/);
+});
+
+test("ships the v0.5 unit economics workbook and its decision rules", async () => {
+  const [workbook, model, index, readme] = await Promise.all([
+    readFile(
+      new URL(
+        "../outputs/019f96e2-f489-7b81-bf8d-b80d5782c1de/澜顷_经营与利润管理台账_v0.5.xlsx",
+        import.meta.url,
+      ),
+    ),
+    read("business-ops/22-O01单位经济决策模型.md"),
+    read("business-ops/00-经营系统总览.md"),
+    read("README.md"),
+  ]);
+
+  assert.equal(workbook.subarray(0, 2).toString("ascii"), "PK");
+  assert.ok(workbook.length > 50_000);
+  assert.match(model, /当前结论：`BLOCK：输入未完整`/);
+  assert.match(model, /订金覆盖全部外部现金成本，包括获客和支付\/换汇费/);
+  assert.match(model, /现金贡献率不低于 65%/);
+  assert.match(model, /经济贡献率不低于 50%/);
+  assert.match(model, /基准情景恰好达到 50% 经济贡献门/);
+  assert.match(model, /不是可报价价，也不是网站公开价/);
+  assert.match(index, /22-O01单位经济决策模型/);
+  assert.match(readme, /22-O01单位经济决策模型/);
 });
 
 test("ships the editable O-01 Word timing form", async () => {
@@ -314,7 +348,8 @@ test("keeps unvalidated services unavailable and ties pricing to the current har
   assert.match(serviceLogic, /至少完成10次真实目标客户访谈/);
   assert.match(serviceLogic, /同一个具体问题至少重复出现3次/);
   assert.match(control, /当前审计应报告 `readyToPublish: false`/);
-  assert.match(control, /第一批 A-03、B-08/);
+  assert.match(control, /第一批只保留 A-03/);
+  assert.match(control, /B-08.*保持 BLOCK/);
   assert.match(index, /21-网站上线与首轮外联启用总控表/);
   assert.match(workflow, /npm run audit:publication:strict/);
   assert.match(release, /"approved": false/);
