@@ -1,3 +1,5 @@
+import { caseStudies, type CaseStudy } from "./cases";
+
 export type Locale = "ja" | "en" | "zh";
 
 type SectionHeader = { label: string; title: string; intro?: string };
@@ -25,7 +27,7 @@ export interface SiteCopy {
   services: Array<{ name: string; summary: string; detail: string }>;
   experienceGuide: { label: string; title: string; text: string; centerLabel: string; items: string[]; visualLabel: string };
   process: ListItem[];
-  cases: Array<{ title: string; client: string; industry: string; summary: string; services: string; result: string; image: string }>;
+  cases: CaseStudy[];
   pricing: Array<{ name: string; audience: string; price: string; features: string[]; action: string; featured: boolean }>;
   vision: { label: string; title: string; text: string };
   about: { team: string; founder: string; background: string; philosophy: string; teamImage: string; partnerLogos: string[] };
@@ -47,6 +49,7 @@ export const siteSettings = {
   publicUrl: "https://kagurajiang1130-del.github.io/",
   defaultLocale: "ja" as Locale,
   allowIndexing: false,
+  contactFormAction: "",
 };
 
 const socialLinks = [
@@ -127,7 +130,7 @@ export const siteContent: Record<Locale, SiteCopy> = {
       { title: "コンテンツと体験の分析", text: "[進行内容を後ほど追加]" }, { title: "中国語コンテンツ制作", text: "[進行内容を後ほど追加]" },
       { title: "アカウント・ページ構築", text: "[進行内容を後ほど追加]" }, { title: "公開と継続調整", text: "[進行内容を後ほど追加]" },
     ],
-    cases: [1, 2, 3].map((number) => ({ title: `Case Study 0${number}`, client: "[クライアント / プロジェクト名]", industry: "[業種]", summary: "[プロジェクト概要を後ほど追加]", services: "[提供サービス]", result: "[プロジェクト成果]", image: "[事例カバー画像]" })),
+    cases: caseStudies.ja,
     pricing: [
       { name: "Basic", audience: "[対象となる方を後ほど追加]", price: "[価格未定]", features: ["[サービス内容を後ほど追加]"], action: "このプランを相談", featured: false },
       { name: "Standard", audience: "[対象となる方を後ほど追加]", price: "[価格未定]", features: ["[サービス内容を後ほど追加]"], action: "このプランを相談", featured: true },
@@ -214,7 +217,7 @@ export const siteContent: Record<Locale, SiteCopy> = {
       { title: "Content & experience review", text: "[Process details will be added later]" }, { title: "Chinese content production", text: "[Process details will be added later]" },
       { title: "Account or page setup", text: "[Process details will be added later]" }, { title: "Launch & refinement", text: "[Process details will be added later]" },
     ],
-    cases: [1, 2, 3].map((number) => ({ title: `Case Study 0${number}`, client: "[Client / project name]", industry: "[Industry]", summary: "[Project summary will be added later]", services: "[Services provided]", result: "[Project result]", image: "[Case cover image]" })),
+    cases: caseStudies.en,
     pricing: [
       { name: "Basic", audience: "[Best suited for — to be added]", price: "[Price TBC]", features: ["[Services will be added later]"], action: "Ask about this plan", featured: false },
       { name: "Standard", audience: "[Best suited for — to be added]", price: "[Price TBC]", features: ["[Services will be added later]"], action: "Ask about this plan", featured: true },
@@ -301,7 +304,7 @@ export const siteContent: Record<Locale, SiteCopy> = {
       { title: "内容及体验分析", text: "[流程说明将在后续补充]" }, { title: "中文内容制作", text: "[流程说明将在后续补充]" },
       { title: "账号或页面搭建", text: "[流程说明将在后续补充]" }, { title: "发布与后续调整", text: "[流程说明将在后续补充]" },
     ],
-    cases: [1, 2, 3].map((number) => ({ title: `Case Study 0${number}`, client: "[客户或项目名称]", industry: "[行业]", summary: "[项目简介将在后续补充]", services: "[提供的服务]", result: "[项目结果]", image: "[案例封面图片]" })),
+    cases: caseStudies.zh,
     pricing: [
       { name: "Basic", audience: "[适合对象将在后续补充]", price: "[价格待定]", features: ["[服务内容将在后续补充]"], action: "咨询此方案", featured: false },
       { name: "Standard", audience: "[适合对象将在后续补充]", price: "[价格待定]", features: ["[服务内容将在后续补充]"], action: "咨询此方案", featured: true },

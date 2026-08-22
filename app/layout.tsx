@@ -8,6 +8,7 @@ export const metadata: Metadata = {
   metadataBase: new URL(siteSettings.publicUrl),
   title: defaultSeo.title,
   description: defaultSeo.description,
+  icons: { icon: "/favicon.svg" },
   alternates: {
     canonical: "/",
     languages: { ja: "/?lang=ja", en: "/?lang=en", "zh-CN": "/?lang=zh" },
