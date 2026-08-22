@@ -130,3 +130,31 @@ test("keeps the first O-01 and O-02 run auditable without turning it into proof"
   assert.match(index, /13-SIM-20260822-01-O02复核前初稿/);
   assert.match(index, /14-SIM-20260822-01-O02外部复核前候选稿与硬门审计/);
 });
+
+test("keeps the year-end profit bridge evidence-led and capacity-gated", async () => {
+  const [bridge, serviceLogic, index] = await Promise.all([
+    read("business-ops/15-2026年末10万元净利润目标桥接与每周控制.md"),
+    read("business-ops/04-服务测试卡与报价逻辑.md"),
+    read("business-ops/00-经营系统总览.md"),
+  ]);
+
+  assert.match(bridge, /当前\*{0,2}可信基准预测为 0 元/);
+  assert.match(bridge, /至少所需净服务回款[\s\S]*153,847 元/);
+  assert.match(bridge, /每周净服务回款要求[\s\S]*8,098 元\/周/);
+  assert.match(bridge, /65%不是行业事实/);
+  assert.match(bridge, /订单组合只是算术压力测试|订单组合压力测试/);
+  assert.match(bridge, /暂停报价、暂停出售、待验证或后置服务不得进入基准预测/);
+  assert.match(bridge, /已验证 \+ 硬门已批准 \+ 证据记录非空/);
+  assert.match(bridge, /每条报价必须填写服务编号/);
+  assert.match(bridge, /剩余周数 × 每周可投入工时 × 可交付比例/);
+  assert.match(bridge, /日期到达不自动升级/);
+  assert.match(bridge, /成本状态.*有书面依据为0.*已填真实估算/);
+  assert.match(bridge, /询价许可不等于 NDA、材料发送、采购或付款许可/);
+  assert.match(bridge, /调整目标、范围或时间，不调整事实/);
+  assert.doesNotMatch(bridge, /保证.{0,12}10万元|保底.{0,12}10万元/);
+
+  assert.match(serviceLogic, /O-01和O-02两行都不能被当作可报价结果/);
+  assert.match(serviceLogic, /O-04 单平台持续内容运营/);
+  assert.match(index, /15-2026年末10万元净利润目标桥接与每周控制/);
+  assert.match(index, /澜顷_经营与利润管理台账_v0\.4\.xlsx/);
+});
