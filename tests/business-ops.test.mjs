@@ -196,3 +196,19 @@ test("keeps operational recording instructions on the v0.4 workbook", async () =
   assert.doesNotMatch(templatePack, /澜顷_经营与利润管理台账_v0\.3\.xlsx/);
   assert.doesNotMatch(leadResearch, /澜顷_经营与利润管理台账_v0\.3\.xlsx/);
 });
+
+test("keeps first-wave outreach on rechecked business-safe channels", async () => {
+  const [leadResearch, outreach, leadCsv] = await Promise.all([
+    read("business-ops/06-福冈首批客户研究清单.md"),
+    read("business-ops/07-首批访谈外联与回复处理草稿.md"),
+    read("business-ops/福冈首批客户研究清单.csv"),
+  ]);
+
+  assert.match(leadResearch, /微型巴士及以上团体需预约/);
+  assert.match(leadResearch, /info@yame-tea\.jp/);
+  assert.match(leadResearch, /仅面向茶叶销售与批发的“业务用咨询”表单不用于本项目外联/);
+  assert.match(outreach, /确认进入第一轮逐封发送前复核：A-01、A-03/);
+  assert.match(outreach, /不使用仅面向茶叶销售与批发的“业务用咨询”表单/);
+  assert.doesNotMatch(outreach, /确认发送第一轮访谈邀请：A-01、A-02、A-03/);
+  assert.match(leadCsv, /A-03,[^\n]*info@yame-tea\.jp/);
+});
