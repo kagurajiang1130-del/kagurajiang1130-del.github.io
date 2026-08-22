@@ -26,7 +26,7 @@ function SectionIntro({ number, label, title, intro }: { number: string; label: 
 
 function VisualPlaceholder({ label, indexLabel, dark = false }: { label: string; indexLabel: string; dark?: boolean }) {
   return (
-    <div className={`visual-placeholder ${dark ? "visual-dark" : ""}`} aria-label={label}>
+    <div className={`visual-placeholder ${dark ? "visual-dark" : ""}`} role="img" aria-label={label}>
       <span className="visual-orbit" />
       <span className="visual-label">{label}</span>
       <span className="visual-index">{indexLabel}</span>
@@ -37,12 +37,14 @@ function VisualPlaceholder({ label, indexLabel, dark = false }: { label: string;
 export default function Home() {
   const [menuOpen, setMenuOpen] = useState(false);
   const [compactNavigation, setCompactNavigation] = useState(false);
-  const [locale, setLocale] = useState<Locale>("ja");
+  const [locale, setLocale] = useState<Locale>(siteSettings.defaultLocale);
   const [localeReady, setLocaleReady] = useState(false);
+  const [reduceMotion, setReduceMotion] = useState(false);
   const [wordIndex, setWordIndex] = useState(0);
   const [formNotice, setFormNotice] = useState("");
   const [activeScene, setActiveScene] = useState(0);
   const menuButtonRef = useRef<HTMLButtonElement>(null);
+  const headerRef = useRef<HTMLElement>(null);
   const c = siteContent[locale];
   const contactEmailReady = /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(c.contact.email);
   const contactFormEnabled = Boolean(siteSettings.contactFormAction);
@@ -85,24 +87,52 @@ export default function Home() {
   }, []);
 
   useEffect(() => {
+    const query = window.matchMedia("(prefers-reduced-motion: reduce)");
+    const updateMotionPreference = () => setReduceMotion(query.matches);
+    updateMotionPreference();
+    query.addEventListener("change", updateMotionPreference);
+    return () => query.removeEventListener("change", updateMotionPreference);
+  }, []);
+
+  useEffect(() => {
     const menuActive = compactNavigation && menuOpen;
     document.body.classList.toggle("menu-open", menuActive);
-    const closeOnEscape = (event: KeyboardEvent) => {
-      if (event.key !== "Escape") return;
-      setMenuOpen(false);
-      window.requestAnimationFrame(() => menuButtonRef.current?.focus());
+    const handleMenuKeyboard = (event: KeyboardEvent) => {
+      if (event.key === "Escape") {
+        setMenuOpen(false);
+        window.requestAnimationFrame(() => menuButtonRef.current?.focus());
+        return;
+      }
+      if (event.key !== "Tab") return;
+      const focusable = Array.from(
+        headerRef.current?.querySelectorAll<HTMLElement>('a[href], button:not([disabled])') ?? [],
+      ).filter((element) => element.getAttribute("aria-hidden") !== "true");
+      if (!focusable.length) return;
+      const first = focusable[0];
+      const last = focusable[focusable.length - 1];
+      if (event.shiftKey && document.activeElement === first) {
+        event.preventDefault();
+        last.focus();
+      } else if (!event.shiftKey && document.activeElement === last) {
+        event.preventDefault();
+        first.focus();
+      }
     };
-    if (menuActive) window.addEventListener("keydown", closeOnEscape);
+    if (menuActive) {
+      window.addEventListener("keydown", handleMenuKeyboard);
+      window.requestAnimationFrame(() => headerRef.current?.querySelector<HTMLElement>(".main-nav a")?.focus());
+    }
     return () => {
       document.body.classList.remove("menu-open");
-      window.removeEventListener("keydown", closeOnEscape);
+      window.removeEventListener("keydown", handleMenuKeyboard);
     };
   }, [compactNavigation, menuOpen]);
 
   useEffect(() => {
+    if (reduceMotion) return;
     const timer = window.setInterval(() => setWordIndex((current) => (current + 1) % c.hero.rotatingWords.length), 1800);
     return () => window.clearInterval(timer);
-  }, [c.hero.rotatingWords.length]);
+  }, [c.hero.rotatingWords.length, reduceMotion]);
 
   useEffect(() => {
     const observer = new IntersectionObserver(
@@ -140,15 +170,23 @@ export default function Home() {
     });
 
     let frame = 0;
+    let layoutFrame = 0;
     let previousY = window.scrollY;
     let previousTime = performance.now();
     let smoothedVelocity = 0;
+    let sectionLayouts: Array<{ top: number; height: number }> = [];
+
+    const refreshSectionLayouts = () => {
+      sectionLayouts = sections.map((section) => {
+        const rect = section.getBoundingClientRect();
+        return { top: rect.top + window.scrollY, height: rect.height };
+      });
+    };
 
     const updateMotion = () => {
       const viewportHeight = Math.max(window.innerHeight, 1);
       const scrollY = window.scrollY;
       const now = performance.now();
-      const reduceMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
       const motionScale = reduceMotion ? 0 : window.innerWidth <= 820 ? 0.55 : 1;
       const elapsed = Math.max(now - previousTime, 16);
       const rawVelocity = ((scrollY - previousY) / elapsed) * 16;
@@ -167,11 +205,15 @@ export default function Home() {
       root.style.setProperty("--hero-run-x", `${(Math.max(-520, scrollY * -0.42) * motionScale).toFixed(1)}px`);
 
       sections.forEach((section, index) => {
-        const rect = section.getBoundingClientRect();
-        const entrance = Math.min(1, Math.max(0, (viewportHeight - rect.top) / (viewportHeight * 0.72)));
-        const travel = Math.min(1, Math.max(0, (viewportHeight - rect.top) / (viewportHeight + rect.height)));
-        const centerDistance = Math.abs(rect.top + rect.height / 2 - viewportHeight / 2);
-        const focus = Math.min(1, Math.max(0, 1 - centerDistance / ((rect.height + viewportHeight) / 2)));
+        const layout = sectionLayouts[index];
+        if (!layout) return;
+        const top = layout.top - scrollY;
+        const bottom = top + layout.height;
+        if (top > viewportHeight * 1.5 || bottom < viewportHeight * -0.6) return;
+        const entrance = Math.min(1, Math.max(0, (viewportHeight - top) / (viewportHeight * 0.72)));
+        const travel = Math.min(1, Math.max(0, (viewportHeight - top) / (viewportHeight + layout.height)));
+        const centerDistance = Math.abs(top + layout.height / 2 - viewportHeight / 2);
+        const focus = Math.min(1, Math.max(0, 1 - centerDistance / ((layout.height + viewportHeight) / 2)));
         const direction = index % 2 === 0 ? 1 : -1;
         const titleX = (1 - entrance) * 150 * direction * motionScale;
         const runnerDistance = window.innerWidth <= 820 ? 118 : 280;
@@ -182,6 +224,7 @@ export default function Home() {
 
         section.style.setProperty("--scene-progress", entrance.toFixed(3));
         section.style.setProperty("--scene-focus", focus.toFixed(3));
+        section.style.setProperty("--scene-emphasis", (0.46 + focus * 0.54).toFixed(3));
         section.style.setProperty("--scene-title-x", `${titleX.toFixed(1)}px`);
         section.style.setProperty("--scene-meta-x", `${(-titleX * 0.42).toFixed(1)}px`);
         section.style.setProperty("--scene-runner-x", `${runnerX.toFixed(1)}px`);
@@ -204,15 +247,30 @@ export default function Home() {
       if (!frame) frame = window.requestAnimationFrame(updateMotion);
     };
 
+    const requestLayoutRefresh = () => {
+      if (layoutFrame) return;
+      layoutFrame = window.requestAnimationFrame(() => {
+        layoutFrame = 0;
+        refreshSectionLayouts();
+        requestMotionUpdate();
+      });
+    };
+
+    const resizeObserver = new ResizeObserver(requestLayoutRefresh);
+    sections.forEach((section) => resizeObserver.observe(section));
+
+    refreshSectionLayouts();
     updateMotion();
     window.addEventListener("scroll", requestMotionUpdate, { passive: true });
-    window.addEventListener("resize", requestMotionUpdate);
+    window.addEventListener("resize", requestLayoutRefresh);
     return () => {
       window.removeEventListener("scroll", requestMotionUpdate);
-      window.removeEventListener("resize", requestMotionUpdate);
+      window.removeEventListener("resize", requestLayoutRefresh);
+      resizeObserver.disconnect();
       if (frame) window.cancelAnimationFrame(frame);
+      if (layoutFrame) window.cancelAnimationFrame(layoutFrame);
     };
-  }, []);
+  }, [reduceMotion]);
 
   const submitForm = (event: FormEvent<HTMLFormElement>) => {
     if (contactFormEnabled) return;
@@ -227,9 +285,13 @@ export default function Home() {
     setMenuOpen(false);
   };
 
+  const menuActive = compactNavigation && menuOpen;
+  const visibleWordIndex = reduceMotion ? 0 : wordIndex;
+
   return (
-    <main>
-      <header className="site-header">
+    <>
+      <a className="skip-link" href="#main-content">{c.ui.skipToContent}</a>
+      <header ref={headerRef} className="site-header">
         <a className="brand-mark" href="#home" aria-label={`${c.brand.name} ${c.navigation[0].label}`}>
           <span className="brand-dot" />{c.brand.name}
         </a>
@@ -258,16 +320,17 @@ export default function Home() {
 
       <aside className="scene-progress" aria-label={c.ui.sectionProgress}>
         <span>{pad(activeScene + 1)} / {pad(c.scenes.length)}</span>
-        <div>{c.scenes.map((scene, index) => <a href={scene.href} key={scene.href} className={activeScene === index ? "active" : ""} aria-label={scene.label} />)}</div>
+        <div>{c.scenes.map((scene, index) => <a href={scene.href} key={scene.href} className={activeScene === index ? "active" : ""} aria-label={scene.label} aria-current={activeScene === index ? "location" : undefined} />)}</div>
         <strong>{c.scenes[Math.min(activeScene, c.scenes.length - 1)]?.label}</strong>
       </aside>
 
+      <main id="main-content" inert={menuActive ? true : undefined}>
       <section className="hero" id="home">
         <div className="hero-topline"><span>{c.brand.eyebrow}</span><span>{c.ui.scroll}</span></div>
         <div className="hero-copy reveal">
           <p className="kicker">{c.hero.kicker}</p>
           <h1><span>{c.hero.title}</span></h1>
-          <div className="hero-word" aria-live="polite"><span>{c.ui.from}</span><strong key={`${locale}-${wordIndex}`}>{c.hero.rotatingWords[wordIndex]}</strong></div>
+          <div className="hero-word" aria-label={`${c.ui.from} ${c.hero.rotatingWords.join(" / ")}`}><span aria-hidden="true">{c.ui.from}</span><strong aria-hidden="true" key={`${locale}-${visibleWordIndex}`}>{c.hero.rotatingWords[visibleWordIndex]}</strong></div>
           <p className="hero-subtitle">{c.hero.subtitle}</p>
           <div className="hero-actions">
             <a className="button button-primary" href={c.hero.primaryAction.href}>{c.hero.primaryAction.label}<span>↘</span></a>
@@ -399,8 +462,9 @@ export default function Home() {
           <button type="submit" disabled={!contactFormEnabled} aria-disabled={!contactFormEnabled}>{c.contact.form.submit} <span>↗</span></button><small>{c.contact.note}</small>{formNotice && <p className="form-notice" role="status">{formNotice}</p>}
         </form>
       </section>
+      </main>
 
-      <footer>
+      <footer inert={menuActive ? true : undefined}>
         <div className="footer-pattern" aria-hidden="true">
           <div className="footer-pattern-field" />
           <div className="footer-pattern-seal"><span>{c.ui.seal}</span><i /></div>
@@ -411,6 +475,6 @@ export default function Home() {
         <div className="footer-top"><div><a className="brand-mark footer-brand" href="#home"><span className="brand-dot" />{c.brand.name}</a><p>{c.footer.description}</p></div><div className="footer-nav">{c.navigation.map((item) => <a key={item.label} href={item.href}>{item.label}</a>)}</div><div className="footer-contact"><span>{c.ui.contact}</span>{contactEmailReady ? <a href={`mailto:${c.contact.email}`}>{c.contact.email}</a> : <span className="contact-placeholder" aria-disabled="true">{c.contact.email}</span>}{c.contact.socials.map((social) => social.href.startsWith("http") || social.href.startsWith("mailto:") ? <a href={social.href} key={social.label}>{social.label} ↗</a> : <span className="contact-placeholder" aria-disabled="true" key={social.label}>{social.label} ↗</span>)}</div></div>
         <div className="footer-bottom"><span>{c.footer.copyright}</span><span className="privacy-placeholder" aria-disabled="true" title={c.ui.comingSoon}>{c.footer.privacyLabel}</span><a href="#home">{c.ui.backToTop}</a></div>
       </footer>
-    </main>
+    </>
   );
 }

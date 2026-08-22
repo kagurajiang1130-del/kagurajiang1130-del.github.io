@@ -410,3 +410,37 @@ test("keeps unvalidated services unavailable and ties pricing to the current har
   assert.match(release, /"approved": false/);
   assert.match(release, /确认公开发布新版/);
 });
+
+test("keeps the first 30-day website, pricing, and email sprint evidence-gated", async () => {
+  const [sprint, template, index, readme, gitignore] = await Promise.all([
+    read("business-ops/24-首个30天网站定价邮件验证冲刺.md"),
+    read("business-ops/价格验证证据索引模板.csv"),
+    read("business-ops/00-经营系统总览.md"),
+    read("README.md"),
+    read(".gitignore"),
+  ]);
+
+  assert.match(sprint, /2026-08-22 至 2026-09-20/);
+  assert.match(sprint, /4 个完整周 \+ 2 天收口/);
+  assert.match(sprint, /每周新增外部现金支出均为 `0 JPY \/ 0 CNY`/);
+  assert.match(sprint, /确认公开发布新版/);
+  assert.match(sprint, /真实姓名、回复邮箱、日语访谈人、三个时段/);
+  assert.match(sprint, /两次运行证据完整且每次不超过 270 分钟/);
+  assert.match(sprint, /累计 5 次有效访谈/);
+  assert.match(sprint, /10 次均符合有效访谈定义/);
+  assert.match(sprint, /同一具体问题至少出现 3 次/);
+  assert.match(sprint, /现金贡献率低于 65%、经济贡献率低于 50%/);
+  assert.match(sprint, /BEHAVIORAL_PRICE_EVIDENCE = 0/);
+  assert.match(sprint, /ELIGIBLE_TO_REQUEST_ONE_PRIVATE_QUOTE_APPROVAL/);
+  assert.match(sprint, /个人身份、邮箱、原始访谈、客户材料和凭证只放在已被 Git 忽略的本地目录/);
+  assert.doesNotMatch(sprint, /保证成交|保证回款|保证.{0,8}10万/);
+
+  assert.equal(
+    template.trim(),
+    "evidence_id,date,type,subject_id,scope_version,raw_path,anchored,consent,owner,reviewer,status,public_permission,notes",
+  );
+  assert.match(index, /24-首个30天网站定价邮件验证冲刺/);
+  assert.match(index, /价格验证证据索引模板\.csv/);
+  assert.match(readme, /24-首个30天网站定价邮件验证冲刺/);
+  assert.match(gitignore, /^\/\.private\/$/m);
+});

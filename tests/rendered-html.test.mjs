@@ -30,6 +30,10 @@ test("renders the multilingual brand site", async () => {
   assert.match(html, /<footer\b/i);
   assert.match(html, /class="footer-pattern"/);
   assert.match(html, /aria-controls="main-navigation"/);
+  assert.match(html, /class="skip-link" href="#main-content"/);
+  assert.match(html, /<main id="main-content"/);
+  assert.match(html, /role="img" aria-label=/);
+  assert.match(html, /aria-current="location"/);
   for (const field of ["name", "company", "email", "website", "service", "message"]) {
     assert.match(html, new RegExp(`(?:name|id)="${field}"`));
   }
@@ -62,12 +66,18 @@ test("keeps content centralized and motion locally hosted", async () => {
   assert.match(page, /section-runway-track/);
   assert.match(page, /requestAnimationFrame/);
   assert.match(page, /prefers-reduced-motion/);
+  assert.match(page, /useState<Locale>\(siteSettings\.defaultLocale\)/);
+  assert.match(page, /new ResizeObserver\(requestLayoutRefresh\)/);
+  assert.match(page, /--scene-emphasis/);
+  assert.match(page, /visibleWordIndex = reduceMotion \? 0 : wordIndex/);
+  assert.doesNotMatch(page, /aria-live="polite"/);
   assert.match(page, /const \[localeReady, setLocaleReady\] = useState\(false\)/);
   assert.match(page, /setLocaleReady\(true\)/);
   assert.match(page, /if \(!localeReady\) return/);
   assert.match(page, /aria-controls="main-navigation"/);
   assert.match(page, /inert=\{compactNavigation/);
-  assert.match(page, /event\.key !== "Escape"/);
+  assert.match(page, /event\.key === "Escape"/);
+  assert.match(page, /event\.key !== "Tab"/);
   assert.match(page, /disabled=\{!contactFormEnabled\}/);
   assert.match(page, /className="privacy-placeholder" aria-disabled="true"/);
   assert.match(page, /className="price-action is-disabled" aria-disabled="true"/);
@@ -78,6 +88,10 @@ test("keeps content centralized and motion locally hosted", async () => {
   assert.match(css, /content:\s*attr\(data-scene\)/);
   assert.match(css, /\.page-progress/);
   assert.match(css, /prefers-reduced-motion:\s*reduce/);
+  assert.match(css, /:focus-visible/);
+  assert.match(css, /main > section\.scene-active/);
+  assert.match(css, /scroll-snap-align:\s*none/);
+  assert.match(css, /main > section \{ animation:\s*none !important/);
   assert.doesNotMatch(css, /@import\s+url|url\(\s*["']?https?:\/\//i);
   assert.match(layout, /metadataBase:\s*new URL\(siteSettings\.publicUrl\)/);
   assert.match(layout, /icons:\s*\{\s*icon:\s*"\/favicon\.svg"/);

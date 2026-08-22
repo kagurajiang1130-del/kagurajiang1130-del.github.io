@@ -14,7 +14,7 @@ export interface SiteCopy {
     startConversation: string; team: string; founder: string; background: string;
     workingPhilosophy: string; partners: string; faqMissing: string; faqContact: string;
     contactLabel: string; contactTitle: string; contactIntro: string; contact: string;
-    backToTop: string; seal: string;
+    backToTop: string; seal: string; skipToContent: string;
   };
   brand: { name: string; eyebrow: string; description: string };
   navigation: Array<{ label: string; href: string }>;
@@ -69,7 +69,7 @@ export const siteContent: Record<Locale, SiteCopy> = {
       startConversation: "相談をはじめる", team: "チーム", founder: "創業者", background: "専門背景",
       workingPhilosophy: "仕事への姿勢", partners: "パートナー / クライアント", faqMissing: "お探しの質問がありませんか？", faqContact: "直接お問い合わせください →",
       contactLabel: "12 — Contact", contactTitle: "必要な人へ、\nあなたらしさを届ける。", contactIntro: "基本情報とご相談内容をお知らせください。正式公開前に、メールアドレスとSNSリンクを設定できます。", contact: "お問い合わせ",
-      backToTop: "ページ上部へ ↑", seal: "文",
+      backToTop: "ページ上部へ ↑", seal: "文", skipToContent: "本文へ移動",
     },
     brand: { name: "[BRAND NAME]", eyebrow: "Cross-cultural communication studio — Japan / China", description: "[ブランドの短い紹介文を後ほど追加]" },
     navigation: [
@@ -156,7 +156,7 @@ export const siteContent: Record<Locale, SiteCopy> = {
       startConversation: "Start a conversation", team: "Team", founder: "Founder", background: "Background",
       workingPhilosophy: "Working philosophy", partners: "Partners / Clients", faqMissing: "Can’t find your question?", faqContact: "Contact us directly →",
       contactLabel: "12 — Contact", contactTitle: "Help the right people\nsee the real you.", contactIntro: "Share a few details about your business and what you would like to explore. Your email and social links can be configured before launch.", contact: "Contact",
-      backToTop: "Back to top ↑", seal: "文",
+      backToTop: "Back to top ↑", seal: "文", skipToContent: "Skip to content",
     },
     brand: { name: "[BRAND NAME]", eyebrow: "Cross-cultural communication studio — Japan / China", description: "[A short brand description will be added later]" },
     navigation: [
@@ -243,7 +243,7 @@ export const siteContent: Record<Locale, SiteCopy> = {
       startConversation: "开始交流", team: "团队", founder: "创始人", background: "专业背景",
       workingPhilosophy: "工作理念", partners: "合作伙伴 / 客户", faqMissing: "没有找到你的问题？", faqContact: "直接联系我们 →",
       contactLabel: "12 — Contact", contactTitle: "让合适的人，\n看见真实的你。", contactIntro: "请留下基本信息与希望咨询的方向。正式上线前，可在内容配置中替换邮箱和所有社交链接。", contact: "联系方式",
-      backToTop: "返回顶部 ↑", seal: "文",
+      backToTop: "返回顶部 ↑", seal: "文", skipToContent: "跳到主要内容",
     },
     brand: { name: "[BRAND NAME]", eyebrow: "Cross-cultural communication studio — Japan / China", description: "[这里填写品牌简短说明]" },
     navigation: [
