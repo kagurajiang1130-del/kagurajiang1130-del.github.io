@@ -1,7 +1,7 @@
 "use client";
 
-import { FormEvent, useEffect, useState } from "react";
-import { Locale, localeOptions, siteContent } from "./content";
+import { FormEvent, useEffect, useRef, useState } from "react";
+import { Locale, localeOptions, siteContent, siteSettings } from "./content";
 
 const pad = (value: number) => String(value).padStart(2, "0");
 
@@ -36,12 +36,16 @@ function VisualPlaceholder({ label, indexLabel, dark = false }: { label: string;
 
 export default function Home() {
   const [menuOpen, setMenuOpen] = useState(false);
+  const [compactNavigation, setCompactNavigation] = useState(false);
   const [locale, setLocale] = useState<Locale>("ja");
   const [localeReady, setLocaleReady] = useState(false);
   const [wordIndex, setWordIndex] = useState(0);
   const [formNotice, setFormNotice] = useState("");
   const [activeScene, setActiveScene] = useState(0);
+  const menuButtonRef = useRef<HTMLButtonElement>(null);
   const c = siteContent[locale];
+  const contactEmailReady = /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(c.contact.email);
+  const contactFormEnabled = Boolean(siteSettings.contactFormAction);
 
   useEffect(() => {
     const timer = window.setTimeout(() => {
@@ -65,6 +69,35 @@ export default function Home() {
     url.searchParams.set("lang", locale);
     window.history.replaceState({}, "", url);
   }, [locale, localeReady, c.seo.description, c.seo.title]);
+
+  useEffect(() => {
+    const query = window.matchMedia("(max-width: 820px)");
+    const updateNavigationMode = () => {
+      setCompactNavigation(query.matches);
+      if (!query.matches) setMenuOpen(false);
+    };
+    const timer = window.setTimeout(updateNavigationMode, 0);
+    query.addEventListener("change", updateNavigationMode);
+    return () => {
+      window.clearTimeout(timer);
+      query.removeEventListener("change", updateNavigationMode);
+    };
+  }, []);
+
+  useEffect(() => {
+    const menuActive = compactNavigation && menuOpen;
+    document.body.classList.toggle("menu-open", menuActive);
+    const closeOnEscape = (event: KeyboardEvent) => {
+      if (event.key !== "Escape") return;
+      setMenuOpen(false);
+      window.requestAnimationFrame(() => menuButtonRef.current?.focus());
+    };
+    if (menuActive) window.addEventListener("keydown", closeOnEscape);
+    return () => {
+      document.body.classList.remove("menu-open");
+      window.removeEventListener("keydown", closeOnEscape);
+    };
+  }, [compactNavigation, menuOpen]);
 
   useEffect(() => {
     const timer = window.setInterval(() => setWordIndex((current) => (current + 1) % c.hero.rotatingWords.length), 1800);
@@ -182,6 +215,7 @@ export default function Home() {
   }, []);
 
   const submitForm = (event: FormEvent<HTMLFormElement>) => {
+    if (contactFormEnabled) return;
     event.preventDefault();
     setFormNotice(c.contact.form.notice);
   };
@@ -199,7 +233,13 @@ export default function Home() {
         <a className="brand-mark" href="#home" aria-label={`${c.brand.name} ${c.navigation[0].label}`}>
           <span className="brand-dot" />{c.brand.name}
         </a>
-        <nav className={`main-nav ${menuOpen ? "is-open" : ""}`} aria-label={c.ui.mainNavigation}>
+        <nav
+          id="main-navigation"
+          className={`main-nav ${menuOpen ? "is-open" : ""}`}
+          aria-label={c.ui.mainNavigation}
+          aria-hidden={compactNavigation && !menuOpen ? true : undefined}
+          inert={compactNavigation && !menuOpen ? true : undefined}
+        >
           {c.navigation.map((item, index) => (
             <a key={item.label} href={item.href} onClick={() => setMenuOpen(false)}><small>{pad(index + 1)}</small>{item.label}</a>
           ))}
@@ -208,7 +248,7 @@ export default function Home() {
           <div className="language-switcher" aria-label={c.ui.language} role="group">
             {localeOptions.map((option) => <button type="button" key={option.code} title={option.label} aria-pressed={locale === option.code} className={locale === option.code ? "active" : ""} onClick={() => changeLocale(option.code)}>{option.short}</button>)}
           </div>
-          <button className="menu-button" type="button" aria-label={menuOpen ? c.ui.close : c.ui.menu} aria-expanded={menuOpen} onClick={() => setMenuOpen(!menuOpen)}>
+          <button ref={menuButtonRef} className="menu-button" type="button" aria-label={menuOpen ? c.ui.close : c.ui.menu} aria-controls="main-navigation" aria-expanded={menuOpen} onClick={() => setMenuOpen(!menuOpen)}>
             <span>{menuOpen ? c.ui.close : c.ui.menu}</span><span className="menu-symbol">{menuOpen ? "×" : "＋"}</span>
           </button>
         </div>
@@ -324,7 +364,7 @@ export default function Home() {
           {c.pricing.map((plan, index) => (
             <article className={`price-card reveal ${plan.featured ? "featured" : ""}`} key={plan.name}>
               <div className="price-top"><span>0{index + 1}</span>{plan.featured && <em>{c.ui.recommended}</em>}</div><h3>{plan.name}</h3><p className="price-audience">{plan.audience}</p><strong>{plan.price}</strong>
-              <ul>{plan.features.map((feature) => <li key={feature}><span>✓</span>{feature}</li>)}</ul><a href="#contact">{plan.action}<span>→</span></a>
+              <ul>{plan.features.map((feature) => <li key={feature}><span>✓</span>{feature}</li>)}</ul><span className="price-action is-disabled" aria-disabled="true">{plan.action}<span>→</span></span>
             </article>
           ))}
         </div>
@@ -350,13 +390,13 @@ export default function Home() {
       </section>
 
       <section className="contact" id="contact">
-        <div className="contact-intro reveal"><span>{c.ui.contactLabel}</span><h2>{c.ui.contactTitle.split("\n").map((line) => <span key={line}>{line}</span>)}</h2><p>{c.ui.contactIntro}</p><a href="#contact">{c.contact.email}</a><div className="social-links">{c.contact.socials.map((social) => <a href={social.href} key={social.label}>{social.label} ↗</a>)}</div></div>
-        <form className="contact-form reveal" onSubmit={submitForm}>
+        <div className="contact-intro reveal"><span>{c.ui.contactLabel}</span><h2>{c.ui.contactTitle.split("\n").map((line) => <span key={line}>{line}</span>)}</h2><p>{c.ui.contactIntro}</p>{contactEmailReady ? <a href={`mailto:${c.contact.email}`}>{c.contact.email}</a> : <span className="contact-placeholder" aria-disabled="true">{c.contact.email}</span>}<div className="social-links">{c.contact.socials.map((social) => social.href.startsWith("http") || social.href.startsWith("mailto:") ? <a href={social.href} key={social.label}>{social.label} ↗</a> : <span key={social.label} aria-disabled="true">{social.label} ↗</span>)}</div></div>
+        <form className="contact-form reveal" action={siteSettings.contactFormAction || undefined} method="post" onSubmit={submitForm}>
           <div className="field-row"><label>{c.contact.form.name}<input name="name" required placeholder={c.contact.form.namePlaceholder} /></label><label>{c.contact.form.company}<input name="company" placeholder={c.contact.form.companyPlaceholder} /></label></div>
           <div className="field-row"><label>{c.contact.form.email}<input type="email" name="email" required placeholder="you@example.com" /></label><label>{c.contact.form.website}<input type="url" name="website" placeholder="https://" /></label></div>
           <label>{c.contact.form.service}<select name="service" defaultValue=""><option value="" disabled>{c.contact.form.choose}</option>{c.contact.services.map((service) => <option key={service}>{service}</option>)}</select></label>
           <label>{c.contact.form.message}<textarea name="message" required rows={5} placeholder={c.contact.form.messagePlaceholder} /></label>
-          <button type="submit">{c.contact.form.submit} <span>↗</span></button><small>{c.contact.note}</small>{formNotice && <p className="form-notice" role="status">{formNotice}</p>}
+          <button type="submit" disabled={!contactFormEnabled} aria-disabled={!contactFormEnabled}>{c.contact.form.submit} <span>↗</span></button><small>{c.contact.note}</small>{formNotice && <p className="form-notice" role="status">{formNotice}</p>}
         </form>
       </section>
 
@@ -368,8 +408,8 @@ export default function Home() {
             {c.footer.motifWords.map((word, index) => <span key={word}>{word}<i>{pad(index + 1)}</i></span>)}
           </div>
         </div>
-        <div className="footer-top"><div><a className="brand-mark footer-brand" href="#home"><span className="brand-dot" />{c.brand.name}</a><p>{c.footer.description}</p></div><div className="footer-nav">{c.navigation.map((item) => <a key={item.label} href={item.href}>{item.label}</a>)}</div><div className="footer-contact"><span>{c.ui.contact}</span><a href="#contact">{c.contact.email}</a>{c.contact.socials.map((social) => <a href={social.href} key={social.label}>{social.label} ↗</a>)}</div></div>
-        <div className="footer-bottom"><span>{c.footer.copyright}</span><a href="#home">{c.footer.privacyLabel}</a><a href="#home">{c.ui.backToTop}</a></div>
+        <div className="footer-top"><div><a className="brand-mark footer-brand" href="#home"><span className="brand-dot" />{c.brand.name}</a><p>{c.footer.description}</p></div><div className="footer-nav">{c.navigation.map((item) => <a key={item.label} href={item.href}>{item.label}</a>)}</div><div className="footer-contact"><span>{c.ui.contact}</span>{contactEmailReady ? <a href={`mailto:${c.contact.email}`}>{c.contact.email}</a> : <span className="contact-placeholder" aria-disabled="true">{c.contact.email}</span>}{c.contact.socials.map((social) => social.href.startsWith("http") || social.href.startsWith("mailto:") ? <a href={social.href} key={social.label}>{social.label} ↗</a> : <span className="contact-placeholder" aria-disabled="true" key={social.label}>{social.label} ↗</span>)}</div></div>
+        <div className="footer-bottom"><span>{c.footer.copyright}</span><span className="privacy-placeholder" aria-disabled="true" title={c.ui.comingSoon}>{c.footer.privacyLabel}</span><a href="#home">{c.ui.backToTop}</a></div>
       </footer>
     </main>
   );

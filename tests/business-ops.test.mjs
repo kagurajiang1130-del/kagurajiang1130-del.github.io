@@ -196,3 +196,65 @@ test("keeps operational recording instructions on the v0.4 workbook", async () =
   assert.doesNotMatch(templatePack, /澜顷_经营与利润管理台账_v0\.3\.xlsx/);
   assert.doesNotMatch(leadResearch, /澜顷_经营与利润管理台账_v0\.3\.xlsx/);
 });
+
+test("keeps first-wave outreach on rechecked business-safe channels", async () => {
+  const [leadResearch, outreach, leadCsv] = await Promise.all([
+    read("business-ops/06-福冈首批客户研究清单.md"),
+    read("business-ops/07-首批访谈外联与回复处理草稿.md"),
+    read("business-ops/福冈首批客户研究清单.csv"),
+  ]);
+
+  assert.match(leadResearch, /微型巴士及以上团体需预约/);
+  assert.match(leadResearch, /info@yame-tea\.jp/);
+  assert.match(leadResearch, /仅面向茶叶销售与批发的“业务用咨询”表单不用于本项目外联/);
+  assert.match(outreach, /确认进入第一轮逐封发送前复核：A-01、A-03/);
+  assert.match(outreach, /不使用仅面向茶叶销售与批发的“业务用咨询”表单/);
+  assert.doesNotMatch(outreach, /确认发送第一轮访谈邀请：A-01、A-02、A-03/);
+  assert.match(leadCsv, /A-03,[^\n]*info@yame-tea\.jp/);
+});
+
+test("keeps the free contact path consented, private, and cost bounded", async () => {
+  const [decision, index] = await Promise.all([
+    read("business-ops/18-免费联系入口与表单启用决策.md"),
+    read("business-ops/00-经营系统总览.md"),
+  ]);
+
+  assert.match(decision, /网站联系表单保持禁用/);
+  assert.match(decision, /先启用 `mailto:` 邮箱入口/);
+  assert.match(decision, /没有任何候选平台的官方证据证明其表单端点在中国大陆/);
+  assert.match(decision, /不收集密码、支付信息、身份证件、健康信息或游客个人资料/);
+  assert.match(decision, /未经批准不自动升级或产生超额费用/);
+  assert.match(decision, /siteSettings\.contactFormAction/);
+  assert.match(index, /18-免费联系入口与表单启用决策/);
+});
+
+test("keeps the O-01 five-man-yen price behind human and customer evidence", async () => {
+  const [activation, index, content, leads, leadCsv] = await Promise.all([
+    read("business-ops/19-O01五万日元试行价激活路径.md"),
+    read("business-ops/00-经营系统总览.md"),
+    read("app/content.ts"),
+    read("business-ops/06-福冈首批客户研究清单.md"),
+    read("business-ops/福冈首批客户研究清单.csv"),
+  ]);
+
+  assert.match(activation, /当前只是内部压力测试价，不是可报价价，也不是网站公开价/);
+  assert.match(activation, /两轮生产人工时间都不超过 270 分钟/);
+  assert.match(activation, /至少完成 10 次真实目标客户访谈，同一具体问题至少出现 3 次/);
+  assert.match(activation, /至少完成 2 个同范围真实付费测试/);
+  assert.match(activation, /另一名真人负责模拟店铺事实负责人/);
+  assert.match(activation, /现金贡献率不低于 65%，经济贡献率不低于 50%/);
+  assert.match(activation, /不得更新公网价格/);
+  assert.match(index, /19-O01五万日元试行价激活路径/);
+
+  assert.match(content, /Basic｜小規模診断（検証中）/);
+  assert.match(content, /Pricing in validation/);
+  assert.match(content, /价格验证中/);
+  assert.doesNotMatch(content, /50,000円/);
+
+  for (const id of ["A-05", "A-06", "A-07", "A-08", "B-06", "B-07", "B-08", "B-09"]) {
+    assert.match(leads, new RegExp(`### ${id}`));
+    assert.match(leadCsv, new RegExp(`^${id},`, "m"));
+  }
+  assert.match(leads, /先发最多 2 封，至少观察 2 个工作日/);
+  assert.match(leads, /若上次复核超过 30 天/);
+});

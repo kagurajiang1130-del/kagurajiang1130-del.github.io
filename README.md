@@ -8,7 +8,7 @@
 - 黄色、暖白和炭黑视觉系统；
 - 桌面、平板和手机响应式布局；
 - 分区滚动、标题移动、进入动画和减少动态效果兼容；
-- 服务、案例、价格、FAQ、联系信息集中在 `app/content.ts`；
+- 服务、价格、FAQ、联系信息集中在 `app/content.ts`，案例单独集中在 `app/cases.ts`；
 - 自动构建并发布到免费的 GitHub Pages；
 - Sites 版本保留为备用部署；
 - 内容审批工作链位于 `content-workflow/`；
