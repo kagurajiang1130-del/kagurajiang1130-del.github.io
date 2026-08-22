@@ -158,3 +158,41 @@ test("keeps the year-end profit bridge evidence-led and capacity-gated", async (
   assert.match(index, /15-2026年末10万元净利润目标桥接与每周控制/);
   assert.match(index, /澜顷_经营与利润管理台账_v0\.4\.xlsx/);
 });
+
+test("keeps hosting and long-term completion claims evidence-bounded", async () => {
+  const [hosting, audit, index, readme] = await Promise.all([
+    read("business-ops/16-免费托管与中国访问决策记录.md"),
+    read("business-ops/17-长期目标完成度与证据矩阵.md"),
+    read("business-ops/00-经营系统总览.md"),
+    read("README.md"),
+  ]);
+
+  assert.match(hosting, /GitHub Pages 作为免费、公开、HTTPS 的基础入口/);
+  assert.match(hosting, /不能外推为中国大陆真实网络证据/);
+  assert.match(hosting, /Enterprise 客户的单独订阅/);
+  assert.match(hosting, /确认公开发布新版/);
+  assert.doesNotMatch(hosting, /(?:能够|可以|已经|确认|承诺).{0,8}保证.{0,10}中国大陆|中国大陆.{0,10}(?:保证可用|稳定可用已获证明)/);
+
+  assert.match(audit, /长期目标保持 \*\*ACTIVE \/ 未完成\*\*/);
+  assert.match(audit, /当前可计入可信预测的服务数为 0/);
+  assert.match(audit, /真实访谈数为 0/);
+  assert.match(audit, /100,000 元缺口仍全部存在/);
+  assert.match(audit, /任何一项都不能用内部模拟、测试通过或代码存在来代替/);
+
+  assert.match(index, /16-免费托管与中国访问决策记录/);
+  assert.match(index, /17-长期目标完成度与证据矩阵/);
+  assert.match(readme, /澜顷_经营与利润管理台账_v0\.4\.xlsx/);
+  assert.doesNotMatch(readme, /台账为 `[^`]*v0\.3\.xlsx`/);
+});
+
+test("keeps operational recording instructions on the v0.4 workbook", async () => {
+  const [templatePack, leadResearch] = await Promise.all([
+    read("business-ops/05-客户访谈报价交付模板包.md"),
+    read("business-ops/06-福冈首批客户研究清单.md"),
+  ]);
+
+  assert.match(templatePack, /澜顷_经营与利润管理台账_v0\.4\.xlsx/);
+  assert.match(leadResearch, /澜顷_经营与利润管理台账_v0\.4\.xlsx/);
+  assert.doesNotMatch(templatePack, /澜顷_经营与利润管理台账_v0\.3\.xlsx/);
+  assert.doesNotMatch(leadResearch, /澜顷_经营与利润管理台账_v0\.3\.xlsx/);
+});

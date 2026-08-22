@@ -47,15 +47,16 @@ if (!html.includes("language-switcher") || !html.includes("page-progress")) {
   throw new Error("Rendered page is missing the multilingual or motion UI.");
 }
 
+const blocksIndexing = /name="robots"\s+content="noindex, nofollow"/i.test(html);
+const robotsPolicy = blocksIndexing
+  ? "User-agent: *\nDisallow: /\n"
+  : "User-agent: *\nAllow: /\n";
+
 await Promise.all([
   writeFile(join(outputDirectory, "index.html"), html, "utf8"),
   writeFile(join(outputDirectory, "404.html"), html, "utf8"),
   writeFile(join(outputDirectory, ".nojekyll"), "", "utf8"),
-  writeFile(
-    join(outputDirectory, "robots.txt"),
-    "User-agent: *\nAllow: /\n",
-    "utf8",
-  ),
+  writeFile(join(outputDirectory, "robots.txt"), robotsPolicy, "utf8"),
 ]);
 
 console.log(`GitHub Pages export created at ${outputDirectory}`);

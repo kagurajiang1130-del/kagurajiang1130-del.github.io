@@ -9,7 +9,7 @@
     "dev": "vinext dev",
     "build": "vinext build",
     "start": "vinext start",
-    "test": "npm run build && node --test tests/rendered-html.test.mjs tests/business-ops.test.mjs",
+    "test": "npm run build && node scripts/export-github-pages.mjs && node --test tests/rendered-html.test.mjs tests/export-pages.test.mjs tests/business-ops.test.mjs",
     "export:pages": "npm run build && node scripts/export-github-pages.mjs",
     "lint": "eslint . --ignore-pattern dist --ignore-pattern .next",
     "db:generate": "drizzle-kit generate"
