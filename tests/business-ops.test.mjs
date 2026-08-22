@@ -207,7 +207,9 @@ test("keeps first-wave outreach on rechecked business-safe channels", async () =
   assert.match(leadResearch, /微型巴士及以上团体需预约/);
   assert.match(leadResearch, /info@yame-tea\.jp/);
   assert.match(leadResearch, /仅面向茶叶销售与批发的“业务用咨询”表单不用于本项目外联/);
-  assert.match(outreach, /确认进入第一轮逐封发送前复核：A-01、A-03/);
+  assert.match(outreach, /确认进入第一轮逐封发送前复核：A-03、B-08/);
+  assert.match(outreach, /B-08 株式会社源右衛門窯/);
+  assert.match(outreach, /B-09 株式会社マルヒロ／HIROPPA/);
   assert.match(outreach, /不使用仅面向茶叶销售与批发的“业务用咨询”表单/);
   assert.doesNotMatch(outreach, /确认发送第一轮访谈邀请：A-01、A-02、A-03/);
   assert.match(leadCsv, /A-03,[^\n]*info@yame-tea\.jp/);
@@ -257,4 +259,33 @@ test("keeps the O-01 five-man-yen price behind human and customer evidence", asy
   }
   assert.match(leads, /先发最多 2 封，至少观察 2 个工作日/);
   assert.match(leads, /若上次复核超过 30 天/);
+});
+
+test("keeps strict outreach tiers and the first two contacts gated", async () => {
+  const [queue, outreach, index, readme] = await Promise.all([
+    read("business-ops/20-外联渠道严格分级与发送队列.md"),
+    read("business-ops/07-首批访谈外联与回复处理草稿.md"),
+    read("business-ops/00-经营系统总览.md"),
+    read("README.md"),
+  ]);
+
+  assert.match(queue, /S 级 3 个、A 级 5 个、BLOCK 11 个/);
+  assert.match(queue, /第一批：最多 2 封/);
+  assert.match(queue, /A-03 牛島製茶/);
+  assert.match(queue, /B-08 株式会社源右衛門窯/);
+  assert.match(queue, /任一项为空，发送数继续为 0/);
+  assert.match(queue, /不能虚构/);
+  assert.match(outreach, /可用于B-08表单的真实电话号码/);
+  assert.match(index, /20-外联渠道严格分级与发送队列/);
+  assert.match(index, /O01_真人计时与验收表_v1\.docx/);
+  assert.match(readme, /O01_真人计时与验收表_v1\.docx/);
+});
+
+test("ships the editable O-01 Word timing form", async () => {
+  const form = await readFile(
+    new URL("../O01_真人计时与验收表_v1.docx", import.meta.url),
+  );
+
+  assert.equal(form.subarray(0, 2).toString("ascii"), "PK");
+  assert.ok(form.length > 40_000);
 });
