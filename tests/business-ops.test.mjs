@@ -75,3 +75,58 @@ test("keeps simulation, pricing, privacy, and authorization gates closed", async
   assert.doesNotMatch(pack, /11-O01内部演练负对照素材/);
   assert.doesNotMatch(setB, /负对照|合格结论|暂不建议购买/);
 });
+
+test("keeps the first O-01 and O-02 run auditable without turning it into proof", async () => {
+  const [o1, o2Initial, o2Final, index] = await Promise.all([
+    read("business-ops/12-SIM-20260822-01-O01盲测结果.md"),
+    read("business-ops/13-SIM-20260822-01-O02复核前初稿.md"),
+    read("business-ops/14-SIM-20260822-01-O02外部复核前候选稿与硬门审计.md"),
+    read("business-ops/00-经营系统总览.md"),
+  ]);
+
+  for (const document of [o1, o2Initial, o2Final]) {
+    assert.match(document, /^# SIM-20260822-01/m);
+    assert.match(document, /不对应真实商家、客户、项目或用户测试/);
+    assert.match(document, /不得作为案例或能力证明/);
+  }
+
+  assert.match(o1, /SET-A 明确给出 0 个优先问题与暂不建议购买/);
+  assert.match(o1, /证据不足，O-01 继续暂停报价/);
+  assert.match(o1, /不能替代创始人工时/);
+  assert.match(o1, /\| O-01 经济模型字段和依据完整 \| 未满足 \|/);
+  assert.match(o1, /\| 真实需求和付款意愿 \| 未证明 \|/);
+
+  assert.match(o2Initial, /日本交通系 IC 卡/);
+  assert.match(o2Initial, /不计入 C6/);
+  assert.match(o2Final, /当前不得恢复具体方式清单/);
+  assert.match(o2Final, /自拍杆规则存在书面材料与受控口头答复冲突/);
+  assert.match(o2Final, /同一外部复核者按 C6 六项分别评分 \| 未满足/);
+  assert.match(o2Final, /合格外部简体中文复核者书面审阅 \| 未满足/);
+  assert.match(o2Final, /至少 2 份同范围有效书面报价 \| 未满足/);
+  assert.match(o2Final, /证据不足，O-02 继续暂停报价与发布/);
+  assert.match(o2Final, /AI 内部诊断不能满足/);
+  assert.match(o2Final, /询价许可不等于 NDA、材料发送、采购或付款许可/);
+  assert.match(o2Final, /没有询价、材料发送、NDA、委托或付款义务/);
+  assert.doesNotMatch(o2Final, /可使用现金、Visa、Mastercard/);
+  assert.doesNotMatch(o2Final, /不得使用三脚架、自拍杆/);
+
+  const visitorDraftStart = o2Final.indexOf("### 【模拟店名，不得发布】");
+  const visitorDraftEnd = o2Final.indexOf("### 编辑层发布阻断", visitorDraftStart);
+  assert.notEqual(visitorDraftStart, -1);
+  assert.notEqual(visitorDraftEnd, -1);
+  const visitorDraft = o2Final.slice(visitorDraftStart, visitorDraftEnd);
+  assert.doesNotMatch(visitorDraft, /自拍杆/);
+  assert.match(visitorDraft, /拍摄其他参加者、工作人员面部或其他参加者的作品前/);
+  assert.doesNotMatch(visitorDraft, /拍摄其他参加者或工作人员时/);
+
+  const shortTipsStart = o2Final.indexOf("## 店内短提示");
+  const shortTipsEnd = o2Final.indexOf("## 初稿到候选稿", shortTipsStart);
+  assert.notEqual(shortTipsStart, -1);
+  assert.notEqual(shortTipsEnd, -1);
+  const shortTips = o2Final.slice(shortTipsStart, shortTipsEnd);
+  assert.doesNotMatch(shortTips, /自拍杆/);
+
+  assert.match(index, /12-SIM-20260822-01-O01盲测结果/);
+  assert.match(index, /13-SIM-20260822-01-O02复核前初稿/);
+  assert.match(index, /14-SIM-20260822-01-O02外部复核前候选稿与硬门审计/);
+});
