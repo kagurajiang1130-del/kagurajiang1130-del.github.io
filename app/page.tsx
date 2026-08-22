@@ -1,11 +1,13 @@
 "use client";
 
-import { FormEvent, useEffect, useState } from "react";
-import { Locale, localeOptions, siteContent } from "./content";
+import { FormEvent, useEffect, useRef, useState } from "react";
+import { Locale, localeOptions, siteContent, siteSettings } from "./content";
 
 const pad = (value: number) => String(value).padStart(2, "0");
 
 function SectionIntro({ number, label, title, intro }: { number: string; label: string; title: string; intro?: string }) {
+  const runwayText = `${number} / ${label} — ${title}`;
+
   return (
     <div className="section-intro reveal">
       <div className="section-meta"><span>{number}</span><span>{label}</span></div>
@@ -13,13 +15,18 @@ function SectionIntro({ number, label, title, intro }: { number: string; label: 
         <h2><span className="title-runner">{title}</span></h2>
         {intro && <p>{intro}</p>}
       </div>
+      <div className="section-runway" aria-hidden="true">
+        <div className="section-runway-track">
+          <span>{runwayText}</span><span>{runwayText}</span><span>{runwayText}</span>
+        </div>
+      </div>
     </div>
   );
 }
 
 function VisualPlaceholder({ label, indexLabel, dark = false }: { label: string; indexLabel: string; dark?: boolean }) {
   return (
-    <div className={`visual-placeholder ${dark ? "visual-dark" : ""}`} aria-label={label}>
+    <div className={`visual-placeholder ${dark ? "visual-dark" : ""}`} role="img" aria-label={label}>
       <span className="visual-orbit" />
       <span className="visual-label">{label}</span>
       <span className="visual-index">{indexLabel}</span>
@@ -29,11 +36,18 @@ function VisualPlaceholder({ label, indexLabel, dark = false }: { label: string;
 
 export default function Home() {
   const [menuOpen, setMenuOpen] = useState(false);
-  const [locale, setLocale] = useState<Locale>("ja");
+  const [compactNavigation, setCompactNavigation] = useState(false);
+  const [locale, setLocale] = useState<Locale>(siteSettings.defaultLocale);
+  const [localeReady, setLocaleReady] = useState(false);
+  const [reduceMotion, setReduceMotion] = useState(false);
   const [wordIndex, setWordIndex] = useState(0);
   const [formNotice, setFormNotice] = useState("");
   const [activeScene, setActiveScene] = useState(0);
+  const menuButtonRef = useRef<HTMLButtonElement>(null);
+  const headerRef = useRef<HTMLElement>(null);
   const c = siteContent[locale];
+  const contactEmailReady = /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(c.contact.email);
+  const contactFormEnabled = Boolean(siteSettings.contactFormAction);
 
   useEffect(() => {
     const timer = window.setTimeout(() => {
@@ -41,11 +55,13 @@ export default function Home() {
       const saved = window.localStorage.getItem("site-locale");
       const next = ["ja", "en", "zh"].includes(requested || "") ? requested : saved;
       if (next && ["ja", "en", "zh"].includes(next)) setLocale(next as Locale);
+      setLocaleReady(true);
     }, 0);
     return () => window.clearTimeout(timer);
   }, []);
 
   useEffect(() => {
+    if (!localeReady) return;
     const option = localeOptions.find((item) => item.code === locale);
     document.documentElement.lang = option?.htmlLang || "ja";
     document.title = c.seo.title;
@@ -54,12 +70,69 @@ export default function Home() {
     const url = new URL(window.location.href);
     url.searchParams.set("lang", locale);
     window.history.replaceState({}, "", url);
-  }, [locale, c.seo.description, c.seo.title]);
+  }, [locale, localeReady, c.seo.description, c.seo.title]);
 
   useEffect(() => {
+    const query = window.matchMedia("(max-width: 820px)");
+    const updateNavigationMode = () => {
+      setCompactNavigation(query.matches);
+      if (!query.matches) setMenuOpen(false);
+    };
+    const timer = window.setTimeout(updateNavigationMode, 0);
+    query.addEventListener("change", updateNavigationMode);
+    return () => {
+      window.clearTimeout(timer);
+      query.removeEventListener("change", updateNavigationMode);
+    };
+  }, []);
+
+  useEffect(() => {
+    const query = window.matchMedia("(prefers-reduced-motion: reduce)");
+    const updateMotionPreference = () => setReduceMotion(query.matches);
+    updateMotionPreference();
+    query.addEventListener("change", updateMotionPreference);
+    return () => query.removeEventListener("change", updateMotionPreference);
+  }, []);
+
+  useEffect(() => {
+    const menuActive = compactNavigation && menuOpen;
+    document.body.classList.toggle("menu-open", menuActive);
+    const handleMenuKeyboard = (event: KeyboardEvent) => {
+      if (event.key === "Escape") {
+        setMenuOpen(false);
+        window.requestAnimationFrame(() => menuButtonRef.current?.focus());
+        return;
+      }
+      if (event.key !== "Tab") return;
+      const focusable = Array.from(
+        headerRef.current?.querySelectorAll<HTMLElement>('a[href], button:not([disabled])') ?? [],
+      ).filter((element) => element.getAttribute("aria-hidden") !== "true");
+      if (!focusable.length) return;
+      const first = focusable[0];
+      const last = focusable[focusable.length - 1];
+      if (event.shiftKey && document.activeElement === first) {
+        event.preventDefault();
+        last.focus();
+      } else if (!event.shiftKey && document.activeElement === last) {
+        event.preventDefault();
+        first.focus();
+      }
+    };
+    if (menuActive) {
+      window.addEventListener("keydown", handleMenuKeyboard);
+      window.requestAnimationFrame(() => headerRef.current?.querySelector<HTMLElement>(".main-nav a")?.focus());
+    }
+    return () => {
+      document.body.classList.remove("menu-open");
+      window.removeEventListener("keydown", handleMenuKeyboard);
+    };
+  }, [compactNavigation, menuOpen]);
+
+  useEffect(() => {
+    if (reduceMotion) return;
     const timer = window.setInterval(() => setWordIndex((current) => (current + 1) % c.hero.rotatingWords.length), 1800);
     return () => window.clearInterval(timer);
-  }, [c.hero.rotatingWords.length]);
+  }, [c.hero.rotatingWords.length, reduceMotion]);
 
   useEffect(() => {
     const observer = new IntersectionObserver(
@@ -92,30 +165,39 @@ export default function Home() {
       section.dataset.scene = pad(index + 1);
       section.querySelectorAll<HTMLElement>(".reveal").forEach((item, itemIndex) => {
         item.style.setProperty("--reveal-order", String(Math.min(itemIndex, 7)));
+        item.style.setProperty("--reveal-x", `${itemIndex % 2 === 0 ? -34 : 34}px`);
       });
     });
 
     let frame = 0;
+    let layoutFrame = 0;
     let previousY = window.scrollY;
     let previousTime = performance.now();
     let smoothedVelocity = 0;
+    let sectionLayouts: Array<{ top: number; height: number }> = [];
+
+    const refreshSectionLayouts = () => {
+      sectionLayouts = sections.map((section) => {
+        const rect = section.getBoundingClientRect();
+        return { top: rect.top + window.scrollY, height: rect.height };
+      });
+    };
 
     const updateMotion = () => {
-      frame = 0;
       const viewportHeight = Math.max(window.innerHeight, 1);
       const scrollY = window.scrollY;
       const now = performance.now();
-      const reduceMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
       const motionScale = reduceMotion ? 0 : window.innerWidth <= 820 ? 0.55 : 1;
       const elapsed = Math.max(now - previousTime, 16);
       const rawVelocity = ((scrollY - previousY) / elapsed) * 16;
-      smoothedVelocity += (rawVelocity - smoothedVelocity) * 0.16;
+      smoothedVelocity += (rawVelocity - smoothedVelocity) * 0.18;
       previousY = scrollY;
       previousTime = now;
+      const velocity = Math.max(-18, Math.min(18, smoothedVelocity)) * motionScale;
 
       const scrollable = Math.max(document.documentElement.scrollHeight - viewportHeight, 1);
       root.style.setProperty("--page-progress", String(Math.min(1, Math.max(0, scrollY / scrollable))));
-      root.style.setProperty("--scroll-velocity", `${(Math.max(-18, Math.min(18, smoothedVelocity)) * motionScale).toFixed(2)}px`);
+      root.style.setProperty("--scroll-velocity", `${velocity.toFixed(2)}px`);
       root.style.setProperty("--header-shift", `${(Math.max(-3, Math.min(0, smoothedVelocity * -0.2)) * motionScale).toFixed(2)}px`);
       root.style.setProperty("--hero-title-x", `${(Math.max(-82, scrollY * -0.12) * motionScale).toFixed(1)}px`);
       root.style.setProperty("--hero-word-x", `${(Math.min(48, scrollY * 0.07) * motionScale).toFixed(1)}px`);
@@ -123,40 +205,75 @@ export default function Home() {
       root.style.setProperty("--hero-run-x", `${(Math.max(-520, scrollY * -0.42) * motionScale).toFixed(1)}px`);
 
       sections.forEach((section, index) => {
-        const rect = section.getBoundingClientRect();
-        const entrance = Math.min(1, Math.max(0, (viewportHeight - rect.top) / (viewportHeight * 0.72)));
-        const centerDistance = Math.abs(rect.top + rect.height / 2 - viewportHeight / 2);
-        const focus = Math.min(1, Math.max(0, 1 - centerDistance / ((rect.height + viewportHeight) / 2)));
+        const layout = sectionLayouts[index];
+        if (!layout) return;
+        const top = layout.top - scrollY;
+        const bottom = top + layout.height;
+        if (top > viewportHeight * 1.5 || bottom < viewportHeight * -0.6) return;
+        const entrance = Math.min(1, Math.max(0, (viewportHeight - top) / (viewportHeight * 0.72)));
+        const travel = Math.min(1, Math.max(0, (viewportHeight - top) / (viewportHeight + layout.height)));
+        const centerDistance = Math.abs(top + layout.height / 2 - viewportHeight / 2);
+        const focus = Math.min(1, Math.max(0, 1 - centerDistance / ((layout.height + viewportHeight) / 2)));
         const direction = index % 2 === 0 ? 1 : -1;
         const titleX = (1 - entrance) * 150 * direction * motionScale;
+        const runnerDistance = window.innerWidth <= 820 ? 118 : 280;
+        const runnerX = (0.5 - travel) * runnerDistance * direction * motionScale + velocity * 2.2;
+        const stampX = (travel - 0.5) * 126 * direction * motionScale + velocity * 3.2;
         const mediaY = (0.5 - focus) * 34 * motionScale;
         const curtain = Math.max(0, 1 - entrance * 1.35) * motionScale;
 
         section.style.setProperty("--scene-progress", entrance.toFixed(3));
         section.style.setProperty("--scene-focus", focus.toFixed(3));
+        section.style.setProperty("--scene-emphasis", (0.46 + focus * 0.54).toFixed(3));
         section.style.setProperty("--scene-title-x", `${titleX.toFixed(1)}px`);
         section.style.setProperty("--scene-meta-x", `${(-titleX * 0.42).toFixed(1)}px`);
+        section.style.setProperty("--scene-runner-x", `${runnerX.toFixed(1)}px`);
+        section.style.setProperty("--scene-stamp-x", `${stampX.toFixed(1)}px`);
         section.style.setProperty("--scene-media-y", `${mediaY.toFixed(1)}px`);
         section.style.setProperty("--scene-tilt", `${((1 - focus) * 1.1 * direction * motionScale).toFixed(2)}deg`);
         section.style.setProperty("--scene-curtain", curtain.toFixed(3));
       });
+
+      if (!reduceMotion && (Math.abs(smoothedVelocity) > 0.04 || Math.abs(rawVelocity) > 0.04)) {
+        frame = window.requestAnimationFrame(updateMotion);
+      } else {
+        smoothedVelocity = 0;
+        root.style.setProperty("--scroll-velocity", "0px");
+        frame = 0;
+      }
     };
 
     const requestMotionUpdate = () => {
       if (!frame) frame = window.requestAnimationFrame(updateMotion);
     };
 
+    const requestLayoutRefresh = () => {
+      if (layoutFrame) return;
+      layoutFrame = window.requestAnimationFrame(() => {
+        layoutFrame = 0;
+        refreshSectionLayouts();
+        requestMotionUpdate();
+      });
+    };
+
+    const resizeObserver = new ResizeObserver(requestLayoutRefresh);
+    sections.forEach((section) => resizeObserver.observe(section));
+
+    refreshSectionLayouts();
     updateMotion();
     window.addEventListener("scroll", requestMotionUpdate, { passive: true });
-    window.addEventListener("resize", requestMotionUpdate);
+    window.addEventListener("resize", requestLayoutRefresh);
     return () => {
       window.removeEventListener("scroll", requestMotionUpdate);
-      window.removeEventListener("resize", requestMotionUpdate);
+      window.removeEventListener("resize", requestLayoutRefresh);
+      resizeObserver.disconnect();
       if (frame) window.cancelAnimationFrame(frame);
+      if (layoutFrame) window.cancelAnimationFrame(layoutFrame);
     };
-  }, []);
+  }, [reduceMotion]);
 
   const submitForm = (event: FormEvent<HTMLFormElement>) => {
+    if (contactFormEnabled) return;
     event.preventDefault();
     setFormNotice(c.contact.form.notice);
   };
@@ -168,13 +285,23 @@ export default function Home() {
     setMenuOpen(false);
   };
 
+  const menuActive = compactNavigation && menuOpen;
+  const visibleWordIndex = reduceMotion ? 0 : wordIndex;
+
   return (
-    <main>
-      <header className="site-header">
+    <>
+      <a className="skip-link" href="#main-content">{c.ui.skipToContent}</a>
+      <header ref={headerRef} className="site-header">
         <a className="brand-mark" href="#home" aria-label={`${c.brand.name} ${c.navigation[0].label}`}>
           <span className="brand-dot" />{c.brand.name}
         </a>
-        <nav className={`main-nav ${menuOpen ? "is-open" : ""}`} aria-label={c.ui.mainNavigation}>
+        <nav
+          id="main-navigation"
+          className={`main-nav ${menuOpen ? "is-open" : ""}`}
+          aria-label={c.ui.mainNavigation}
+          aria-hidden={compactNavigation && !menuOpen ? true : undefined}
+          inert={compactNavigation && !menuOpen ? true : undefined}
+        >
           {c.navigation.map((item, index) => (
             <a key={item.label} href={item.href} onClick={() => setMenuOpen(false)}><small>{pad(index + 1)}</small>{item.label}</a>
           ))}
@@ -183,7 +310,7 @@ export default function Home() {
           <div className="language-switcher" aria-label={c.ui.language} role="group">
             {localeOptions.map((option) => <button type="button" key={option.code} title={option.label} aria-pressed={locale === option.code} className={locale === option.code ? "active" : ""} onClick={() => changeLocale(option.code)}>{option.short}</button>)}
           </div>
-          <button className="menu-button" type="button" aria-label={menuOpen ? c.ui.close : c.ui.menu} aria-expanded={menuOpen} onClick={() => setMenuOpen(!menuOpen)}>
+          <button ref={menuButtonRef} className="menu-button" type="button" aria-label={menuOpen ? c.ui.close : c.ui.menu} aria-controls="main-navigation" aria-expanded={menuOpen} onClick={() => setMenuOpen(!menuOpen)}>
             <span>{menuOpen ? c.ui.close : c.ui.menu}</span><span className="menu-symbol">{menuOpen ? "×" : "＋"}</span>
           </button>
         </div>
@@ -193,16 +320,17 @@ export default function Home() {
 
       <aside className="scene-progress" aria-label={c.ui.sectionProgress}>
         <span>{pad(activeScene + 1)} / {pad(c.scenes.length)}</span>
-        <div>{c.scenes.map((scene, index) => <a href={scene.href} key={scene.href} className={activeScene === index ? "active" : ""} aria-label={scene.label} />)}</div>
+        <div>{c.scenes.map((scene, index) => <a href={scene.href} key={scene.href} className={activeScene === index ? "active" : ""} aria-label={scene.label} aria-current={activeScene === index ? "location" : undefined} />)}</div>
         <strong>{c.scenes[Math.min(activeScene, c.scenes.length - 1)]?.label}</strong>
       </aside>
 
+      <main id="main-content" inert={menuActive ? true : undefined}>
       <section className="hero" id="home">
         <div className="hero-topline"><span>{c.brand.eyebrow}</span><span>{c.ui.scroll}</span></div>
         <div className="hero-copy reveal">
           <p className="kicker">{c.hero.kicker}</p>
           <h1><span>{c.hero.title}</span></h1>
-          <div className="hero-word" aria-live="polite"><span>{c.ui.from}</span><strong key={`${locale}-${wordIndex}`}>{c.hero.rotatingWords[wordIndex]}</strong></div>
+          <div className="hero-word" aria-label={`${c.ui.from} ${c.hero.rotatingWords.join(" / ")}`}><span aria-hidden="true">{c.ui.from}</span><strong aria-hidden="true" key={`${locale}-${visibleWordIndex}`}>{c.hero.rotatingWords[visibleWordIndex]}</strong></div>
           <p className="hero-subtitle">{c.hero.subtitle}</p>
           <div className="hero-actions">
             <a className="button button-primary" href={c.hero.primaryAction.href}>{c.hero.primaryAction.label}<span>↘</span></a>
@@ -252,8 +380,8 @@ export default function Home() {
         <div className="service-list">
           {c.services.map((service, index) => (
             <details className="service-item reveal" key={service.name}>
-              <summary><span>{pad(index + 1)}</span><h3>{service.name}</h3><p>{service.summary}</p><i>＋</i></summary>
-              <div className="service-detail"><div className="service-icon">{pad(index + 1)}</div><p>{service.detail}</p><a href="#contact">{c.ui.consultService} <span>→</span></a></div>
+              <summary><span>{pad(index + 1)}</span><h3>{service.name}<small>{service.status}</small></h3><p>{service.summary}</p><i>＋</i></summary>
+              <div className="service-detail"><div className="service-icon">{pad(index + 1)}</div><p>{service.detail}</p>{service.available ? <a href="#contact">{service.action} <span>→</span></a> : <span className="service-unavailable" aria-disabled="true">{service.action}</span>}</div>
             </details>
           ))}
         </div>
@@ -299,7 +427,7 @@ export default function Home() {
           {c.pricing.map((plan, index) => (
             <article className={`price-card reveal ${plan.featured ? "featured" : ""}`} key={plan.name}>
               <div className="price-top"><span>0{index + 1}</span>{plan.featured && <em>{c.ui.recommended}</em>}</div><h3>{plan.name}</h3><p className="price-audience">{plan.audience}</p><strong>{plan.price}</strong>
-              <ul>{plan.features.map((feature) => <li key={feature}><span>✓</span>{feature}</li>)}</ul><a href="#contact">{plan.action}<span>→</span></a>
+              <ul>{plan.features.map((feature) => <li key={feature}><span>✓</span>{feature}</li>)}</ul><span className="price-action is-disabled" aria-disabled="true">{plan.action}<span>→</span></span>
             </article>
           ))}
         </div>
@@ -325,17 +453,18 @@ export default function Home() {
       </section>
 
       <section className="contact" id="contact">
-        <div className="contact-intro reveal"><span>{c.ui.contactLabel}</span><h2>{c.ui.contactTitle.split("\n").map((line) => <span key={line}>{line}</span>)}</h2><p>{c.ui.contactIntro}</p><a href="#contact">{c.contact.email}</a><div className="social-links">{c.contact.socials.map((social) => <a href={social.href} key={social.label}>{social.label} ↗</a>)}</div></div>
-        <form className="contact-form reveal" onSubmit={submitForm}>
+        <div className="contact-intro reveal"><span>{c.ui.contactLabel}</span><h2>{c.ui.contactTitle.split("\n").map((line) => <span key={line}>{line}</span>)}</h2><p>{c.ui.contactIntro}</p>{contactEmailReady ? <a href={`mailto:${c.contact.email}`}>{c.contact.email}</a> : <span className="contact-placeholder" aria-disabled="true">{c.contact.email}</span>}<div className="social-links">{c.contact.socials.map((social) => social.href.startsWith("http") || social.href.startsWith("mailto:") ? <a href={social.href} key={social.label}>{social.label} ↗</a> : <span key={social.label} aria-disabled="true">{social.label} ↗</span>)}</div></div>
+        <form className="contact-form reveal" action={siteSettings.contactFormAction || undefined} method="post" onSubmit={submitForm}>
           <div className="field-row"><label>{c.contact.form.name}<input name="name" required placeholder={c.contact.form.namePlaceholder} /></label><label>{c.contact.form.company}<input name="company" placeholder={c.contact.form.companyPlaceholder} /></label></div>
           <div className="field-row"><label>{c.contact.form.email}<input type="email" name="email" required placeholder="you@example.com" /></label><label>{c.contact.form.website}<input type="url" name="website" placeholder="https://" /></label></div>
           <label>{c.contact.form.service}<select name="service" defaultValue=""><option value="" disabled>{c.contact.form.choose}</option>{c.contact.services.map((service) => <option key={service}>{service}</option>)}</select></label>
           <label>{c.contact.form.message}<textarea name="message" required rows={5} placeholder={c.contact.form.messagePlaceholder} /></label>
-          <button type="submit">{c.contact.form.submit} <span>↗</span></button><small>{c.contact.note}</small>{formNotice && <p className="form-notice" role="status">{formNotice}</p>}
+          <button type="submit" disabled={!contactFormEnabled} aria-disabled={!contactFormEnabled}>{c.contact.form.submit} <span>↗</span></button><small>{c.contact.note}</small>{formNotice && <p className="form-notice" role="status">{formNotice}</p>}
         </form>
       </section>
+      </main>
 
-      <footer>
+      <footer inert={menuActive ? true : undefined}>
         <div className="footer-pattern" aria-hidden="true">
           <div className="footer-pattern-field" />
           <div className="footer-pattern-seal"><span>{c.ui.seal}</span><i /></div>
@@ -343,9 +472,9 @@ export default function Home() {
             {c.footer.motifWords.map((word, index) => <span key={word}>{word}<i>{pad(index + 1)}</i></span>)}
           </div>
         </div>
-        <div className="footer-top"><div><a className="brand-mark footer-brand" href="#home"><span className="brand-dot" />{c.brand.name}</a><p>{c.footer.description}</p></div><div className="footer-nav">{c.navigation.map((item) => <a key={item.label} href={item.href}>{item.label}</a>)}</div><div className="footer-contact"><span>{c.ui.contact}</span><a href="#contact">{c.contact.email}</a>{c.contact.socials.map((social) => <a href={social.href} key={social.label}>{social.label} ↗</a>)}</div></div>
-        <div className="footer-bottom"><span>{c.footer.copyright}</span><a href="#home">{c.footer.privacyLabel}</a><a href="#home">{c.ui.backToTop}</a></div>
+        <div className="footer-top"><div><a className="brand-mark footer-brand" href="#home"><span className="brand-dot" />{c.brand.name}</a><p>{c.footer.description}</p></div><div className="footer-nav">{c.navigation.map((item) => <a key={item.label} href={item.href}>{item.label}</a>)}</div><div className="footer-contact"><span>{c.ui.contact}</span>{contactEmailReady ? <a href={`mailto:${c.contact.email}`}>{c.contact.email}</a> : <span className="contact-placeholder" aria-disabled="true">{c.contact.email}</span>}{c.contact.socials.map((social) => social.href.startsWith("http") || social.href.startsWith("mailto:") ? <a href={social.href} key={social.label}>{social.label} ↗</a> : <span className="contact-placeholder" aria-disabled="true" key={social.label}>{social.label} ↗</span>)}</div></div>
+        <div className="footer-bottom"><span>{c.footer.copyright}</span><span className="privacy-placeholder" aria-disabled="true" title={c.ui.comingSoon}>{c.footer.privacyLabel}</span><a href="#home">{c.ui.backToTop}</a></div>
       </footer>
-    </main>
+    </>
   );
 }

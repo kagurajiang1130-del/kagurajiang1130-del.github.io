@@ -1,98 +1,78 @@
-# vinext-starter
+# 澜顷品牌网站与经营工作区
 
-A clean full-stack starter running on
-[vinext](https://github.com/cloudflare/vinext), with optional Cloudflare D1 and
-Drizzle support.
+这是一个面向日本本地商家、服务中国市场沟通与到店体验的品牌网站工作区。当前网站是可持续修改的三语基础版本；正式品牌文案、服务承诺、价格、团队与案例必须经过确认后才能替换占位内容。
 
-## Prerequisites
+## 当前可用成果
 
-- Node.js `>=22.13.0`
+- 日语 / 英语 / 简体中文共用同一套页面结构，默认日语；
+- 黄色、暖白和炭黑视觉系统；
+- 桌面、平板和手机响应式布局；
+- 分区滚动、标题移动、进入动画和减少动态效果兼容；
+- 服务、价格、FAQ、联系信息集中在 `app/content.ts`，案例单独集中在 `app/cases.ts`；
+- 自动构建并发布到免费的 GitHub Pages；
+- Sites 版本保留为备用部署；
+- 内容审批工作链位于 `content-workflow/`；
+- 经营执行程序位于 `business-ops/`。
+- 不改代码的内容入口为 `网站内容与商业输入表_v2.docx`；
+- 价格、工时、现金、报价门与利润目标桥接统一进入 `outputs/019f96e2-f489-7b81-bf8d-b80d5782c1de/澜顷_经营与利润管理台账_v0.5.xlsx`；旧版只保留作历史追溯。
+- O-01 的真人计时与价格证据可直接填写 `O01_真人计时与验收表_v1.docx`；外联先按 `business-ops/20-外联渠道严格分级与发送队列.md` 的 S／A／BLOCK 队列逐封复核。
+- O-01 的 50,000 日元内部压力测试、三情景与报价硬门见 `business-ops/22-O01单位经济决策模型.md`；当前不是公开价格。
+- 相邻市场的 23 个官方价格点、付款意愿四问和真实报价证据阶梯见 `business-ops/23-市场定价证据与付款意愿测试.md`；公开标价不等于客户愿意支付。
+- 首个 30 天的网站、定价和首封邮件验证节奏见 `business-ops/24-首个30天网站定价邮件验证冲刺.md`；本周期不预测成交，未获批准时发送、报价、公开价格和外部支出都保持为 0。
+- 网站、价格、联系入口和首轮外联的启用状态统一看 `business-ops/21-网站上线与首轮外联启用总控表.md`；新版部署前会自动检查用户批准与最终内容，未通过时不会替换旧站。
+- 如果当前只推进“网站事实 + 第一封安全邮件”，直接填写 `现在只需填写_网站与首封邮件_v1.docx`；它不会自动发布或发送。
 
-## Quick Start
+## 当前公开入口
 
-```bash
+- 免费主入口：<https://kagurajiang1130-del.github.io/>
+
+这个网址无需登录、使用 HTTPS，并已验证返回 HTTP 200。中国大陆不同地区和运营商的跨境网络情况无法由海外测试保证，因此仍需要在目标城市用真实手机网络做抽样验证。
+
+## 修改网站内容
+
+经常修改的内容都在 `app/content.ts`：
+
+- `siteContent.ja`：日语；
+- `siteContent.en`：英语；
+- `siteContent.zh`：简体中文；
+- `localeOptions`：语言按钮。
+
+更详细的字段、图片和发布说明见 `CONTENT_GUIDE.md`。如果内容还没有确认，不要直接改公开文案；先按 `content-workflow/00-工作流与进度.md` 完成当前 Part 的研究、访谈、预览和批准。
+
+如果希望直接在 Word 中修改，打开 `网站内容与商业输入表_v2.docx`。前四部分用于补充真实商业事实，后续部分对应网站各板块；不必一次填完，也不必自己写出成熟文案。
+
+如果现在不想填写整份内容表，打开 `现在只需填写_网站与首封邮件_v1.docx`，点击黄色字段填写 5 个网站事实、真实对外身份、回复邮箱、日语访谈人和 3 个日本时间候选时段。当前安全第一候选是 LIVLABO；表内请求句只会要求制作一封未发送的预览，不等于发送或发送前复核授权。
+
+如果要验证 50,000 日元是否可能成为 O-01 的私下测试价，打开 `O01_真人计时与验收表_v1.docx`，点击每个“点击填写”字段。它要求两名真人、两套未见素材、两轮完整计时、真实成本、10 次真实访谈和独立审计；硬门未通过时不得报价或公开价格。
+
+## 本地运行
+
+需要 Node.js 22.13 或更高版本：
+
+```text
 npm install
 npm run dev
-npm run build
 ```
 
-This starter does not use `wrangler.jsonc`.
+发布前验证：
 
-## Included Shape
-
-- edit site code under `app/`
-- `.openai/hosting.json` declares optional Sites D1 and R2 bindings
-- `vite.config.ts` simulates declared bindings for local development
-- `db/schema.ts` starts intentionally empty
-- `examples/d1/` contains an optional D1 example surface
-- `drizzle.config.ts` supports local migration generation when needed
-
-## Workspace Auth Headers
-
-OpenAI workspace sites can read the current user's email from
-`oai-authenticated-user-email`.
-
-SIWC-authenticated workspace sites may also receive
-`oai-authenticated-user-full-name` when the user's SIWC profile has a non-empty
-`name` claim. The full-name value is percent-encoded UTF-8 and is accompanied by
-`oai-authenticated-user-full-name-encoding: percent-encoded-utf-8`.
-
-Treat the full name as optional and fall back to email when it is absent:
-
-```tsx
-import { headers } from "next/headers";
-
-export default async function Home() {
-  const requestHeaders = await headers();
-  const email = requestHeaders.get("oai-authenticated-user-email");
-  const encodedFullName = requestHeaders.get("oai-authenticated-user-full-name");
-  const fullName =
-    encodedFullName &&
-    requestHeaders.get("oai-authenticated-user-full-name-encoding") ===
-      "percent-encoded-utf-8"
-      ? decodeURIComponent(encodedFullName)
-      : null;
-
-  const displayName = fullName ?? email;
-  // ...
-}
+```text
+npm run lint
+npm test
+npm run export:pages
+npm run audit:publication
 ```
 
-## Optional Dispatch-Owned ChatGPT Sign-In
+静态导出结果位于 `out/github-pages/`。
 
-Import the ready-to-use helpers from `app/chatgpt-auth.ts` when the site needs
-optional or required ChatGPT sign-in:
+## 自动发布
 
-- Use `getChatGPTUser()` for optional signed-in UI.
-- Use `requireChatGPTUser(returnTo)` for server-rendered pages that should send
-  anonymous visitors through Sign in with ChatGPT.
-- Use `chatGPTSignInPath(returnTo)` and `chatGPTSignOutPath(returnTo)` for
-  browser links or actions.
-- Pass a same-origin relative `returnTo` path for the destination after sign-in
-  or sign-out. The helper validates and safely encodes it.
-- Mark protected pages with `export const dynamic = "force-dynamic"` because
-  they depend on per-request identity headers.
+`.github/workflows/github-pages.yml` 会在 `main` 分支更新后自动构建并发布。代码变更应先通过草稿拉取请求查看差异、运行检查，再合并到 `main`。
 
-Dispatch owns `/signin-with-chatgpt`, `/signout-with-chatgpt`, `/callback`, the
-OAuth cookies, and identity header injection. Do not implement app routes for
-those reserved paths. Routes that do not import and call the helper remain
-anonymous-compatible.
+## 重要边界
 
-SIWC establishes identity only; it does not prove workspace membership. Use the
-Sites hosting platform's access policy controls for workspace-wide restrictions,
-or enforce explicit server-side membership or allowlist checks.
-
-Use SIWC for account pages, user-specific dashboards, saved records, and write
-actions tied to the current ChatGPT user. Leave public content anonymous.
-
-## Useful Commands
-
-- `npm run dev`: start local development
-- `npm run build`: verify the vinext build output
-- `npm test`: build the starter and verify its rendered loading skeleton
-- `npm run db:generate`: generate Drizzle migrations after schema changes
-
-## Learn More
-
-- [vinext Documentation](https://github.com/cloudflare/vinext)
-- [Drizzle D1 Guide](https://orm.drizzle.team/docs/get-started/d1-new)
+- 不虚构客户、案例、团队、评价、经历或结果；
+- 不把市场公开标价当作本公司的已验证成交价；
+- 不承诺流量、排名、到店人数或销售额；
+- 联系表单目前只有界面，填写真实邮箱并接入收件服务前不能作为正式收件渠道；
+- 商标、税务、合同和平台认证事项需要按实际经营主体另行确认。
