@@ -212,3 +212,18 @@ test("keeps first-wave outreach on rechecked business-safe channels", async () =
   assert.doesNotMatch(outreach, /确认发送第一轮访谈邀请：A-01、A-02、A-03/);
   assert.match(leadCsv, /A-03,[^\n]*info@yame-tea\.jp/);
 });
+
+test("keeps the free contact path consented, private, and cost bounded", async () => {
+  const [decision, index] = await Promise.all([
+    read("business-ops/18-免费联系入口与表单启用决策.md"),
+    read("business-ops/00-经营系统总览.md"),
+  ]);
+
+  assert.match(decision, /网站联系表单保持禁用/);
+  assert.match(decision, /先启用 `mailto:` 邮箱入口/);
+  assert.match(decision, /没有任何候选平台的官方证据证明其表单端点在中国大陆/);
+  assert.match(decision, /不收集密码、支付信息、身份证件、健康信息或游客个人资料/);
+  assert.match(decision, /未经批准不自动升级或产生超额费用/);
+  assert.match(decision, /siteSettings\.contactFormAction/);
+  assert.match(index, /18-免费联系入口与表单启用决策/);
+});
