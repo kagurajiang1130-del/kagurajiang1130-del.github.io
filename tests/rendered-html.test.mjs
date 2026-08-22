@@ -48,6 +48,9 @@ test("keeps content centralized and motion locally hosted", async () => {
   assert.match(page, /section-runway-track/);
   assert.match(page, /requestAnimationFrame/);
   assert.match(page, /prefers-reduced-motion/);
+  assert.match(page, /const \[localeReady, setLocaleReady\] = useState\(false\)/);
+  assert.match(page, /setLocaleReady\(true\)/);
+  assert.match(page, /if \(!localeReady\) return/);
   assert.match(css, /scroll-snap-type:\s*y proximity/);
   assert.match(css, /\.title-runner/);
   assert.match(css, /\.section-runway-track/);

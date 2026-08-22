@@ -37,6 +37,7 @@ function VisualPlaceholder({ label, indexLabel, dark = false }: { label: string;
 export default function Home() {
   const [menuOpen, setMenuOpen] = useState(false);
   const [locale, setLocale] = useState<Locale>("ja");
+  const [localeReady, setLocaleReady] = useState(false);
   const [wordIndex, setWordIndex] = useState(0);
   const [formNotice, setFormNotice] = useState("");
   const [activeScene, setActiveScene] = useState(0);
@@ -48,11 +49,13 @@ export default function Home() {
       const saved = window.localStorage.getItem("site-locale");
       const next = ["ja", "en", "zh"].includes(requested || "") ? requested : saved;
       if (next && ["ja", "en", "zh"].includes(next)) setLocale(next as Locale);
+      setLocaleReady(true);
     }, 0);
     return () => window.clearTimeout(timer);
   }, []);
 
   useEffect(() => {
+    if (!localeReady) return;
     const option = localeOptions.find((item) => item.code === locale);
     document.documentElement.lang = option?.htmlLang || "ja";
     document.title = c.seo.title;
@@ -61,7 +64,7 @@ export default function Home() {
     const url = new URL(window.location.href);
     url.searchParams.set("lang", locale);
     window.history.replaceState({}, "", url);
-  }, [locale, c.seo.description, c.seo.title]);
+  }, [locale, localeReady, c.seo.description, c.seo.title]);
 
   useEffect(() => {
     const timer = window.setInterval(() => setWordIndex((current) => (current + 1) % c.hero.rotatingWords.length), 1800);
