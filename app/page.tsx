@@ -4,6 +4,7 @@ import { FormEvent, useEffect, useRef, useState } from "react";
 import { Locale, localeOptions, siteContent, siteSettings } from "./content";
 
 const pad = (value: number) => String(value).padStart(2, "0");
+const mailLabel = (value: string) => value.replace(/\s*\*\s*$/, "");
 
 function SectionIntro({ number, label, title, intro }: { number: string; label: string; title: string; intro?: string }) {
   const runwayText = `${number} / ${label} — ${title}`;
@@ -135,6 +136,7 @@ export default function Home() {
   }, [c.hero.rotatingWords.length, reduceMotion]);
 
   useEffect(() => {
+    document.documentElement.classList.add("motion-ready");
     const observer = new IntersectionObserver(
       (entries) => entries.forEach((entry) => entry.isIntersecting && entry.target.classList.add("is-visible")),
       { threshold: 0.12 },
@@ -275,6 +277,22 @@ export default function Home() {
   const submitForm = (event: FormEvent<HTMLFormElement>) => {
     if (contactFormEnabled) return;
     event.preventDefault();
+    if (!contactEmailReady) {
+      setFormNotice(c.contact.form.notice);
+      return;
+    }
+    const data = new FormData(event.currentTarget);
+    const subject = `${c.brand.name} — ${String(data.get("service") || c.ui.contact)}`;
+    const body = [
+      `${mailLabel(c.contact.form.name)}: ${String(data.get("name") || "")}`,
+      `${mailLabel(c.contact.form.company)}: ${String(data.get("company") || "")}`,
+      `${mailLabel(c.contact.form.email)}: ${String(data.get("email") || "")}`,
+      `${mailLabel(c.contact.form.website)}: ${String(data.get("website") || "")}`,
+      `${mailLabel(c.contact.form.service)}: ${String(data.get("service") || "")}`,
+      "",
+      String(data.get("message") || ""),
+    ].join("\n");
+    window.location.href = `mailto:${c.contact.email}?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(body)}`;
     setFormNotice(c.contact.form.notice);
   };
 
@@ -329,7 +347,7 @@ export default function Home() {
         <div className="hero-topline"><span>{c.brand.eyebrow}</span><span>{c.ui.scroll}</span></div>
         <div className="hero-copy reveal">
           <p className="kicker">{c.hero.kicker}</p>
-          <h1><span>{c.hero.title}</span></h1>
+          <h1>{c.hero.title.split("\n").map((line) => <span key={line}>{line}</span>)}</h1>
           <div className="hero-word" aria-label={`${c.ui.from} ${c.hero.rotatingWords.join(" / ")}`}><span aria-hidden="true">{c.ui.from}</span><strong aria-hidden="true" key={`${locale}-${visibleWordIndex}`}>{c.hero.rotatingWords[visibleWordIndex]}</strong></div>
           <p className="hero-subtitle">{c.hero.subtitle}</p>
           <div className="hero-actions">
@@ -415,7 +433,7 @@ export default function Home() {
               <div className={`case-image case-image-${index + 1}`}><span>{item.image}</span><small>{pad(index + 1)} / 03</small></div>
               <div className="case-top"><span>{item.industry}</span><span>{c.ui.comingSoon}</span></div><h3>{item.title}</h3><h4>{item.client}</h4><p>{item.summary}</p>
               <dl><div><dt>{c.ui.servicesLabel}</dt><dd>{item.services}</dd></div><div><dt>{c.ui.resultLabel}</dt><dd>{item.result}</dd></div></dl>
-              <button type="button" disabled>{c.ui.viewCase} <span>↗</span></button>
+              <a className="case-action" href="#contact">{c.ui.viewCase} <span>↗</span></a>
             </article>
           ))}
         </div>
@@ -427,7 +445,7 @@ export default function Home() {
           {c.pricing.map((plan, index) => (
             <article className={`price-card reveal ${plan.featured ? "featured" : ""}`} key={plan.name}>
               <div className="price-top"><span>0{index + 1}</span>{plan.featured && <em>{c.ui.recommended}</em>}</div><h3>{plan.name}</h3><p className="price-audience">{plan.audience}</p><strong>{plan.price}</strong>
-              <ul>{plan.features.map((feature) => <li key={feature}><span>✓</span>{feature}</li>)}</ul><span className="price-action is-disabled" aria-disabled="true">{plan.action}<span>→</span></span>
+              <ul>{plan.features.map((feature) => <li key={feature}><span>✓</span>{feature}</li>)}</ul><a className="price-action" href="#contact">{plan.action}<span>→</span></a>
             </article>
           ))}
         </div>
@@ -459,7 +477,7 @@ export default function Home() {
           <div className="field-row"><label>{c.contact.form.email}<input type="email" name="email" required placeholder="you@example.com" /></label><label>{c.contact.form.website}<input type="url" name="website" placeholder="https://" /></label></div>
           <label>{c.contact.form.service}<select name="service" defaultValue=""><option value="" disabled>{c.contact.form.choose}</option>{c.contact.services.map((service) => <option key={service}>{service}</option>)}</select></label>
           <label>{c.contact.form.message}<textarea name="message" required rows={5} placeholder={c.contact.form.messagePlaceholder} /></label>
-          <button type="submit" disabled={!contactFormEnabled} aria-disabled={!contactFormEnabled}>{c.contact.form.submit} <span>↗</span></button><small>{c.contact.note}</small>{formNotice && <p className="form-notice" role="status">{formNotice}</p>}
+          <button type="submit" disabled={!contactEmailReady} aria-disabled={!contactEmailReady}>{c.contact.form.submit} <span>↗</span></button><small>{c.contact.note}</small>{formNotice && <p className="form-notice" role="status">{formNotice}</p>}
         </form>
       </section>
       </main>
@@ -473,7 +491,7 @@ export default function Home() {
           </div>
         </div>
         <div className="footer-top"><div><a className="brand-mark footer-brand" href="#home"><span className="brand-dot" />{c.brand.name}</a><p>{c.footer.description}</p></div><div className="footer-nav">{c.navigation.map((item) => <a key={item.label} href={item.href}>{item.label}</a>)}</div><div className="footer-contact"><span>{c.ui.contact}</span>{contactEmailReady ? <a href={`mailto:${c.contact.email}`}>{c.contact.email}</a> : <span className="contact-placeholder" aria-disabled="true">{c.contact.email}</span>}{c.contact.socials.map((social) => social.href.startsWith("http") || social.href.startsWith("mailto:") ? <a href={social.href} key={social.label}>{social.label} ↗</a> : <span className="contact-placeholder" aria-disabled="true" key={social.label}>{social.label} ↗</span>)}</div></div>
-        <div className="footer-bottom"><span>{c.footer.copyright}</span><span className="privacy-placeholder" aria-disabled="true" title={c.ui.comingSoon}>{c.footer.privacyLabel}</span><a href="#home">{c.ui.backToTop}</a></div>
+        <div className="footer-bottom"><span>{c.footer.copyright}</span><details className="footer-privacy" id="privacy"><summary>{c.footer.privacyLabel}</summary><p>{c.footer.privacyBody}</p></details><a href="#home">{c.ui.backToTop}</a></div>
       </footer>
     </>
   );

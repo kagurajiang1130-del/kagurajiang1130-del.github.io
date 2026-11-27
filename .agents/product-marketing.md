@@ -15,19 +15,20 @@ This is a living context file generated from the website interview workflow. It 
 
 ## Product / Service
 
-- **Current-site hypothesis:** A cross-cultural communication service connecting local businesses in Japan with Chinese consumers or Chinese-speaking audiences.
-- **Current-site hypothesis:** Possible services include Chinese copywriting and translation, Chinese menus and websites, RED / Xiaohongshu setup, Chinese social-content migration, content planning, visitor-experience information, and ongoing promotion.
-- **Needs confirmation:** Which services are truly sellable now, their deliverables, client inputs, timelines, exclusions, and prices.
+- **Confirmed direction (2026-11-27):** Multilingual content and China social-media content planning and account operations for Japan-based businesses, shops and brands.
+- **Current offer:** Account diagnosis, brand and shop content strategy, multilingual localization, brand/store information design, cross-platform asset production, and content review.
+- **Current focus:** China social-media account operations, starting with one platform and a fixed scope. Photography, ads, creators, direct messages, account access and publishing are confirmed separately.
+- **Needs confirmation:** Which platform and industries produce the first repeatable paid work; actual delivery hours, cost, contract terms and validated price.
 
 ## Audience
 
-- **Current-site hypothesis:** Local businesses in Japan that want to communicate with Chinese-speaking visitors or customers.
-- **Needs confirmation:** Primary industry, location, buyer, urgency, current workaround, objections, and customer language.
+- **Confirmed direction:** Japan-based businesses, shops and brands that want a coherent Chinese-language presence and sustainable China social-media operation.
+- **Needs confirmation:** First industry, location, buyer, urgency, current workaround and objections.
 
 ## Positioning and Narrative
 
-- **Current-site hypothesis:** The narrative moves from existing to being found, understood, trusted, and experienced.
-- **Needs confirmation:** Why the brand should exist, what "understood" means, what it refuses to become, and the desired long-term relationship between businesses and visitors.
+- **Confirmed direction:** “Let your presence be discovered.” The brand combines multilingual expression with the operating discipline of a social-media account: positioning, profile, content system, publishing rhythm and a pathway to booking, visits or enquiries.
+- **Difference:** The work is presented as an operating system, not a one-off translation job. Facts are confirmed by the business; content and account operations are handled as one sequence.
 
 ## Proof
 
@@ -37,7 +38,7 @@ This is a living context file generated from the website interview workflow. It 
 ## Website Goal
 
 - **Confirmed:** The site uses one shared Japanese / English / Simplified Chinese structure, with Japanese as the default language.
-- **Needs confirmation:** The single primary conversion action and real contact method.
+- **Confirmed:** Primary action is a brand/operations consultation by email. Pricing is quoted after scope review; performance outcomes are not guaranteed.
 
 ## Voice
 

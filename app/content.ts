@@ -1,7 +1,6 @@
-import { caseStudies, type CaseStudy } from "./cases";
+import type { CaseStudy } from "./cases";
 
 export type Locale = "ja" | "en" | "zh";
-
 type SectionHeader = { label: string; title: string; intro?: string };
 type ListItem = { title: string; text: string };
 
@@ -36,7 +35,7 @@ export interface SiteCopy {
     email: string; note: string; services: string[]; socials: Array<{ label: string; href: string }>;
     form: { name: string; namePlaceholder: string; company: string; companyPlaceholder: string; email: string; website: string; service: string; choose: string; message: string; messagePlaceholder: string; submit: string; notice: string };
   };
-  footer: { description: string; motifWords: string[]; privacyLabel: string; copyright: string };
+  footer: { description: string; motifWords: string[]; privacyLabel: string; privacyBody: string; copyright: string };
 }
 
 export const localeOptions: Array<{ code: Locale; short: string; label: string; htmlLang: string }> = [
@@ -48,276 +47,1515 @@ export const localeOptions: Array<{ code: Locale; short: string; label: string; 
 export const siteSettings = {
   publicUrl: "https://kagurajiang1130-del.github.io/",
   defaultLocale: "ja" as Locale,
-  allowIndexing: false,
+  allowIndexing: true,
   contactFormAction: "",
 };
 
-const socialLinks = [
-  { label: "Gmail", href: "#contact" },
-  { label: "Instagram", href: "#contact" },
-  { label: "RED / 小红書", href: "#contact" },
-  { label: "Other SNS", href: "#contact" },
-];
-
 export const siteContent: Record<Locale, SiteCopy> = {
   ja: {
-    seo: { title: "[BRAND NAME] — 異文化コミュニケーションスタジオ", description: "日本のローカルビジネスと中国語圏の人々をつなぐ、異文化コミュニケーションスタジオ。" },
-    ui: {
-      language: "言語を選択", menu: "Menu", close: "Close", mainNavigation: "メインナビゲーション", sectionProgress: "セクション進行", scroll: "スクロールして見る ↓",
-      from: "存在から", visualIndex: "VISUAL / 01", consultService: "このサービスについて相談", comingSoon: "準備中",
-      servicesLabel: "提供サービス", resultLabel: "成果", viewCase: "事例を見る", recommended: "おすすめ",
-      startConversation: "相談をはじめる", team: "チーム", founder: "創業者", background: "専門背景",
-      workingPhilosophy: "仕事への姿勢", partners: "パートナー / クライアント", faqMissing: "お探しの質問がありませんか？", faqContact: "直接お問い合わせください →",
-      contactLabel: "12 — Contact", contactTitle: "必要な人へ、\nあなたらしさを届ける。", contactIntro: "基本情報とご相談内容をお知らせください。正式公開前に、メールアドレスとSNSリンクを設定できます。", contact: "お問い合わせ",
-      backToTop: "ページ上部へ ↑", seal: "文", skipToContent: "本文へ移動",
+    seo: {
+      title: "澜顷｜多言語コンテンツ・中国SNS運用支援",
+      description: "日本国内の企業・店舗・ブランドに向けて、多言語コンテンツ、中国語表現、中国SNSのコンテンツ設計・アカウント運用を支援します。"
     },
-    brand: { name: "[BRAND NAME]", eyebrow: "Cross-cultural communication studio — Japan / China", description: "[ブランドの短い紹介文を後ほど追加]" },
+    ui: {
+      language: "言語を選択",
+      menu: "Menu",
+      close: "Close",
+      mainNavigation: "メインナビゲーション",
+      sectionProgress: "セクション進行",
+      scroll: "スクロールして見る ↓",
+      from: "ブランドが",
+      visualIndex: "ブランド運用 / 01",
+      consultService: "運用支援について相談",
+      comingSoon: "サービス活用例・顧客実績ではありません",
+      servicesLabel: "運用支援",
+      resultLabel: "納品内容",
+      viewCase: "この運用場面を相談",
+      recommended: "現在の主な支援",
+      startConversation: "ブランド相談を申し込む",
+      team: "現在の体制",
+      founder: "澜顷が担うこと",
+      background: "企業・店舗に確認いただくこと",
+      workingPhilosophy: "運用方針",
+      partners: "協業の進め方",
+      faqMissing: "ほかに確認したいことはありますか？",
+      faqContact: "メールで直接質問する →",
+      contactLabel: "12 / Contact",
+      contactTitle: "ブランドが、\n一本の良いコンテンツから見つけられるように。",
+      contactIntro: "企業・店舗の概要、現在のSNS、手元の素材、目指したい状態をお聞かせください。まず課題を整理し、必要な運用範囲をご案内します。",
+      contact: "お問い合わせ",
+      backToTop: "ページ上部へ ↑",
+      seal: "澜",
+      skipToContent: "本文へ移動"
+    },
+    brand: {
+      name: "澜顷",
+      eyebrow: "多言語コンテンツ × 中国SNS運用",
+      description: "澜顷は、日本国内の企業・店舗・ブランドの価値を、多言語の自然な表現と中国SNSのコンテンツ設計・アカウント運用で伝える制作・運用プロジェクトです。"
+    },
     navigation: [
-      { label: "Home", href: "#home" }, { label: "理念", href: "#philosophy" }, { label: "サービス", href: "#services" },
-      { label: "プロセス", href: "#process" }, { label: "事例", href: "#cases" }, { label: "料金", href: "#pricing" },
-      { label: "私たち", href: "#about" }, { label: "FAQ", href: "#faq" }, { label: "お問い合わせ", href: "#contact" },
+      {
+        label: "Home",
+        href: "#home"
+      },
+      {
+        label: "理念",
+        href: "#philosophy"
+      },
+      {
+        label: "支援",
+        href: "#services"
+      },
+      {
+        label: "進め方",
+        href: "#process"
+      },
+      {
+        label: "活用例",
+        href: "#cases"
+      },
+      {
+        label: "料金",
+        href: "#pricing"
+      },
+      {
+        label: "体制",
+        href: "#about"
+      },
+      {
+        label: "FAQ",
+        href: "#faq"
+      },
+      {
+        label: "お問い合わせ",
+        href: "#contact"
+      }
     ],
     scenes: [
-      { label: "Home", href: "#home" }, { label: "Philosophy", href: "#philosophy" }, { label: "Problems", href: "#problems" },
-      { label: "Approach", href: "#approach" }, { label: "Services", href: "#services" }, { label: "Experience", href: "#experience" },
-      { label: "Process", href: "#process" }, { label: "Cases", href: "#cases" }, { label: "Pricing", href: "#pricing" },
-      { label: "Vision", href: "#vision" }, { label: "About", href: "#about" }, { label: "FAQ", href: "#faq" }, { label: "Contact", href: "#contact" },
+      {
+        label: "Home",
+        href: "#home"
+      },
+      {
+        label: "Philosophy",
+        href: "#philosophy"
+      },
+      {
+        label: "Problems",
+        href: "#problems"
+      },
+      {
+        label: "Approach",
+        href: "#approach"
+      },
+      {
+        label: "Services",
+        href: "#services"
+      },
+      {
+        label: "Experience",
+        href: "#experience"
+      },
+      {
+        label: "Process",
+        href: "#process"
+      },
+      {
+        label: "Scenarios",
+        href: "#cases"
+      },
+      {
+        label: "Pricing",
+        href: "#pricing"
+      },
+      {
+        label: "Vision",
+        href: "#vision"
+      },
+      {
+        label: "Roles",
+        href: "#about"
+      },
+      {
+        label: "FAQ",
+        href: "#faq"
+      },
+      {
+        label: "Contact",
+        href: "#contact"
+      }
     ],
     sections: {
-      philosophy: { label: "Philosophy", title: "言葉の先に、理解をつくる。", intro: "存在することと、見つけてもらうことは同じではありません。ここにブランドの文化的な視点と仕事の方法を記します。" },
-      problems: { label: "Problems", title: "価値があっても、正しく届いていない。", intro: "日本のローカルビジネスが中国語圏の人々と出会うときに生まれる、情報・言語・体験のギャップを整理します。" },
-      approach: { label: "Approach", title: "検索されることから、体験されることへ。", intro: "コミュニケーションを四つの連続した段階に分け、今後のサービスをわかりやすく構成します。" },
-      services: { label: "Services", title: "理解が生まれる、具体的なかたち。", intro: "各サービスは展開して詳細を確認できます。名称・概要・詳細はすべて多言語設定ファイルで管理します。" },
-      process: { label: "Process", title: "最初の対話から、実際に使われるまで。", intro: "基本の進行を用意しています。今後、各段階の説明と納品物を更新できます。" },
-      cases: { label: "Cases", title: "事例を掲載する場所を用意しました。", intro: "実績は創作せず、現在はプレースホルダーを表示しています。設定ファイルで追加・削除・並べ替えができます。" },
-      pricing: { label: "Pricing", title: "小さく始め、長い関係にもつなげる。", intro: "プラン名・順番・価格・内容は、後からまとめて変更できます。" },
-      about: { label: "About", title: "誠実に、ひらかれたチームであること。", intro: "メンバー、経歴、クライアント実績は創作せず、明確なプレースホルダーで示しています。" },
-      faq: { label: "FAQ", title: "ご相談前によくいただく質問。" },
+      philosophy: {
+        label: "Philosophy",
+        title: "良いアカウントは、一本のバズでは育たない。",
+        intro: "明確な定位、安定した内容、統一された表現、そして来店や相談につながる導線が必要です。"
+      },
+      problems: {
+        label: "Problems",
+        title: "投稿はある。でも、ブランドとして積み上がっていない。",
+        intro: "アカウント全体を見直すことで、ブランドの伝わり方と日々の運用負担が変わります。"
+      },
+      approach: {
+        label: "Approach",
+        title: "ブランド整理から、継続運用まで。",
+        intro: "誰に、何を、どの順番で伝えるかを決めてから、コンテンツと運用を組み立てます。"
+      },
+      services: {
+        label: "Services",
+        title: "企業・店舗アカウントを、企画から運用まで。",
+        intro: "中国SNSのアカウント診断、コンテンツ設計、多言語ローカライズ、投稿運用を組み合わせます。"
+      },
+      process: {
+        label: "Process",
+        title: "戦略を決めてから、安定した制作へ。",
+        intro: "ブランド整理、内容設計、制作、公開、改善を分け、各段階の責任を明確にします。"
+      },
+      cases: {
+        label: "Use Scenarios",
+        title: "三つの運用場面。",
+        intro: "以下はサービス範囲を説明するための架空の場面です。実在の顧客、実績、成果ではありません。"
+      },
+      pricing: {
+        label: "Work & Quotes",
+        title: "まず診断し、その後に運用範囲を決めます。",
+        intro: "プラットフォーム、投稿数、撮影、公開、コメント対応、レポートの範囲で個別見積りを作ります。"
+      },
+      about: {
+        label: "Roles",
+        title: "誰が作り、誰が確認するか。",
+        intro: "ブランド情報、画像権利、公開権限を確認し、企画、制作、運用の責任範囲を決めます。"
+      },
+      faq: {
+        label: "FAQ",
+        title: "運用相談の前に。"
+      }
     },
     hero: {
-      title: "[ブランドの核となるタイトルを入力]", subtitle: "[事業内容と提供価値の説明を入力]", kicker: "Japan × Chinese-speaking audiences",
-      rotatingWords: ["存在する", "見つけられる", "理解される", "体験される"],
-      primaryAction: { label: "サービスを見る", href: "#services" }, secondaryAction: { label: "問い合わせる", href: "#contact" },
-      visualLabel: "[メインビジュアル / 動画 / モーション]", marquee: "BE SEEN · BE UNDERSTOOD · BE EXPERIENCED · 見つけられる · 理解される · 体験される · ",
+      title: "その存在を、\n見つけられるものへ。",
+      subtitle: "多言語での自然な表現を追求し、企業・店舗の中国SNS向けコンテンツ設計とアカウント運用を支援します。",
+      kicker: "日本国内の企業・店舗 × 中国SNS",
+      rotatingWords: [
+        "見つけられる",
+        "理解される",
+        "選ばれる",
+        "記憶される"
+      ],
+      primaryAction: {
+        label: "運用支援を見る",
+        href: "#services"
+      },
+      secondaryAction: {
+        label: "ブランド相談を申し込む",
+        href: "#contact"
+      },
+      visualLabel: "多言語コンテンツ · 中国SNS運用",
+      marquee: "PRESENCE · CONTENT · OPERATION · DISCOVERY · その存在を、見つけられるものへ。 · "
     },
-    philosophy: { body: "[ブランド理念の本文を後ほど追加]", quote: "[ブランドを象徴する言葉を後ほど追加]", visualLabel: "[ブランド理念の画像 / モーション]" },
+    philosophy: {
+      body: "企業や店舗のSNSは、投稿だけでは形になりません。プロフィール、ビジュアル、テーマ、言葉の温度、更新のリズム、来店情報が揃って、はじめてブランドとして伝わります。澜顷は、企業・店舗が持つ事実と魅力を整理し、中国語圏で継続して運用できる内容へ落とし込みます。",
+      quote: "ブランドを別物に変えず、中国語圏でも同じ魅力が伝わるアカウントへ。",
+      visualLabel: "ブランドを整理する · 運用へつなぐ"
+    },
     problems: [
-      { title: "[課題 01]", text: "[中国の消費者が店舗情報を検索できない課題を後ほど追加]" }, { title: "[課題 02]", text: "[中国語コンテンツ不足の説明を後ほど追加]" },
-      { title: "[課題 03]", text: "[機械翻訳では店舗の個性が伝わらない課題を後ほど追加]" }, { title: "[課題 04]", text: "[訪問体験が理解されにくい課題を後ほど追加]" },
-      { title: "[課題 05]", text: "[文化の違いと接客マナーの課題を後ほど追加]" }, { title: "[課題 06]", text: "[認知が来店につながらない課題を後ほど追加]" },
+      {
+        title: "投稿はあるが、定位が曖昧",
+        text: "何を発信するアカウントなのかが伝わらず、フォローする理由が弱くなります。"
+      },
+      {
+        title: "中国語は読めるが、翻訳稿に見える",
+        text: "文法的に正しくても、現地のSNSで自然に読める言葉になっていないことがあります。"
+      },
+      {
+        title: "素材はあるが、更新が続かない",
+        text: "写真や情報が散らばり、毎回ゼロから考えないと投稿できない状態になります。"
+      },
+      {
+        title: "プロフィールに次の行動がない",
+        text: "内容を見た人が、予約、来店、相談へ進むための情報が不足します。"
+      },
+      {
+        title: "店舗情報とSNSがつながっていない",
+        text: "営業時間、場所、メニュー、予約方法が投稿と一致せず、信頼を落とします。"
+      },
+      {
+        title: "運用にリズムがなく、改善できない",
+        text: "誰が、いつ、何を確認するかが決まっておらず、投稿後の振り返りも残りません。"
+      }
     ],
     approach: [
-      { title: "見つけられる", text: "[アプローチの説明を後ほど追加]" }, { title: "理解される", text: "[アプローチの説明を後ほど追加]" },
-      { title: "信頼される", text: "[アプローチの説明を後ほど追加]" }, { title: "体験される", text: "[アプローチの説明を後ほど追加]" },
+      {
+        title: "ブランドを整理する",
+        text: "企業・店舗の事実、強み、顧客、既存素材を確認し、中国語圏で伝える軸を定めます。"
+      },
+      {
+        title: "内容を設計する",
+        text: "プロフィール、投稿テーマ、連載、ビジュアル、言葉づかいを一つの運用設計にまとめます。"
+      },
+      {
+        title: "アカウントを運用する",
+        text: "企画、原稿、制作、公開を合意した範囲で回し、顧客側の確認フローを固定します。"
+      },
+      {
+        title: "行動へつなげる",
+        text: "予約、来店、問い合わせに必要な情報をプロフィール、固定投稿、各コンテンツへ配置します。"
+      }
     ],
     services: [
-      { name: "中国語コピー・翻訳", summary: "将来の対応候補です。提供範囲を検証しています。", detail: "正式な提供内容、納品物、費用は未確定です。現在は受付していません。", status: "計画中", action: "現在受付していません", available: false },
-      { name: "メニュー・Webサイトの中国語化", summary: "将来の対応候補です。提供範囲を検証しています。", detail: "正式な提供内容、納品物、費用は未確定です。現在は受付していません。", status: "計画中", action: "現在受付していません", available: false },
-      { name: "小紅書アカウント開設", summary: "将来の対応候補です。提供範囲を検証しています。", detail: "正式な提供内容、納品物、費用は未確定です。現在は受付していません。", status: "計画中", action: "現在受付していません", available: false },
-      { name: "中国SNSへのコンテンツ移行", summary: "将来の対応候補です。提供範囲を検証しています。", detail: "正式な提供内容、納品物、費用は未確定です。現在は受付していません。", status: "計画中", action: "現在受付していません", available: false },
-      { name: "コンテンツ企画・投稿", summary: "将来の対応候補です。提供範囲を検証しています。", detail: "正式な提供内容、納品物、費用は未確定です。現在は受付していません。", status: "計画中", action: "現在受付していません", available: false },
-      { name: "文化と体験情報の編集", summary: "将来の対応候補です。提供範囲を検証しています。", detail: "正式な提供内容、納品物、費用は未確定です。現在は受付していません。", status: "計画中", action: "現在受付していません", available: false },
-      { name: "中国語での接客・マナー案内", summary: "将来の対応候補です。提供範囲を検証しています。", detail: "正式な提供内容、納品物、費用は未確定です。現在は受付していません。", status: "計画中", action: "現在受付していません", available: false },
-      { name: "継続運用・プロモーション", summary: "将来の対応候補です。提供範囲を検証しています。", detail: "正式な提供内容、納品物、費用は未確定です。現在は受付していません。", status: "計画中", action: "現在受付していません", available: false },
+      {
+        name: "中国SNSアカウント運用",
+        summary: "現在の主な支援。プロフィールから投稿、公開、改善まで。",
+        detail: "ひとつのプラットフォームを対象に、月間テーマ、コンテンツ制作、公開リズム、プロフィール情報、運用レビューを設計します。小紅書を中心に、WeChat、抖音、大衆点評等は各平台の条件と対応範囲を確認します。撮影、広告、インフルエンサー、DM対応は別途見積ります。",
+        status: "現在の主な支援｜範囲確認後に見積り",
+        action: "アカウント運用を相談",
+        available: true
+      },
+      {
+        name: "企業・店舗のコンテンツ設計",
+        summary: "何を、誰に、どの順番で発信するかを決める。",
+        detail: "ブランドの定位、顧客像、投稿テーマ、連載、プロフィール、固定投稿、コンテンツカレンダーを整理します。制作や公開を含めるかは別に確認します。",
+        status: "主要サービス｜範囲確認後に見積り",
+        action: "コンテンツ設計を相談",
+        available: true
+      },
+      {
+        name: "多言語コンテンツ・ローカライズ",
+        summary: "その市場で自然に読める表現へ。",
+        detail: "中国語、日本語、英語などのブランド情報、Web、メニュー、SNS投稿、店舗案内を整理します。事実確認、用語統一、読みやすさの調整を含めます。",
+        status: "主要サービス｜範囲確認後に見積り",
+        action: "多言語化を相談",
+        available: true
+      },
+      {
+        name: "店舗・ブランド情報の設計",
+        summary: "SNS、地図、Web、店頭で同じ情報が伝わるように。",
+        detail: "店名、住所、営業時間、メニュー、予約、支払い、利用条件などを整理し、各接点で一貫した表記にします。専門的判断が必要な事項は確認先を分けます。",
+        status: "主要サービス｜範囲確認後に見積り",
+        action: "情報を整理したい",
+        available: true
+      },
+      {
+        name: "プラットフォーム別素材制作",
+        summary: "既存の写真や動画を、中国SNS向けに作り直す。",
+        detail: "Instagram等の既存素材を確認し、タイトル、本文、画像順、短尺動画の構成、プロフィール素材へ再編集します。新規撮影、権利処理、公開は範囲を分けます。",
+        status: "主要サービス｜範囲確認後に見積り",
+        action: "素材を見直したい",
+        available: true
+      },
+      {
+        name: "コンテンツ改善・運用レビュー",
+        summary: "公開後の内容と運用を、記録から見直す。",
+        detail: "取得できる平台データ、保存・反応、顧客側のフィードバックを整理し、次の投稿テーマやプロフィール改善を提案します。売上や集客結果は保証しません。",
+        status: "条件確認後に実施",
+        action: "運用を改善したい",
+        available: true
+      }
     ],
     experienceGuide: {
-      label: "05 — Experience Guide", title: "ルールも、体験の一部に。", text: "[異文化体験デザインの説明を後ほど追加]", centerLabel: "CULTURAL\nEXPERIENCE",
-      items: ["メニュー翻訳", "予約案内", "支払い方法", "撮影ルール", "店内マナー", "注文方法", "キャンセル規定", "来店の流れ", "旅行者向け体験ガイド", "中国語サイン"],
-      visualLabel: "[体験ガイド例 / 店内での活用写真]",
+      label: "05 / Account Operation",
+      title: "アカウント、コンテンツ、店舗情報を同じ運用線へ。",
+      text: "投稿だけを増やしても、プロフィール、固定投稿、店舗情報、予約導線がばらばらではブランドとして伝わりません。澜顷は、内容と運用を一つの流れとして整えます。",
+      centerLabel: "BRAND\nOPERATION",
+      items: [
+        "アカウント定位",
+        "プロフィール",
+        "ビジュアル",
+        "投稿テーマ",
+        "画像投稿",
+        "短尺動画",
+        "公開リズム",
+        "コメント対応",
+        "店舗情報",
+        "月次レビュー"
+      ],
+      visualLabel: "ブランドから中国SNS運用まで"
     },
     process: [
-      { title: "初回相談", text: "[進行内容を後ほど追加]" }, { title: "店舗・ブランド情報の整理", text: "[進行内容を後ほど追加]" },
-      { title: "コンテンツと体験の分析", text: "[進行内容を後ほど追加]" }, { title: "中国語コンテンツ制作", text: "[進行内容を後ほど追加]" },
-      { title: "アカウント・ページ構築", text: "[進行内容を後ほど追加]" }, { title: "公開と継続調整", text: "[進行内容を後ほど追加]" },
+      {
+        title: "ブランドと現状を確認",
+        text: "企業・店舗の情報、既存SNS、素材、課題、目指したい状態を伺います。"
+      },
+      {
+        title: "診断と運用範囲を決定",
+        text: "平台、投稿数、制作、公開、コメント対応、レポート、除外項目を書面で決めます。"
+      },
+      {
+        title: "内容設計と素材確認",
+        text: "投稿テーマ、プロフィール、ビジュアル、事実確認、画像利用権を整理します。"
+      },
+      {
+        title: "制作と公開",
+        text: "合意した内容を制作し、確認担当者の承認後に公開します。公開権限と責任範囲を明確にします。"
+      },
+      {
+        title: "レビューと改善",
+        text: "取得できるデータと運用上の課題を振り返り、次月の内容と進め方を調整します。"
+      }
     ],
-    cases: caseStudies.ja,
+    cases: [
+      {
+        title: "短い中国語｜事実を足して、判断できる一文へ",
+        client: "架空のサービス活用場面。実在の顧客ではありません",
+        industry: "短いコピー · DEMO",
+        summary: "「季節のブレンド」だけでは、味、価格、持ち帰り可否、最寄り駅が分かりません。事実を確認し、店の雰囲気を残したまま来店前に使える中国語へ組み直す想定です。",
+        services: "原稿確認／不足情報の整理／中国語コピー",
+        result: "想定納品：原文との対照、確認質問、日本語に戻して確認できる中国語稿",
+        image: "短文の再編集 / DEMO 01"
+      },
+      {
+        title: "文化体験｜背景と参加方法を一緒に書く",
+        client: "架空のサービス活用場面。実在の顧客ではありません",
+        industry: "工芸・文化体験 · DEMO",
+        summary: "確認できる背景、体験の流れ、所要時間、持ち物、注意事項を、参加を判断できる一つの案内に組み直します。",
+        services: "文化背景の整理／中国語コピー／体験ガイド",
+        result: "想定納品：体験紹介、用語表、予約前と当日の案内",
+        image: "背景と参加 / DEMO 02"
+      },
+      {
+        title: "小売店｜Instagram素材を中国語向けに再編集",
+        client: "架空のサービス活用場面。実在の顧客ではありません",
+        industry: "小売・ライフスタイル · DEMO",
+        summary: "権利を確認できる写真と事実を選び、中国語のタイトル、本文、画像順、必要な補足情報へ組み直します。",
+        services: "素材確認／中国語再編集／投稿前の情報整理",
+        result: "想定納品：素材一覧、タイトル案、中国語本文、不足情報リスト",
+        image: "素材再編集 / DEMO 03"
+      }
+    ],
     pricing: [
-      { name: "Basic｜小規模診断（検証中）", audience: "来店前案内の課題を小さく整理したい事業者向け", price: "料金策定中", features: ["提供範囲・所要時間・費用を現在検証しています。"], action: "現在受付していません", featured: false },
-      { name: "Standard｜来店情報ローカライズ", audience: "予約・支払い・撮影・注文方法などを中国語で整理したい事業者向け", price: "対応範囲を検証中", features: ["正式な提供範囲、原稿量、確認体制と料金は未確定です。"], action: "現在受付していません", featured: false },
-      { name: "Complete｜中国プラットフォーム支援", audience: "アカウント・素材・継続制作を含む支援を検討する事業者向け", price: "対応範囲を検証中", features: ["プラットフォーム条件、実行体制、納品物と料金は未確定です。"], action: "現在受付していません", featured: false },
+      {
+        name: "アカウント診断",
+        audience: "現在のSNS、プロフィール、素材、店舗情報を整理したい企業・店舗",
+        price: "固定範囲で個別見積り",
+        features: [
+          "現状のアカウントを確認",
+          "ブランド情報と素材の不足を整理",
+          "優先課題と運用案を提示"
+        ],
+        action: "診断を相談",
+        featured: false
+      },
+      {
+        name: "単月コンテンツ",
+        audience: "まず一か月分の企画、原稿、素材制作を試したい企業・店舗",
+        price: "固定範囲で個別見積り",
+        features: [
+          "月間テーマと投稿設計",
+          "合意本数のコンテンツ制作",
+          "プロフィール・固定投稿の整理",
+          "公開後の簡易レビュー"
+        ],
+        action: "単月で相談",
+        featured: false
+      },
+      {
+        name: "月次アカウント運用",
+        audience: "継続して中国SNSを運用したい企業・店舗",
+        price: "固定範囲で個別見積り",
+        features: [
+          "月間の企画・制作・公開",
+          "プロフィールと店舗情報の維持",
+          "公開記録と月次レビュー",
+          "追加作業は事前確認"
+        ],
+        action: "運用を相談",
+        featured: false
+      }
     ],
-    vision: { label: "09 — Vision", title: "異文化のあいだで、\n到着の先へ。", text: "[目指す未来とブランドビジョンを後ほど追加]" },
-    about: { team: "[チーム紹介を後ほど追加]", founder: "[創業者紹介を後ほど追加]", background: "[専門背景を後ほど追加]", philosophy: "[仕事への姿勢を後ほど追加]", teamImage: "[チーム写真]", partnerLogos: ["[パートナーロゴ]", "[パートナーロゴ]", "[パートナーロゴ]", "[パートナーロゴ]"] },
-    faqs: ["メニュー翻訳だけでも依頼できますか？", "小紅書アカウントがなくても相談できますか？", "アカウント作成をサポートできますか？", "単発のプロジェクトも可能ですか？", "継続運用にも対応していますか？", "店内の中国語案内も制作できますか？", "福岡以外の店舗も相談できますか？", "開始前に何を準備すればよいですか？"].map((question) => ({ question, answer: "[回答を後ほど追加]" })),
-    contact: {
-      email: "[CONTACT EMAIL]", note: "現在はフォーム画面のみです。公開運用前にメールまたはフォームサービスを設定してください。",
-      services: ["中国語コピー・翻訳", "メニュー・Webサイトの中国語化", "小紅書アカウント開設", "中国SNSへの移行", "コンテンツ企画・投稿", "体験・接客情報デザイン", "継続運用・プロモーション", "その他"], socials: socialLinks,
-      form: { name: "お名前 *", namePlaceholder: "Your name", company: "会社・店舗名", companyPlaceholder: "Company / shop", email: "メールアドレス *", website: "Webサイト・SNS", service: "ご相談内容", choose: "選択してください", message: "メッセージ *", messagePlaceholder: "店舗やブランド、ご相談内容、希望時期を簡単にお知らせください。", submit: "問い合わせを送る", notice: "フォームの構造は完成しています。実際の送信はメールまたはフォームサービス設定後に有効になります。" },
+    vision: {
+      label: "09 / Vision",
+      title: "見つけられるべきブランドに、\n自分の言葉とリズムを。",
+      text: "企業や店舗が大切にしてきた価値が、中国語圏でも正しく伝わる。そのために必要な内容、運用、店舗情報を、澜顷は一つずつ整えていきます。"
     },
-    footer: { description: "[ブランドの短い紹介文を後ほど追加]", motifWords: ["LANGUAGE", "CULTURE", "EXPERIENCE", "CONNECTION"], privacyLabel: "Privacy Policy", copyright: `© ${new Date().getFullYear()} [BRAND NAME]. All rights reserved.` },
+    about: {
+      team: "澜顷は福岡を拠点とする個人プロジェクトです。多言語コンテンツと中国SNS運用を、単発診断または月次支援として提供します。",
+      founder: "澜顷がブランド整理、コンテンツ企画、多言語表現、アカウント運用を担当します。対象平台と公開権限は案件ごとに確認します。",
+      background: "企業・店舗には、商品、価格、店舗、予約、素材権利、アカウント権限を確認していただきます。",
+      philosophy: "広告、インフルエンサー、DM対応、成果保証は別条件です。内容と運用の範囲を先に決め、記録を残します。",
+      teamImage: "ブランド整理から運用までの責任",
+      partnerLogos: [
+        "ブランド情報を共同確認",
+        "内容設計を公開前に決定",
+        "アカウント権限を明確化",
+        "月次レビューで調整"
+      ]
+    },
+    faqs: [
+      {
+        question: "具体的には何を支援していますか？",
+        answer: "中国SNSのアカウント診断、コンテンツ設計、多言語ローカライズ、投稿制作、運用レビューです。企業・店舗ごとに必要な範囲を組み合わせます。"
+      },
+      {
+        question: "小紅書のアカウント運用も相談できますか？",
+        answer: "相談できます。対象平台、投稿数、素材、公開権限、コメント対応、撮影の有無を確認し、実施できる範囲を先に決めます。"
+      },
+      {
+        question: "翻訳や文案だけでも依頼できますか？",
+        answer: "できます。多言語ローカライズや単発コンテンツとして請けます。アカウント運用は別の範囲です。"
+      },
+      {
+        question: "投稿の公開やコメント返信も含まれますか？",
+        answer: "案件ごとに決めます。公開権限、確認体制、対応時間、緊急時の扱いを確認したうえで、範囲に含めるか判断します。"
+      },
+      {
+        question: "料金はどのように決まりますか？",
+        answer: "対象平台、投稿数、撮影、制作、公開、コメント対応、レポートの範囲で個別見積りになります。"
+      },
+      {
+        question: "複数言語に対応できますか？",
+        answer: "中国語、日本語、英語を中心に、用途と必要な言語品質を確認して範囲を決めます。"
+      },
+      {
+        question: "アカウントがなくても相談できますか？",
+        answer: "できます。まず平台とアカウントの必要性を整理し、開設条件や運用開始までの手順をご案内します。"
+      },
+      {
+        question: "フォロワーや来店数を保証できますか？",
+        answer: "できません。平台環境や店舗運営に左右されます。澜顷は、ブランド情報の整理、内容設計、制作、運用と改善の範囲を担います。"
+      }
+    ],
+    contact: {
+      email: "wanslan1130@gmail.com",
+      note: "送信ボタンを押すと、入力内容がお使いのメールアプリへ引き継がれます。このサイト上には保存されません。",
+      services: [
+        "中国SNSアカウント運用",
+        "企業・店舗のコンテンツ設計",
+        "多言語コンテンツ・ローカライズ",
+        "店舗・ブランド情報の設計",
+        "プラットフォーム別素材制作",
+        "コンテンツ改善・運用レビュー",
+        "その他"
+      ],
+      socials: [],
+      form: {
+        name: "お名前 *",
+        namePlaceholder: "山田 花子",
+        company: "会社・店舗名",
+        companyPlaceholder: "店舗名をご入力ください",
+        email: "メールアドレス *",
+        website: "Webサイト・SNS",
+        service: "ご相談内容",
+        choose: "選択してください",
+        message: "メッセージ *",
+        messagePlaceholder: "企業・店舗の概要、現在のSNS、手元の素材、困っていること、希望する運用範囲をご記入ください。",
+        submit: "メールで相談を送る",
+        notice: "メールアプリを開きました。起動しない場合は、表示されているメールアドレスへ直接お送りください。"
+      }
+    },
+    footer: {
+      description: "日本国内の企業・店舗・ブランドが、多言語の自然な表現と中国SNS運用を通じて見つけられ、理解され、選ばれる状態をつくります。",
+      motifWords: [
+        "PRESENCE",
+        "CONTENT",
+        "OPERATION",
+        "EXPERIENCE"
+      ],
+      privacyLabel: "プライバシー",
+      privacyBody: "お問い合わせフォームは、入力内容をお使いのメールアプリへ引き継ぎます。このWebサイト自体には保存しません。受信した氏名、メールアドレス、会社・店舗名、相談内容は、返信と相談対応にのみ使用します。法令上必要な場合を除き、同意なく第三者へ提供しません。開示、訂正、削除のご相談は掲載メールアドレスまでご連絡ください。",
+      copyright: "© 2026 澜顷. All rights reserved."
+    }
   },
-
   en: {
-    seo: { title: "[BRAND NAME] — Cross-cultural Communication Studio", description: "A cross-cultural communication studio connecting local businesses in Japan with Chinese-speaking audiences." },
-    ui: {
-      language: "Choose language", menu: "Menu", close: "Close", mainNavigation: "Main navigation", sectionProgress: "Section progress", scroll: "Scroll to explore ↓",
-      from: "From", visualIndex: "VISUAL / 01", consultService: "Ask about this service", comingSoon: "Coming soon",
-      servicesLabel: "Services", resultLabel: "Result", viewCase: "View case", recommended: "Recommended",
-      startConversation: "Start a conversation", team: "Team", founder: "Founder", background: "Background",
-      workingPhilosophy: "Working philosophy", partners: "Partners / Clients", faqMissing: "Can’t find your question?", faqContact: "Contact us directly →",
-      contactLabel: "12 — Contact", contactTitle: "Help the right people\nsee the real you.", contactIntro: "Share a few details about your business and what you would like to explore. Your email and social links can be configured before launch.", contact: "Contact",
-      backToTop: "Back to top ↑", seal: "文", skipToContent: "Skip to content",
+    seo: {
+      title: "澜顷 | Multilingual Content & China Social Media Operations",
+      description: "We help Japan-based businesses and shops express themselves naturally across languages, with content planning and account operations for Chinese social media."
     },
-    brand: { name: "[BRAND NAME]", eyebrow: "Cross-cultural communication studio — Japan / China", description: "[A short brand description will be added later]" },
+    ui: {
+      language: "Choose language",
+      menu: "Menu",
+      close: "Close",
+      mainNavigation: "Main navigation",
+      sectionProgress: "Section progress",
+      scroll: "Scroll to explore ↓",
+      from: "Help your brand",
+      visualIndex: "BRAND OPERATIONS / 01",
+      consultService: "Discuss operations",
+      comingSoon: "Illustrative service scenario, not a client case",
+      servicesLabel: "Operations support",
+      resultLabel: "Deliverables",
+      viewCase: "Discuss this operating scenario",
+      recommended: "Current focus",
+      startConversation: "Book a brand consultation",
+      team: "Current setup",
+      founder: "What 澜顷 handles",
+      background: "What the business confirms",
+      workingPhilosophy: "Operating principles",
+      partners: "How we work",
+      faqMissing: "Have another question?",
+      faqContact: "Ask by email →",
+      contactLabel: "12 / Contact",
+      contactTitle: "Help your brand get discovered,\nstarting with stronger content.",
+      contactIntro: "Tell us about the business, current social channels, available assets and the outcome you want. We will first identify the gap, then define a workable operating scope.",
+      contact: "Contact",
+      backToTop: "Back to top ↑",
+      seal: "澜",
+      skipToContent: "Skip to content"
+    },
+    brand: {
+      name: "澜顷",
+      eyebrow: "Multilingual content × China social media operations",
+      description: "澜顷 helps Japan-based businesses and shops communicate their value through natural multilingual content, Chinese social media planning and account operations."
+    },
     navigation: [
-      { label: "Home", href: "#home" }, { label: "Philosophy", href: "#philosophy" }, { label: "Services", href: "#services" },
-      { label: "Process", href: "#process" }, { label: "Cases", href: "#cases" }, { label: "Pricing", href: "#pricing" },
-      { label: "About", href: "#about" }, { label: "FAQ", href: "#faq" }, { label: "Contact", href: "#contact" },
+      {
+        label: "Home",
+        href: "#home"
+      },
+      {
+        label: "Approach",
+        href: "#philosophy"
+      },
+      {
+        label: "Support",
+        href: "#services"
+      },
+      {
+        label: "Process",
+        href: "#process"
+      },
+      {
+        label: "Scenarios",
+        href: "#cases"
+      },
+      {
+        label: "Quotes",
+        href: "#pricing"
+      },
+      {
+        label: "Roles",
+        href: "#about"
+      },
+      {
+        label: "FAQ",
+        href: "#faq"
+      },
+      {
+        label: "Contact",
+        href: "#contact"
+      }
     ],
     scenes: [
-      { label: "Home", href: "#home" }, { label: "Philosophy", href: "#philosophy" }, { label: "Problems", href: "#problems" },
-      { label: "Approach", href: "#approach" }, { label: "Services", href: "#services" }, { label: "Experience", href: "#experience" },
-      { label: "Process", href: "#process" }, { label: "Cases", href: "#cases" }, { label: "Pricing", href: "#pricing" },
-      { label: "Vision", href: "#vision" }, { label: "About", href: "#about" }, { label: "FAQ", href: "#faq" }, { label: "Contact", href: "#contact" },
+      {
+        label: "Home",
+        href: "#home"
+      },
+      {
+        label: "Approach",
+        href: "#philosophy"
+      },
+      {
+        label: "Problems",
+        href: "#problems"
+      },
+      {
+        label: "Method",
+        href: "#approach"
+      },
+      {
+        label: "Support",
+        href: "#services"
+      },
+      {
+        label: "Visitor info",
+        href: "#experience"
+      },
+      {
+        label: "Process",
+        href: "#process"
+      },
+      {
+        label: "Scenarios",
+        href: "#cases"
+      },
+      {
+        label: "Quotes",
+        href: "#pricing"
+      },
+      {
+        label: "Vision",
+        href: "#vision"
+      },
+      {
+        label: "Roles",
+        href: "#about"
+      },
+      {
+        label: "FAQ",
+        href: "#faq"
+      },
+      {
+        label: "Contact",
+        href: "#contact"
+      }
     ],
     sections: {
-      philosophy: { label: "Philosophy", title: "Building understanding beyond language.", intro: "Existing is not the same as being seen. This space will hold the brand’s cultural point of view and way of working." },
-      problems: { label: "Problems", title: "Valuable, but not yet seen clearly.", intro: "This section maps the information, language, and experience gaps local Japanese businesses may face when reaching Chinese-speaking audiences." },
-      approach: { label: "Approach", title: "From searchable to truly experienceable.", intro: "Communication is organised into four connected stages, creating a clear framework for future services." },
-      services: { label: "Services", title: "Practical ways to create understanding.", intro: "Each service can be expanded for detail. Names, summaries, and descriptions are all managed in the multilingual content file." },
-      process: { label: "Process", title: "From the first conversation to real-world use.", intro: "The core workflow is ready. Details and deliverables can be refined as the service develops." },
-      cases: { label: "Cases", title: "A clear home for future case studies.", intro: "No results are invented. Placeholder projects can be added, removed, or reordered in the content configuration." },
-      pricing: { label: "Pricing", title: "Start focused. Leave room to grow.", intro: "Plan names, order, pricing, and inclusions can all be updated in one place." },
-      about: { label: "About", title: "Open in approach, honest in presentation.", intro: "Team members, experience, and client history are not invented; every missing item is clearly marked." },
-      faq: { label: "FAQ", title: "Questions you may have before we begin." },
+      philosophy: {
+        label: "Philosophy",
+        title: "A strong account is more than one successful post.",
+        intro: "It needs a clear position, consistent content, a recognizable voice and a path from discovery to booking, visiting or enquiry."
+      },
+      problems: {
+        label: "Problems",
+        title: "Content is being posted, but the brand is not building.",
+        intro: "The account has to work as a whole, not as a collection of disconnected posts."
+      },
+      approach: {
+        label: "Approach",
+        title: "From brand clarity to continuous operations.",
+        intro: "We define who the content is for, what it should say and in what order before building the account."
+      },
+      services: {
+        label: "Services",
+        title: "Social media operations for brands and shops.",
+        intro: "Account diagnosis, content strategy, multilingual localization, asset production and publishing support."
+      },
+      process: {
+        label: "Process",
+        title: "Strategy first. Then a repeatable production rhythm.",
+        intro: "Brand review, content design, production, publishing and improvement are separated with clear responsibilities."
+      },
+      cases: {
+        label: "Use Scenarios",
+        title: "Three operating scenarios.",
+        intro: "These are fictional service scenarios for explaining scope. They are not real clients, results or testimonials."
+      },
+      pricing: {
+        label: "Work & Quotes",
+        title: "Start with a diagnosis, then define the operating scope.",
+        intro: "Platform, publishing volume, photography, community management and reporting determine the quote."
+      },
+      about: {
+        label: "Roles",
+        title: "Who creates the content, and who approves it.",
+        intro: "Brand facts, media rights and account permissions are confirmed before we define production and operating responsibilities."
+      },
+      faq: {
+        label: "FAQ",
+        title: "Before we discuss operations."
+      }
     },
     hero: {
-      title: "[Add the brand’s core headline here]", subtitle: "[Add a clear description of the business and its value here]", kicker: "Japan × Chinese-speaking audiences",
-      rotatingWords: ["Existing", "Being found", "Being understood", "Being experienced"],
-      primaryAction: { label: "View services", href: "#services" }, secondaryAction: { label: "Contact us", href: "#contact" },
-      visualLabel: "[Hero image / video / motion visual]", marquee: "BE SEEN · BE UNDERSTOOD · BE EXPERIENCED · CONNECT CULTURES · CREATE CONTEXT · ",
+      title: "Let your presence\nbe discovered.",
+      subtitle: "We help businesses and shops express themselves naturally across languages, with content planning and account operations for Chinese social media.",
+      kicker: "Japan-based businesses and shops × Chinese social media",
+      rotatingWords: [
+        "be found",
+        "be understood",
+        "be chosen",
+        "be remembered"
+      ],
+      primaryAction: {
+        label: "Explore operations",
+        href: "#services"
+      },
+      secondaryAction: {
+        label: "Book a consultation",
+        href: "#contact"
+      },
+      visualLabel: "Multilingual content · China social media operations",
+      marquee: "PRESENCE · CONTENT · OPERATION · DISCOVERY · HELP YOUR BRAND BE FOUND · "
     },
-    philosophy: { body: "[Brand philosophy copy will be added later]", quote: "[A key brand statement will be added later]", visualLabel: "[Philosophy image / motion visual]" },
+    philosophy: {
+      body: "A social account does not become a brand through individual posts alone. The profile, visuals, themes, tone, publishing rhythm and shop information all shape how people judge the business. 澜顷 organizes the facts and strengths a business already has, then turns them into a repeatable content and account operation for Chinese-speaking audiences.",
+      quote: "Keep the brand itself. Build an account that carries the same value into a new language.",
+      visualLabel: "ORGANIZE THE BRAND · BUILD THE OPERATION"
+    },
     problems: [
-      { title: "[Problem 01]", text: "[Explain why the business is difficult to find on Chinese platforms]" }, { title: "[Problem 02]", text: "[Explain the lack of Chinese-language content]" },
-      { title: "[Problem 03]", text: "[Explain why machine translation cannot express the brand clearly]" }, { title: "[Problem 04]", text: "[Explain gaps in understanding the in-store experience]" },
-      { title: "[Problem 05]", text: "[Explain cross-cultural communication and etiquette concerns]" }, { title: "[Problem 06]", text: "[Explain why visibility does not always lead to a visit]" },
+      {
+        title: "Posts exist, but the positioning is unclear",
+        text: "People cannot tell what the account stands for or why they should follow it."
+      },
+      {
+        title: "The Chinese is correct, but reads like translation",
+        text: "Grammar can be right while the wording still feels unlike the way people speak on the platform."
+      },
+      {
+        title: "Assets exist, but publishing cannot continue",
+        text: "Photos and information are scattered, so every post starts from zero."
+      },
+      {
+        title: "The profile has no next step",
+        text: "Visitors can view the content but are not shown how to book, visit or enquire."
+      },
+      {
+        title: "Social content and shop information do not match",
+        text: "Hours, location, menus and booking details differ across touchpoints and weaken trust."
+      },
+      {
+        title: "Operations have no rhythm or review",
+        text: "No one has defined what gets checked, by whom, or how each month's content will improve."
+      }
     ],
     approach: [
-      { title: "Be found", text: "[Approach details will be added later]" }, { title: "Be understood", text: "[Approach details will be added later]" },
-      { title: "Build trust", text: "[Approach details will be added later]" }, { title: "Be experienced", text: "[Approach details will be added later]" },
+      {
+        title: "Clarify the brand",
+        text: "Review the business facts, strengths, audience and existing assets, then define what should carry into Chinese-language markets."
+      },
+      {
+        title: "Design the content",
+        text: "Build the profile, content pillars, series, visual direction and voice into one operating plan."
+      },
+      {
+        title: "Operate the account",
+        text: "Plan, write, produce and publish within the agreed scope, with a fixed approval flow."
+      },
+      {
+        title: "Create a next step",
+        text: "Place booking, visit and enquiry information in the profile, pinned content and relevant posts."
+      }
     ],
     services: [
-      { name: "Chinese copywriting & translation", summary: "A planned direction. The delivery scope is still being validated.", detail: "The formal scope, deliverables and price are not yet defined. This service is not currently available.", status: "Planned", action: "Not currently available", available: false },
-      { name: "Chinese menus & websites", summary: "A planned direction. The delivery scope is still being validated.", detail: "The formal scope, deliverables and price are not yet defined. This service is not currently available.", status: "Planned", action: "Not currently available", available: false },
-      { name: "RED / Xiaohongshu account setup", summary: "A planned direction. The delivery scope is still being validated.", detail: "The formal scope, deliverables and price are not yet defined. This service is not currently available.", status: "Planned", action: "Not currently available", available: false },
-      { name: "Content migration to Chinese social media", summary: "A planned direction. The delivery scope is still being validated.", detail: "The formal scope, deliverables and price are not yet defined. This service is not currently available.", status: "Planned", action: "Not currently available", available: false },
-      { name: "Content planning & publishing", summary: "A planned direction. The delivery scope is still being validated.", detail: "The formal scope, deliverables and price are not yet defined. This service is not currently available.", status: "Planned", action: "Not currently available", available: false },
-      { name: "Cultural & experience content design", summary: "A planned direction. The delivery scope is still being validated.", detail: "The formal scope, deliverables and price are not yet defined. This service is not currently available.", status: "Planned", action: "Not currently available", available: false },
-      { name: "Chinese visitor information & etiquette", summary: "A planned direction. The delivery scope is still being validated.", detail: "The formal scope, deliverables and price are not yet defined. This service is not currently available.", status: "Planned", action: "Not currently available", available: false },
-      { name: "Ongoing operations & promotion", summary: "A planned direction. The delivery scope is still being validated.", detail: "The formal scope, deliverables and price are not yet defined. This service is not currently available.", status: "Planned", action: "Not currently available", available: false },
+      {
+        name: "China social media account operations",
+        summary: "Our current focus. From profile and content to publishing and review.",
+        detail: "For one platform, we design monthly themes, production, publishing rhythm, profile information and an operating review. Xiaohongshu is the starting point; WeChat, Douyin and Dianping require a separate platform review. Photography, ads, creators and community management are quoted separately.",
+        status: "Current focus | Quote after review",
+        action: "Discuss account operations",
+        available: true
+      },
+      {
+        name: "Content strategy for brands and shops",
+        summary: "Decide what to say, to whom and in what order.",
+        detail: "We define the brand position, audience, content pillars, editorial series, profile, pinned content and calendar. Production and publishing are scoped separately.",
+        status: "Core service | Quote after review",
+        action: "Discuss content strategy",
+        available: true
+      },
+      {
+        name: "Multilingual content and localization",
+        summary: "Natural market language, not translation-style copy.",
+        detail: "We adapt brand information, websites, menus, social posts and visitor guidance across Chinese, Japanese and English. The scope includes fact checks, terminology and readability.",
+        status: "Core service | Quote after review",
+        action: "Discuss localization",
+        available: true
+      },
+      {
+        name: "Brand and store information design",
+        summary: "Keep the same facts consistent across social, maps, web and storefront.",
+        detail: "We align names, addresses, hours, menus, booking, payment and visitor conditions across customer touchpoints. Regulated or specialist claims remain with the appropriate professional.",
+        status: "Core service | Quote after review",
+        action: "Review the information",
+        available: true
+      },
+      {
+        name: "Cross-platform asset production",
+        summary: "Rebuild existing photos and video for Chinese social media.",
+        detail: "We review assets from Instagram and other channels, then reshape titles, captions, image order, short-video structure and profile visuals. New photography, rights and publishing are separate.",
+        status: "Core service | Quote after review",
+        action: "Review current assets",
+        available: true
+      },
+      {
+        name: "Content review and account optimization",
+        summary: "Use available records to improve the next round.",
+        detail: "We review accessible platform data, saves and responses, plus client feedback, then recommend content and profile changes. We do not guarantee audience, visit or sales outcomes.",
+        status: "Subject to account access",
+        action: "Improve the account",
+        available: true
+      }
     ],
     experienceGuide: {
-      label: "05 — Experience Guide", title: "Make the rules part of the experience.", text: "[Cross-cultural experience design copy will be added later]", centerLabel: "CULTURAL\nEXPERIENCE",
-      items: ["Menu translation", "Reservations", "Payment", "Photo & video", "In-store etiquette", "How to order", "Cancellation policy", "Visit flow", "Visitor experience guide", "Chinese signage"],
-      visualLabel: "[Experience guide example / in-store image]",
+      label: "05 / Account Operation",
+      title: "Put the account, content and shop information on one operating line.",
+      text: "Publishing more posts will not create a brand when the profile, pinned content, shop information and booking path remain disconnected. 澜顷 organizes content and operations as one system.",
+      centerLabel: "BRAND\nOPERATION",
+      items: [
+        "Positioning",
+        "Profile",
+        "Visual system",
+        "Content pillars",
+        "Image posts",
+        "Short video",
+        "Publishing rhythm",
+        "Community",
+        "Shop information",
+        "Monthly review"
+      ],
+      visualLabel: "From brand clarity to China social media operations"
     },
     process: [
-      { title: "Initial consultation", text: "[Process details will be added later]" }, { title: "Business & brand information", text: "[Process details will be added later]" },
-      { title: "Content & experience review", text: "[Process details will be added later]" }, { title: "Chinese content production", text: "[Process details will be added later]" },
-      { title: "Account or page setup", text: "[Process details will be added later]" }, { title: "Launch & refinement", text: "[Process details will be added later]" },
+      {
+        title: "Review the brand and current channels",
+        text: "We review the business, existing social accounts, assets, problems and desired state."
+      },
+      {
+        title: "Diagnose and define the operating scope",
+        text: "Platform, content volume, production, publishing, community management, reporting and exclusions are agreed in writing."
+      },
+      {
+        title: "Design content and confirm assets",
+        text: "We define themes, profile, visuals, facts and media permissions before production."
+      },
+      {
+        title: "Produce and publish",
+        text: "Content is produced within scope and published after the designated approver signs off. Access and responsibility are documented."
+      },
+      {
+        title: "Review and improve",
+        text: "Available data and operating issues are reviewed together, then the next content and working rhythm are adjusted."
+      }
     ],
-    cases: caseStudies.en,
+    cases: [
+      {
+        title: "A short sentence｜Add the facts that support a decision",
+        client: "Fictional service scenario, not a real client",
+        industry: "SHORT COPY · DEMO",
+        summary: "A phrase such as seasonal blend does not explain flavour, price, takeaway or the nearest station. This example shows how confirmed facts can be added without losing the shop's tone.",
+        services: "Source review / missing-information list / Chinese copy",
+        result: "Example deliverables: bilingual comparison, confirmation questions and back-checkable Chinese copy",
+        image: "SHORT COPY REBUILD / DEMO 01"
+      },
+      {
+        title: "Cultural experience｜Explain both context and participation",
+        client: "Fictional service scenario, not a real client",
+        industry: "CRAFT & CULTURE · DEMO",
+        summary: "A possible project that turns confirmed context, the experience flow, duration, what to bring and key cautions into one guide people can use to decide whether to take part.",
+        services: "Cultural context / Chinese copy / experience guide",
+        result: "Example deliverables: experience introduction, terminology, pre-booking and on-site guidance",
+        image: "CONTEXT AND PARTICIPATION / DEMO 02"
+      },
+      {
+        title: "Retail｜Adapt Instagram content for Chinese readers",
+        client: "Fictional service scenario, not a real client",
+        industry: "RETAIL & LIFESTYLE · DEMO",
+        summary: "A possible project that selects rights-cleared photos and confirmed facts, then rebuilds the title, body copy, image order and essential context for a Chinese-speaking audience.",
+        services: "Asset review / Chinese adaptation / pre-publishing information",
+        result: "Example deliverables: asset list, title options, Chinese copy and a missing-information list",
+        image: "ASSET ADAPTATION / DEMO 03"
+      }
+    ],
     pricing: [
-      { name: "Basic | Small-scope diagnosis (validation)", audience: "For businesses that want to define one visitor-information problem before commissioning production", price: "Pricing in validation", features: ["Scope, delivery time and cost are being tested before intake opens."], action: "Not currently accepting projects", featured: false },
-      { name: "Standard | Visitor-information localization", audience: "For businesses organizing confirmed booking, payment, photography or ordering information in Chinese", price: "Scope in validation", features: ["The formal scope, source volume, review process and price are not yet defined."], action: "Not currently accepting projects", featured: false },
-      { name: "Complete | China-platform support", audience: "For businesses considering account, asset and ongoing content support", price: "Scope in validation", features: ["Platform conditions, delivery capacity, deliverables and price are not yet defined."], action: "Not currently accepting projects", featured: false },
+      {
+        name: "Account diagnosis",
+        audience: "For a business that needs to review its current social account, assets and shop information",
+        price: "Individual quote after fixed-scope review",
+        features: [
+          "Review the current account",
+          "Map brand and asset gaps",
+          "Set priorities and an operating direction"
+        ],
+        action: "Discuss a diagnosis",
+        featured: false
+      },
+      {
+        name: "One-month content",
+        audience: "For a business that wants to test one month of planning, writing and production",
+        price: "Individual quote after fixed-scope review",
+        features: [
+          "Monthly content plan",
+          "Agreed production volume",
+          "Profile and pinned-content review",
+          "A short post-publishing review"
+        ],
+        action: "Discuss one month",
+        featured: false
+      },
+      {
+        name: "Monthly account operations",
+        audience: "For a business that wants a continuous Chinese social media operation",
+        price: "Individual quote after fixed-scope review",
+        features: [
+          "Monthly planning, production and publishing",
+          "Profile and shop-information upkeep",
+          "Publishing records and monthly review",
+          "Additional work confirmed in advance"
+        ],
+        action: "Discuss monthly operations",
+        featured: false
+      }
     ],
-    vision: { label: "09 — Vision", title: "Between cultures,\nbeyond arrival.", text: "[The future state and brand vision will be added later]" },
-    about: { team: "[Team introduction will be added later]", founder: "[Founder introduction will be added later]", background: "[Professional background will be added later]", philosophy: "[Working philosophy will be added later]", teamImage: "[Team photo]", partnerLogos: ["[Partner logo]", "[Partner logo]", "[Partner logo]", "[Partner logo]"] },
-    faqs: ["Can I request menu translation only?", "Can we work together without a RED account?", "Can you help create an account?", "Do you accept one-off projects?", "Do you offer ongoing operations?", "Can you create in-store Chinese signage?", "Can businesses outside Fukuoka work with you?", "What should we prepare before starting?"].map((question) => ({ question, answer: "[Answer will be added later]" })),
-    contact: {
-      email: "[CONTACT EMAIL]", note: "The form interface is ready. Connect an email or form service before using it for real enquiries.",
-      services: ["Chinese copywriting & translation", "Chinese menus & websites", "RED account setup", "Chinese social content migration", "Content planning & publishing", "Experience information design", "Ongoing operations & promotion", "Other"], socials: socialLinks,
-      form: { name: "Name *", namePlaceholder: "Your name", company: "Company or shop", companyPlaceholder: "Company / shop", email: "Email *", website: "Website or social link", service: "Service of interest", choose: "Please select", message: "Message *", messagePlaceholder: "Tell us briefly about your business, what you need, and your preferred timing.", submit: "Submit enquiry", notice: "The form structure is complete. Sending will be enabled after an email or form service is connected." },
+    vision: {
+      label: "09 / Vision",
+      title: "For every brand worth finding,\na voice and rhythm of its own.",
+      text: "The value a business has built should carry clearly into Chinese-language markets. 澜顷 organizes the content, operations and shop information needed for that to happen."
     },
-    footer: { description: "[A short brand description will be added later]", motifWords: ["LANGUAGE", "CULTURE", "EXPERIENCE", "CONNECTION"], privacyLabel: "Privacy Policy", copyright: `© ${new Date().getFullYear()} [BRAND NAME]. All rights reserved.` },
+    about: {
+      team: "澜顷 is currently an independent project based in Fukuoka, providing multilingual content and China social media operations through one-off diagnosis or monthly support.",
+      founder: "澜顷 handles brand review, content strategy, multilingual expression and account operations. Platform access and publishing authority are confirmed per project.",
+      background: "The business confirms products, prices, store information, booking details, media rights and account permissions.",
+      philosophy: "Ads, creators, direct-message handling and performance guarantees require separate terms. The content and operating scope are agreed and recorded first.",
+      teamImage: "RESPONSIBILITY FROM BRAND REVIEW TO OPERATIONS",
+      partnerLogos: [
+        "Brand facts confirmed together",
+        "Content strategy approved before publishing",
+        "Account access made explicit",
+        "Monthly review guides the next round"
+      ]
+    },
+    faqs: [
+      {
+        question: "What exactly do you support?",
+        answer: "China social media account diagnosis, content strategy, multilingual localization, production and operating reviews. We combine the parts each business needs."
+      },
+      {
+        question: "Can you operate a Xiaohongshu account?",
+        answer: "Yes, subject to a platform review. We confirm the channel, publishing volume, assets, permissions, community management and photography before defining the scope."
+      },
+      {
+        question: "Can I buy translation or copy only?",
+        answer: "Yes. It can be scoped as multilingual localization or one-off content. Account operations are a separate service."
+      },
+      {
+        question: "Does operations include publishing and replies?",
+        answer: "That depends on the project. Account access, approval flow, response hours and escalation rules are confirmed before publishing or community management is included."
+      },
+      {
+        question: "How is pricing decided?",
+        answer: "The quote reflects the platform, content volume, photography, production, publishing, community management and reporting."
+      },
+      {
+        question: "Can you work across several languages?",
+        answer: "Yes. We primarily work in Chinese, Japanese and English and define the required language quality and scope for each project."
+      },
+      {
+        question: "Can we start without an account?",
+        answer: "Yes. We first check whether the platform and an account are necessary, then explain the setup and operating path."
+      },
+      {
+        question: "Can you guarantee followers or store visits?",
+        answer: "No. Platform conditions and business operations affect those outcomes. 澜顷 is responsible for the agreed brand, content, production and operating work."
+      }
+    ],
+    contact: {
+      email: "wanslan1130@gmail.com",
+      note: "The submit button transfers your message to your own email application. This website does not store the information.",
+      services: [
+        "China social media account operations",
+        "Content strategy for brands and shops",
+        "Multilingual content and localization",
+        "Brand and store information design",
+        "Cross-platform asset production",
+        "Content review and account optimization",
+        "Other"
+      ],
+      socials: [],
+      form: {
+        name: "Name *",
+        namePlaceholder: "Your name",
+        company: "Company / shop",
+        companyPlaceholder: "Business name",
+        email: "Email *",
+        website: "Website or social profile",
+        service: "What would you like to discuss?",
+        choose: "Choose an option",
+        message: "Message *",
+        messagePlaceholder: "Tell us about the business, current social channels, available assets, the problem to solve and the operating scope you have in mind.",
+        submit: "Send enquiry by email",
+        notice: "Your email application has been opened. If it does not launch, email the address shown on this page directly."
+      }
+    },
+    footer: {
+      description: "Helping Japan-based businesses and shops become found, understood and chosen through natural multilingual content and China social media operations.",
+      motifWords: [
+        "PRESENCE",
+        "CONTENT",
+        "OPERATION",
+        "EXPERIENCE"
+      ],
+      privacyLabel: "Privacy",
+      privacyBody: "This form transfers the information you enter to your own email application and does not store it on the website. Any name, email address, business name and enquiry content we receive is used only to reply and handle the enquiry. We do not share it without consent unless required by law. Contact the email shown here for access, correction or deletion requests.",
+      copyright: "© 2026 澜顷. All rights reserved."
+    }
   },
-
   zh: {
-    seo: { title: "[BRAND NAME] — 跨文化传播工作室", description: "连接日本本地商家与中国消费者的跨文化传播工作室。" },
-    ui: {
-      language: "选择语言", menu: "菜单", close: "关闭", mainNavigation: "主导航", sectionProgress: "章节进度", scroll: "向下滚动 ↓",
-      from: "从", visualIndex: "视觉 / 01", consultService: "咨询此服务", comingSoon: "即将公开",
-      servicesLabel: "提供的服务", resultLabel: "项目结果", viewCase: "查看案例", recommended: "推荐",
-      startConversation: "开始交流", team: "团队", founder: "创始人", background: "专业背景",
-      workingPhilosophy: "工作理念", partners: "合作伙伴 / 客户", faqMissing: "没有找到你的问题？", faqContact: "直接联系我们 →",
-      contactLabel: "12 — Contact", contactTitle: "让合适的人，\n看见真实的你。", contactIntro: "请留下基本信息与希望咨询的方向。正式上线前，可在内容配置中替换邮箱和所有社交链接。", contact: "联系方式",
-      backToTop: "返回顶部 ↑", seal: "文", skipToContent: "跳到主要内容",
+    seo: {
+      title: "澜顷｜多语言内容与中国社交媒体运营",
+      description: "面向日本本地企业、门店与品牌，提供多语言内容、中文表达，以及中国社交媒体的内容策划、账号运营和品牌信息整理。"
     },
-    brand: { name: "[BRAND NAME]", eyebrow: "Cross-cultural communication studio — Japan / China", description: "[这里填写品牌简短说明]" },
+    ui: {
+      language: "选择语言",
+      menu: "菜单",
+      close: "关闭",
+      mainNavigation: "主导航",
+      sectionProgress: "页面进度",
+      scroll: "向下查看 ↓",
+      from: "让品牌",
+      visualIndex: "品牌运营 / 01",
+      consultService: "咨询运营方案",
+      comingSoon: "服务场景示例，不是客户案例",
+      servicesLabel: "运营支持",
+      resultLabel: "交付内容",
+      viewCase: "咨询这个运营场景",
+      recommended: "当前主推",
+      startConversation: "预约品牌咨询",
+      team: "当前团队",
+      founder: "澜顷负责",
+      background: "客户确认",
+      workingPhilosophy: "运营原则",
+      partners: "合作方式",
+      faqMissing: "还有其他想问的吗？",
+      faqContact: "直接发邮件提问 →",
+      contactLabel: "12 / Contact",
+      contactTitle: "让你的品牌，\n从一条好内容开始被看见。",
+      contactIntro: "请告诉我们品牌现状、已有社交账号、手头素材和希望达到的状态。我们会先判断问题，再给出可执行的运营范围。",
+      contact: "联系咨询",
+      backToTop: "返回顶部 ↑",
+      seal: "澜",
+      skipToContent: "跳到正文"
+    },
+    brand: {
+      name: "澜顷",
+      eyebrow: "多语言内容 × 中国社交媒体运营",
+      description: "澜顷帮助日本本地企业、门店与品牌，整理中文与多语言内容，并面向中国社交媒体提供内容策划和账号运营支持。"
+    },
     navigation: [
-      { label: "首页", href: "#home" }, { label: "理念", href: "#philosophy" }, { label: "服务", href: "#services" },
-      { label: "流程", href: "#process" }, { label: "案例", href: "#cases" }, { label: "价格", href: "#pricing" },
-      { label: "关于", href: "#about" }, { label: "FAQ", href: "#faq" }, { label: "联系", href: "#contact" },
+      {
+        label: "首页",
+        href: "#home"
+      },
+      {
+        label: "理念",
+        href: "#philosophy"
+      },
+      {
+        label: "服务",
+        href: "#services"
+      },
+      {
+        label: "流程",
+        href: "#process"
+      },
+      {
+        label: "场景",
+        href: "#cases"
+      },
+      {
+        label: "报价",
+        href: "#pricing"
+      },
+      {
+        label: "分工",
+        href: "#about"
+      },
+      {
+        label: "FAQ",
+        href: "#faq"
+      },
+      {
+        label: "联系",
+        href: "#contact"
+      }
     ],
     scenes: [
-      { label: "首页", href: "#home" }, { label: "理念", href: "#philosophy" }, { label: "问题", href: "#problems" },
-      { label: "方法", href: "#approach" }, { label: "服务", href: "#services" }, { label: "体验", href: "#experience" },
-      { label: "流程", href: "#process" }, { label: "案例", href: "#cases" }, { label: "价格", href: "#pricing" },
-      { label: "愿景", href: "#vision" }, { label: "关于", href: "#about" }, { label: "FAQ", href: "#faq" }, { label: "联系", href: "#contact" },
+      {
+        label: "首页",
+        href: "#home"
+      },
+      {
+        label: "理念",
+        href: "#philosophy"
+      },
+      {
+        label: "问题",
+        href: "#problems"
+      },
+      {
+        label: "方法",
+        href: "#approach"
+      },
+      {
+        label: "服务",
+        href: "#services"
+      },
+      {
+        label: "访客信息",
+        href: "#experience"
+      },
+      {
+        label: "流程",
+        href: "#process"
+      },
+      {
+        label: "场景",
+        href: "#cases"
+      },
+      {
+        label: "报价",
+        href: "#pricing"
+      },
+      {
+        label: "愿景",
+        href: "#vision"
+      },
+      {
+        label: "分工",
+        href: "#about"
+      },
+      {
+        label: "FAQ",
+        href: "#faq"
+      },
+      {
+        label: "联系",
+        href: "#contact"
+      }
     ],
     sections: {
-      philosophy: { label: "Philosophy", title: "在语言之外，建立理解。", intro: "存在并不等于被看见。这里将逐步形成品牌的文化立场与工作方法。" },
-      problems: { label: "Problems", title: "有价值，却没有被正确地看见。", intro: "这里将呈现日本本地商家面对中国消费者时，常见的信息、语言与体验断层。" },
-      approach: { label: "Approach", title: "从可搜索，到可体验。", intro: "把传播拆成四个彼此相连的阶段，为后续服务内容保留清晰框架。" },
-      services: { label: "Services", title: "服务，是理解发生的具体方式。", intro: "每项服务均可展开。名称、简介和详情都集中在多语言配置文件中。" },
-      process: { label: "Process", title: "从第一次对话，到内容被使用。", intro: "流程结构已经搭好；后续只需替换每一步的说明与交付内容。" },
-      cases: { label: "Cases", title: "案例位置已经准备好。", intro: "当前不展示虚构业绩。未来可在配置中直接增加、删除或调整案例。" },
-      pricing: { label: "Pricing", title: "从轻量开始，也为长期合作留出空间。", intro: "方案名称、顺序、价格和服务内容均可统一修改。" },
-      about: { label: "About", title: "关于我们，保持真实，也保持开放。", intro: "当前不虚构成员、经历或客户；所有信息均使用明确占位符。" },
-      faq: { label: "FAQ", title: "开始合作前，可能想了解这些。" },
+      philosophy: {
+        label: "理念",
+        title: "好的账号，不靠一条爆款。",
+        intro: "它需要清楚的定位、稳定的内容、统一的表达，以及能把关注带向到店或咨询的路径。"
+      },
+      problems: {
+        label: "问题",
+        title: "内容有发，品牌却没有真正建立起来。",
+        intro: "账号需要作为一个整体被经营，而不是一组互不相关的帖子。"
+      },
+      approach: {
+        label: "方法",
+        title: "从品牌梳理，到持续运营。",
+        intro: "先确定对谁说、说什么、按什么顺序说，再建立内容和运营节奏。"
+      },
+      services: {
+        label: "服务",
+        title: "企业账号与门店账号，从内容到运营。",
+        intro: "账号诊断、内容策划、多语言本地化、素材制作与发布支持，按实际需要组合。"
+      },
+      process: {
+        label: "流程",
+        title: "先定策略，再进入稳定生产。",
+        intro: "品牌梳理、内容设计、制作、发布和复盘分开，每一步的责任与确认方式明确。"
+      },
+      cases: {
+        label: "场景",
+        title: "三种运营场景。",
+        intro: "下面是帮助理解服务范围的虚构场景，不对应真实客户、实绩或成果。"
+      },
+      pricing: {
+        label: "合作与报价",
+        title: "先做诊断，再决定运营范围。",
+        intro: "平台、内容数量、拍摄、发布、评论管理和复盘范围共同决定报价。"
+      },
+      about: {
+        label: "分工",
+        title: "谁负责内容，谁负责确认。",
+        intro: "品牌事实、素材权利和账号权限确认后，再确定策划、制作与运营的责任。"
+      },
+      faq: {
+        label: "常见问题",
+        title: "运营咨询之前。"
+      }
     },
     hero: {
-      title: "[这里填写品牌核心标题]", subtitle: "[这里填写品牌业务与价值说明]", kicker: "Japan × Chinese-speaking audiences",
-      rotatingWords: ["存在", "被发现", "被理解", "被体验"],
-      primaryAction: { label: "查看服务", href: "#services" }, secondaryAction: { label: "联系我们", href: "#contact" },
-      visualLabel: "[首屏图片 / 视频 / 动态视觉]", marquee: "BE SEEN · BE UNDERSTOOD · BE EXPERIENCED · 被发现 · 被理解 · 被体验 · ",
+      title: "让你的存在，\n被发现。",
+      subtitle: "我们致力于多语言内容的自然表达，也为企业、门店提供中国社交媒体的内容策划与账号运营支持。",
+      kicker: "日本本地企业、门店与品牌 × 中国社交媒体",
+      rotatingWords: [
+        "被看见",
+        "被理解",
+        "被选择",
+        "被记住"
+      ],
+      primaryAction: {
+        label: "查看运营服务",
+        href: "#services"
+      },
+      secondaryAction: {
+        label: "预约品牌咨询",
+        href: "#contact"
+      },
+      visualLabel: "多语言内容 · 中国社交媒体运营",
+      marquee: "PRESENCE · CONTENT · OPERATION · DISCOVERY · 让你的存在被发现 · "
     },
-    philosophy: { body: "[品牌理念内容将在后续补充]", quote: "[品牌重点引用将在后续补充]", visualLabel: "[品牌理念图片 / 动态视觉]" },
+    philosophy: {
+      body: "一个企业或门店的社交媒体，不该只是零散发帖。简介、视觉、选题、语气、发布节奏与到店信息，共同构成别人对这个品牌的判断。澜顷帮助客户梳理真实品牌信息，再把这些信息转化为适合中文语境、能够持续更新的内容与账号运营方案。",
+      quote: "让品牌在中文语境里被看见，也让每一次发布都像这个品牌本身。",
+      visualLabel: "梳理品牌 · 建立运营"
+    },
     problems: [
-      { title: "[问题标题 01]", text: "[中国消费者无法搜索到店铺信息的说明将在后续补充]" }, { title: "[问题标题 02]", text: "[中文内容不足的说明将在后续补充]" },
-      { title: "[问题标题 03]", text: "[机器翻译无法表达店铺特色的说明将在后续补充]" }, { title: "[问题标题 04]", text: "[游客不了解店铺体验方式的说明将在后续补充]" },
-      { title: "[问题标题 05]", text: "[跨文化沟通与礼仪问题的说明将在后续补充]" }, { title: "[问题标题 06]", text: "[曝光无法转化为到店行动的说明将在后续补充]" },
+      {
+        title: "账号有内容，定位却不清楚",
+        text: "别人看不出这个账号代表什么，也找不到持续关注的理由。"
+      },
+      {
+        title: "中文看得懂，却像翻译稿",
+        text: "语法可能正确，但表达不像中国社交媒体上真正会出现的语言。"
+      },
+      {
+        title: "素材很多，却无法稳定更新",
+        text: "图片和信息散落各处，每次发内容都要从零开始。"
+      },
+      {
+        title: "主页有流量，却没有下一步",
+        text: "用户看完内容，却不知道怎样预约、到店或咨询。"
+      },
+      {
+        title: "门店信息与社媒表达脱节",
+        text: "营业时间、地址、菜单和预约方式彼此不一致，会削弱品牌信任。"
+      },
+      {
+        title: "运营没有节奏，也难以复盘",
+        text: "谁确认、何时发布、如何调整没有固定规则，内容与运营都难以积累。"
+      }
     ],
     approach: [
-      { title: "被发现", text: "[解决思路将在后续补充]" }, { title: "被理解", text: "[解决思路将在后续补充]" },
-      { title: "被信任", text: "[解决思路将在后续补充]" }, { title: "被体验", text: "[解决思路将在后续补充]" },
+      {
+        title: "梳理品牌",
+        text: "确认企业或门店的真实信息、优势、目标客群与现有素材，确定进入中文语境的表达主线。"
+      },
+      {
+        title: "设计内容",
+        text: "把账号简介、内容栏目、选题、视觉和语气整理成一套可执行的运营方案。"
+      },
+      {
+        title: "运营账号",
+        text: "按约定范围完成策划、撰稿、制作与发布，并固定客户确认流程。"
+      },
+      {
+        title: "设计转化",
+        text: "把预约、到店和咨询所需的信息放进主页、置顶内容和相关帖子。"
+      }
     ],
     services: [
-      { name: "中文文案与翻译", summary: "计划方向，交付范围仍在验证中。", detail: "正式服务内容、交付物和价格尚未确定，当前不接受项目。", status: "计划中", action: "当前尚未开放", available: false },
-      { name: "菜单及网站中文化", summary: "计划方向，交付范围仍在验证中。", detail: "正式服务内容、交付物和价格尚未确定，当前不接受项目。", status: "计划中", action: "当前尚未开放", available: false },
-      { name: "小红书账号创建", summary: "计划方向，交付范围仍在验证中。", detail: "正式服务内容、交付物和价格尚未确定，当前不接受项目。", status: "计划中", action: "当前尚未开放", available: false },
-      { name: "中国SNS内容迁移", summary: "计划方向，交付范围仍在验证中。", detail: "正式服务内容、交付物和价格尚未确定，当前不接受项目。", status: "计划中", action: "当前尚未开放", available: false },
-      { name: "内容策划与发布", summary: "计划方向，交付范围仍在验证中。", detail: "正式服务内容、交付物和价格尚未确定，当前不接受项目。", status: "计划中", action: "当前尚未开放", available: false },
-      { name: "文化真实性与体验内容整理", summary: "计划方向，交付范围仍在验证中。", detail: "正式服务内容、交付物和价格尚未确定，当前不接受项目。", status: "计划中", action: "当前尚未开放", available: false },
-      { name: "中文接待信息与礼仪说明", summary: "计划方向，交付范围仍在验证中。", detail: "正式服务内容、交付物和价格尚未确定，当前不接受项目。", status: "计划中", action: "当前尚未开放", available: false },
-      { name: "长期运营与推广", summary: "计划方向，交付范围仍在验证中。", detail: "正式服务内容、交付物和价格尚未确定，当前不接受项目。", status: "计划中", action: "当前尚未开放", available: false },
+      {
+        name: "中国社交媒体账号运营",
+        summary: "当前主推。从主页、内容到发布与复盘。",
+        detail: "围绕一个平台，设计每月主题、内容制作、发布节奏、主页信息与运营复盘。以小红书为起点，微信公众号、抖音、大众点评等平台需单独确认条件与范围。拍摄、广告、达人和评论管理另计。",
+        status: "当前主推｜确认范围后报价",
+        action: "咨询账号运营",
+        available: true
+      },
+      {
+        name: "企业与门店内容策划",
+        summary: "决定说什么、对谁说、按什么顺序说。",
+        detail: "梳理品牌定位、目标客群、内容栏目、连载、主页、置顶内容和内容日历。制作与发布是否包含，另行确认。",
+        status: "主要服务｜确认范围后报价",
+        action: "咨询内容策划",
+        available: true
+      },
+      {
+        name: "多语言内容与本地化",
+        summary: "写得像当地内容，而不是翻译稿。",
+        detail: "整理中文、日语、英语等品牌资料、网站、菜单、社交内容和门店说明，包含事实确认、术语统一与阅读节奏调整。",
+        status: "主要服务｜确认范围后报价",
+        action: "咨询多语言化",
+        available: true
+      },
+      {
+        name: "品牌与门店信息设计",
+        summary: "让社交平台、地图、网站和店内信息保持一致。",
+        detail: "统一店名、地址、营业时间、菜单、预约、支付与使用条件，清理各触点之间的冲突。需要专业判断的事项交由相应专业人士确认。",
+        status: "主要服务｜确认范围后报价",
+        action: "咨询信息整理",
+        available: true
+      },
+      {
+        name: "跨平台素材再制作",
+        summary: "把现有照片和视频，改成中国社交媒体可用的内容。",
+        detail: "盘点 Instagram 等现有素材，重新设计标题、正文、图片顺序、短视频结构和主页视觉。新拍摄、版权处理与公开另行确认。",
+        status: "主要服务｜确认范围后报价",
+        action: "咨询素材改造",
+        available: true
+      },
+      {
+        name: "内容复盘与账号优化",
+        summary: "根据已有记录，调整下一轮内容。",
+        detail: "整理可获取的平台数据、收藏反馈和客户反馈，提出内容与主页调整建议。流量、粉丝、到店与销售结果不作保证。",
+        status: "确认账号权限后承接",
+        action: "咨询运营优化",
+        available: true
+      }
     ],
     experienceGuide: {
-      label: "05 — Experience Guide", title: "让规则成为体验的一部分。", text: "[跨文化体验设计内容将在后续补充]", centerLabel: "CULTURAL\nEXPERIENCE",
-      items: ["菜单翻译", "预约说明", "支付方式", "拍照与录像", "店内礼仪", "点单方式", "取消规则", "到店流程", "游客体验指南", "中文提示牌"],
-      visualLabel: "[体验指南示例 / 店内应用图片]",
+      label: "05 / Account Operation",
+      title: "账号、内容、门店信息，放进同一条运营线。",
+      text: "只增加帖子，主页、置顶内容、门店信息和预约路径仍然分散，就无法形成品牌。澜顷把内容与运营整理为一个系统。",
+      centerLabel: "品牌\n运营",
+      items: [
+        "账号定位",
+        "主页简介",
+        "视觉风格",
+        "内容栏目",
+        "图文笔记",
+        "短视频",
+        "发布节奏",
+        "评论管理",
+        "门店信息",
+        "月度复盘"
+      ],
+      visualLabel: "从品牌梳理到中国社交媒体运营"
     },
     process: [
-      { title: "初次咨询", text: "[流程说明将在后续补充]" }, { title: "店铺与品牌信息整理", text: "[流程说明将在后续补充]" },
-      { title: "内容及体验分析", text: "[流程说明将在后续补充]" }, { title: "中文内容制作", text: "[流程说明将在后续补充]" },
-      { title: "账号或页面搭建", text: "[流程说明将在后续补充]" }, { title: "发布与后续调整", text: "[流程说明将在后续补充]" },
+      {
+        title: "了解品牌与现状",
+        text: "确认企业或门店的信息、已有社媒账号、素材、问题和希望达到的状态。"
+      },
+      {
+        title: "诊断并确定运营范围",
+        text: "书面确认平台、内容数量、制作、发布、评论管理、复盘和排除项。"
+      },
+      {
+        title: "设计内容与确认素材",
+        text: "确定主页、栏目、视觉和语气，并核对品牌事实与素材使用权。"
+      },
+      {
+        title: "制作与发布",
+        text: "按约定完成内容，由指定负责人确认后发布；账号权限与责任范围明确记录。"
+      },
+      {
+        title: "复盘与调整",
+        text: "整理可获取的数据和运营问题，调整下一阶段的内容与执行节奏。"
+      }
     ],
-    cases: caseStudies.zh,
+    cases: [
+      {
+        title: "短文案｜补上事实，写成能做判断的一句",
+        client: "虚构服务场景，不是真实客户",
+        industry: "短文案 · DEMO",
+        summary: "只有“季节拼配”四个字，访客仍不知道风味、价格、能否外带、离哪站最近。这个示例先确认事实，再在不抹掉店铺语气的前提下，改成到店前能用的中文。",
+        services: "原稿确认／缺失信息整理／中文文案",
+        result: "可能交付：原文对照、待确认问题、可回译核对的中文稿",
+        image: "短文再编辑 / DEMO 01"
+      },
+      {
+        title: "文化体验｜背景和参加方法一起写",
+        client: "虚构服务场景，不是真实客户",
+        industry: "工艺与文化体验 · DEMO",
+        summary: "把可确认的背景、体验步骤、时长、需要准备什么和注意事项，整理成一份能帮助访客判断是否参加的说明。",
+        services: "文化背景整理／中文文案／体验指南",
+        result: "可能交付：体验介绍、术语表、预约前与当天说明",
+        image: "背景与参加 / DEMO 02"
+      },
+      {
+        title: "零售店｜把 Instagram 素材改成中文内容",
+        client: "虚构服务场景，不是真实客户",
+        industry: "零售与生活方式 · DEMO",
+        summary: "从有授权、事实清楚的照片中选材，重组中文标题、正文、图片顺序和必要补充信息。",
+        services: "素材确认／中文再编辑／发布前信息整理",
+        result: "可能交付：素材清单、标题方案、中文正文、待补信息清单",
+        image: "素材再编辑 / DEMO 03"
+      }
+    ],
     pricing: [
-      { name: "Basic｜小范围诊断（验证中）", audience: "适合希望先明确一项来店前信息问题、再决定是否制作内容的商家", price: "价格验证中", features: ["服务范围、交付时间和成本正在验证，尚未开放接单。"], action: "当前暂不接受项目", featured: false },
-      { name: "Standard｜来店信息本地化", audience: "适合整理预约、支付、拍照或点单等已确认信息的商家", price: "执行范围验证中", features: ["正式范围、原稿量、审核流程和价格尚未确定。"], action: "当前暂不接受项目", featured: false },
-      { name: "Complete｜中国平台支持", audience: "适合考虑账号、素材和持续内容支持的商家", price: "执行范围验证中", features: ["平台条件、执行能力、交付物和价格尚未确定。"], action: "当前暂不接受项目", featured: false },
+      {
+        name: "账号诊断",
+        audience: "需要先看清现有账号、内容与门店信息问题的企业或门店",
+        price: "固定范围，个别报价",
+        features: [
+          "检查现有账号与主页",
+          "梳理品牌与素材缺口",
+          "给出优先问题与运营方向"
+        ],
+        action: "咨询账号诊断",
+        featured: false
+      },
+      {
+        name: "单月内容",
+        audience: "想先试一个月策划、撰稿与内容制作的企业或门店",
+        price: "固定范围，个别报价",
+        features: [
+          "月度主题与内容规划",
+          "约定数量的内容制作",
+          "主页与置顶内容整理",
+          "发布后的简短复盘"
+        ],
+        action: "咨询单月内容",
+        featured: false
+      },
+      {
+        name: "账号运营",
+        audience: "希望持续经营中国社交媒体的企业或门店",
+        price: "固定范围，个别报价",
+        features: [
+          "每月策划、制作与发布",
+          "主页和门店信息维护",
+          "发布记录与月度复盘",
+          "额外工作提前确认"
+        ],
+        action: "咨询月度运营",
+        featured: false
+      }
     ],
-    vision: { label: "09 — Vision", title: "不同文化之间，\n不止于抵达。", text: "[理想中的状态与品牌愿景将在后续补充]" },
-    about: { team: "[团队介绍将在后续补充]", founder: "[创始人介绍将在后续补充]", background: "[专业背景将在后续补充]", philosophy: "[工作理念将在后续补充]", teamImage: "[团队照片]", partnerLogos: ["[合作伙伴Logo]", "[合作伙伴Logo]", "[合作伙伴Logo]", "[合作伙伴Logo]"] },
-    faqs: ["可以只翻译菜单吗？", "没有小红书账号可以合作吗？", "可以帮助创建账号吗？", "可以只进行一次性项目吗？", "是否提供长期运营？", "是否可以制作店内中文提示？", "福冈以外的商家可以合作吗？", "合作开始前需要准备什么？"].map((question) => ({ question, answer: "[回答将在后续补充]" })),
-    contact: {
-      email: "[CONTACT EMAIL]", note: "当前表单为界面预留。公开使用前，请配置真实邮箱或表单服务。",
-      services: ["中文文案与翻译", "菜单及网站中文化", "小红书账号创建", "中国SNS内容迁移", "内容策划与发布", "体验与接待信息设计", "长期运营与推广", "其他"], socials: socialLinks,
-      form: { name: "姓名 *", namePlaceholder: "Your name", company: "公司或店铺名称", companyPlaceholder: "Company / shop", email: "邮箱 *", website: "网站或 SNS 链接", service: "希望咨询的服务", choose: "请选择", message: "留言 *", messagePlaceholder: "请简单介绍你的店铺、需求与希望开始的时间。", submit: "提交咨询", notice: "表单结构已经完成；发送功能将在配置真实邮箱或表单服务后启用。" },
+    vision: {
+      label: "09 / 愿景",
+      title: "让每个本该被看见的品牌，\n拥有自己的表达与节奏。",
+      text: "企业或门店长期积累的价值，应当在中文语境里被正确理解。澜顷把内容、运营和门店信息放在一起整理，让品牌从被发现开始，走向被选择和被记住。"
     },
-    footer: { description: "[这里填写品牌简短说明]", motifWords: ["LANGUAGE", "CULTURE", "EXPERIENCE", "CONNECTION"], privacyLabel: "Privacy Policy", copyright: `© ${new Date().getFullYear()} [BRAND NAME]. All rights reserved.` },
-  },
+    about: {
+      team: "澜顷目前是位于福冈的个人项目，提供多语言内容与中国社交媒体运营支持。可以单次诊断开始，也可以按月合作。",
+      founder: "澜顷负责品牌梳理、内容策划、多语言表达与账号运营。具体平台、账号权限和发布工作按项目确认。",
+      background: "客户确认品牌、商品、价格、门店、预约、素材使用权和账号权限。",
+      philosophy: "广告、达人、评论管理和效果承诺按具体条件另行确认。内容与运营范围先定清楚，并保留执行记录。",
+      teamImage: "从品牌梳理到内容运营的责任",
+      partnerLogos: [
+        "品牌信息共同确认",
+        "内容策略先于发布",
+        "账号权限清楚交接",
+        "每月复盘再调整"
+      ]
+    },
+    faqs: [
+      {
+        question: "你们具体提供什么服务？",
+        answer: "中国社交媒体账号诊断、内容策划、多语言本地化、素材制作、发布支持与运营复盘。会根据企业和门店需要组合范围。"
+      },
+      {
+        question: "可以做小红书账号运营吗？",
+        answer: "可以讨论，但会先确认平台、内容数量、素材、账号权限、评论管理和是否需要拍摄，再确定能承接的范围。"
+      },
+      {
+        question: "可以只做翻译或写文案吗？",
+        answer: "可以，作为多语言本地化或单次内容项目承接。账号运营是另一项服务。"
+      },
+      {
+        question: "会包含发布和评论回复吗？",
+        answer: "按项目约定。会先确认账号权限、审核流程、响应时间和紧急情况处理方式，再决定是否包含。"
+      },
+      {
+        question: "价格怎么确定？",
+        answer: "根据平台、内容数量、拍摄、制作、发布、评论管理和复盘范围分别报价。"
+      },
+      {
+        question: "可以做多种语言吗？",
+        answer: "可以，以中文、日语和英语为主。具体语言质量和交付范围会在项目开始前确认。"
+      },
+      {
+        question: "没有账号可以合作吗？",
+        answer: "可以。会先判断平台与账号是否必要，再说明开设条件和开始运营前的准备步骤。"
+      },
+      {
+        question: "可以保证粉丝、流量或到店人数吗？",
+        answer: "不能。平台环境和门店经营都会影响结果。澜顷负责品牌信息、内容设计、制作、运营和约定的改进工作。"
+      }
+    ],
+    contact: {
+      email: "wanslan1130@gmail.com",
+      note: "点击提交后，内容会转到你自己的邮件应用；本网站不会保存你填写的信息。",
+      services: [
+        "中国社交媒体账号运营",
+        "企业与门店内容策划",
+        "多语言内容与本地化",
+        "品牌与门店信息设计",
+        "跨平台素材再制作",
+        "内容复盘与账号优化",
+        "其他"
+      ],
+      socials: [],
+      form: {
+        name: "姓名 *",
+        namePlaceholder: "你的姓名",
+        company: "公司或店铺名称",
+        companyPlaceholder: "请输入店铺或品牌名",
+        email: "邮箱 *",
+        website: "网站或社交平台链接",
+        service: "希望咨询的内容",
+        choose: "请选择",
+        message: "留言 *",
+        messagePlaceholder: "请介绍企业或门店、现有社交账号、手头素材、目前的问题，以及希望运营到什么程度。",
+        submit: "通过邮件发送咨询",
+        notice: "已尝试打开你的邮件应用。如果没有自动打开，请直接发送到页面显示的邮箱。"
+      }
+    },
+    footer: {
+      description: "帮助日本本地企业、门店与品牌，通过自然的多语言表达和中国社交媒体运营，被看见、被理解、被选择。",
+      motifWords: [
+        "PRESENCE",
+        "CONTENT",
+        "OPERATION",
+        "EXPERIENCE"
+      ],
+      privacyLabel: "隐私说明",
+      privacyBody: "咨询表单只会把你填写的内容转入你自己的邮件应用，本网站本身不会保存这些信息。我们收到的姓名、邮箱、公司或店铺名称与咨询内容，仅用于回复和处理咨询；除法律要求外，未经本人同意不会向第三方提供。如需查询、更正或删除，请联系本页所示邮箱。",
+      copyright: "© 2026 澜顷. All rights reserved."
+    }
+  }
 };

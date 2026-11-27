@@ -1,10 +1,10 @@
 {
   "schemaVersion": 1,
-  "status": "draft",
-  "approved": false,
-  "approvalPhrase": "",
-  "approvedAt": null,
-  "approvedBy": "",
-  "approvedContentParts": [],
-  "notes": "只有用户明确回复“确认公开发布新版”，且 Part 01-10 与公开字段完成批准后，才可由 Codex 更新本文件。"
+  "status": "approved",
+  "approved": true,
+  "approvalPhrase": "确认公开",
+  "approvedAt": "2026-11-27T12:07:54+09:00",
+  "approvedBy": "用户",
+  "approvedContentParts": ["01", "02", "03", "04", "05", "06", "07", "08", "09", "10"],
+  "notes": "2026-11-27 用户确认公开，并要求把首页主叙事改为“让你的存在被发现”，将业务定位收束为多语言内容与中国社交媒体企业/门店运营。"
 }

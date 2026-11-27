@@ -21,8 +21,10 @@ test("renders the multilingual brand site", async () => {
 
   const html = await response.text();
   assert.match(html, /<html lang="ja">/i);
-  assert.match(html, /name="robots" content="noindex, nofollow"/i);
-  assert.match(html, /\[BRAND NAME\]/);
+  assert.match(html, /name="robots" content="index, follow"/i);
+  assert.match(html, /澜顷/);
+  assert.doesNotMatch(html, />WANSLAN</);
+  assert.doesNotMatch(html, /\[BRAND NAME\]|\[CONTACT EMAIL\]|将在后续补充|後ほど追加|will be added later/);
   assert.match(html, />JP</);
   assert.match(html, />EN</);
   assert.match(html, />中</);
@@ -51,15 +53,13 @@ test("keeps content centralized and motion locally hosted", async () => {
 
   assert.match(content, /Record<Locale, SiteCopy>/);
   assert.match(content, /siteSettings/);
-  assert.match(content, /allowIndexing:\s*false/);
+  assert.match(content, /allowIndexing:\s*true/);
   assert.match(content, /contactFormAction:\s*""/);
   assert.match(content, /ja:\s*\{/);
   assert.match(content, /en:\s*\{/);
   assert.match(content, /zh:\s*\{/);
-  assert.match(content, /cases:\s*caseStudies\.ja/);
-  assert.match(content, /cases:\s*caseStudies\.en/);
-  assert.match(content, /cases:\s*caseStudies\.zh/);
-  assert.equal((cases.match(/title:\s*"Case Study 0[1-3]"/g) ?? []).length, 9);
+  assert.equal((content.match(/cases:\s*\[/g) ?? []).length, 3);
+  assert.equal((cases.match(/image:\s*"[^"]+ \/ DEMO 0[1-3]"/g) ?? []).length, 9);
   assert.match(page, /--scene-title-x/);
   assert.match(page, /--scene-runner-x/);
   assert.match(page, /--scene-stamp-x/);
@@ -70,6 +70,7 @@ test("keeps content centralized and motion locally hosted", async () => {
   assert.match(page, /new ResizeObserver\(requestLayoutRefresh\)/);
   assert.match(page, /--scene-emphasis/);
   assert.match(page, /visibleWordIndex = reduceMotion \? 0 : wordIndex/);
+  assert.match(page, /document\.documentElement\.classList\.add\("motion-ready"\)/);
   assert.doesNotMatch(page, /aria-live="polite"/);
   assert.match(page, /const \[localeReady, setLocaleReady\] = useState\(false\)/);
   assert.match(page, /setLocaleReady\(true\)/);
@@ -78,9 +79,10 @@ test("keeps content centralized and motion locally hosted", async () => {
   assert.match(page, /inert=\{compactNavigation/);
   assert.match(page, /event\.key === "Escape"/);
   assert.match(page, /event\.key !== "Tab"/);
-  assert.match(page, /disabled=\{!contactFormEnabled\}/);
-  assert.match(page, /className="privacy-placeholder" aria-disabled="true"/);
-  assert.match(page, /className="price-action is-disabled" aria-disabled="true"/);
+  assert.match(page, /window\.location\.href = `mailto:/);
+  assert.match(page, /disabled=\{!contactEmailReady\}/);
+  assert.match(page, /className="footer-privacy" id="privacy"/);
+  assert.match(page, /className="price-action" href="#contact"/);
   assert.match(css, /body\.menu-open\s*\{\s*overflow:\s*hidden/);
   assert.match(css, /scroll-snap-type:\s*y proximity/);
   assert.match(css, /\.title-runner/);
@@ -92,6 +94,8 @@ test("keeps content centralized and motion locally hosted", async () => {
   assert.match(css, /main > section\.scene-active/);
   assert.match(css, /scroll-snap-align:\s*none/);
   assert.match(css, /main > section \{ animation:\s*none !important/);
+  assert.match(css, /\.reveal \{ opacity: 1; \}/);
+  assert.match(css, /html\.motion-ready \.reveal/);
   assert.doesNotMatch(css, /@import\s+url|url\(\s*["']?https?:\/\//i);
   assert.match(layout, /metadataBase:\s*new URL\(siteSettings\.publicUrl\)/);
   assert.match(layout, /icons:\s*\{\s*icon:\s*"\/favicon\.svg"/);

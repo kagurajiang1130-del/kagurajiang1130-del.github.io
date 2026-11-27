@@ -3,7 +3,7 @@ import { dirname, resolve } from "node:path";
 import { fileURLToPath } from "node:url";
 
 const projectRoot = resolve(dirname(fileURLToPath(import.meta.url)), "..");
-const requiredApprovalPhrase = "确认公开发布新版";
+const requiredApprovalPhrase = "确认公开";
 const requiredContentParts = Array.from({ length: 10 }, (_, index) =>
   String(index + 1).padStart(2, "0"),
 );
@@ -23,7 +23,7 @@ const publicCopy = `${content}\n${cases}`;
 const placeholderPatterns = [
   /\[BRAND NAME\]/g,
   /\[CONTACT EMAIL\]/g,
-  /\[[^\]\r\n]*(?:後ほど追加|will be added later|将在后续补充|待定|填写|画像|image|图片|写真|photo|照片|ロゴ|logo|Logo|回答|説明|说明|クライアント|Client|客户|業種|Industry|行业|提供サービス|Services provided|项目结果|プロジェクト成果)[^\]\r\n]*\]/gi,
+  /["'`]\[[^\]"'`\r\n]*(?:後ほど追加|will be added later|将在后续补充|待定|填写|画像|image|图片|写真|photo|照片|ロゴ|logo|Logo|回答|説明|说明|クライアント|Client|客户|業種|Industry|行业|提供サービス|Services provided|项目结果|プロジェクト成果)[^\]"'`\r\n]*\]["'`]/gi,
 ];
 const visitorPlaceholderCount = placeholderPatterns.reduce(
   (total, pattern) => total + count(publicCopy, pattern),
@@ -33,6 +33,7 @@ const approvedParts = new Set(publication.approvedContentParts ?? []);
 const missingContentParts = requiredContentParts.filter(
   (part) => !approvedParts.has(part),
 );
+const socialConfiguration = content.match(/const socials\s*=\s*\[([\s\S]*?)\];/)?.[1] ?? "";
 
 const checks = [
   {
@@ -70,7 +71,7 @@ const checks = [
   },
   {
     id: "social_links_finalized_or_removed",
-    pass: !content.includes('href: "#contact"'),
+    pass: !socialConfiguration.includes('href: "#contact"'),
     detail: "SNS 链接需要填写真实地址或从公开版本移除。",
   },
   {

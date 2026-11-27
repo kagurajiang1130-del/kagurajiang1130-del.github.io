@@ -13,10 +13,10 @@ test("exports a complete placeholder-safe GitHub Pages build", async () => {
     readExport(".nojekyll"),
   ]);
 
-  assert.match(index, /name="robots" content="noindex, nofollow"/i);
+  assert.match(index, /name="robots" content="index, follow"/i);
   assert.match(index, /class="language-switcher"/i);
   assert.match(index, /class="footer-pattern"/i);
   assert.equal(fallback, index);
-  assert.equal(robots, "User-agent: *\nDisallow: /\n");
+  assert.equal(robots, "User-agent: *\nAllow: /\n");
   assert.equal(noJekyll, "");
 });

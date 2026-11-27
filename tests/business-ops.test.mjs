@@ -263,9 +263,9 @@ test("keeps the O-01 five-man-yen price behind human and customer evidence", asy
   assert.match(activation, /不得更新公网价格/);
   assert.match(index, /19-O01五万日元试行价激活路径/);
 
-  assert.match(content, /Basic｜小規模診断（検証中）/);
-  assert.match(content, /Pricing in validation/);
-  assert.match(content, /价格验证中/);
+  assert.match(content, /まず診断し、その後に運用範囲を決めます。/);
+  assert.match(content, /Start with a diagnosis, then define the operating scope\./);
+  assert.match(content, /先做诊断，再决定运营范围。/);
   assert.doesNotMatch(content, /50,000円/);
 
   for (const id of ["A-05", "A-06", "A-07", "A-08", "B-06", "B-07", "B-08", "B-09"]) {
@@ -378,7 +378,7 @@ test("separates public market prices from stated and behavioral willingness to p
   assert.match(readme, /23-市场定价证据与付款意愿测试/);
 });
 
-test("keeps unvalidated services unavailable and ties pricing to the current hard gate", async () => {
+test("opens honest scoped enquiries without publishing internal test prices", async () => {
   const [content, page, serviceLogic, control, index, workflow, release] =
     await Promise.all([
       read("app/content.ts"),
@@ -390,25 +390,25 @@ test("keeps unvalidated services unavailable and ties pricing to the current har
       read("release/publication.json"),
     ]);
 
-  assert.equal((content.match(/available: false/g) ?? []).length, 24);
+  assert.equal((content.match(/available: true/g) ?? []).length, 18);
   assert.doesNotMatch(content, /featured: true/);
-  assert.doesNotMatch(content, /個別見積|Custom quote|单独报价/);
-  assert.match(content, /対応範囲を検証中/);
-  assert.match(content, /Scope in validation/);
-  assert.match(content, /执行范围验证中/);
-  assert.match(page, /service-unavailable/);
+  assert.match(content, /固定範囲で個別見積り/);
+  assert.match(content, /Individual quote after fixed-scope review/);
+  assert.match(content, /固定范围，个别报价/);
+  assert.doesNotMatch(content, /50,000円|120,000円|250,000円|350,000円/);
+  assert.match(page, /service\.available \? <a href="#contact"/);
 
   assert.match(serviceLogic, /19-O01五万日元试行价激活路径\.md.*权威来源/);
   assert.match(serviceLogic, /至少完成10次真实目标客户访谈/);
   assert.match(serviceLogic, /同一个具体问题至少重复出现3次/);
-  assert.match(control, /当前审计应报告 `readyToPublish: false`/);
+  assert.match(control, /当前审计应报告 `readyToPublish: true`/);
   assert.match(control, /当前没有任何对象进入发送前复核或发送队列/);
   assert.match(control, /LIVLABO 是唯一 S 级和第一候选/);
   assert.match(control, /A-03、A-06、B-08、B-09 保持 BLOCK/);
   assert.match(index, /21-网站上线与首轮外联启用总控表/);
   assert.match(workflow, /npm run audit:publication:strict/);
-  assert.match(release, /"approved": false/);
-  assert.match(release, /确认公开发布新版/);
+  assert.match(release, /"approved": true/);
+  assert.match(release, /确认公开/);
 });
 
 test("keeps the first 30-day website, pricing, and email sprint evidence-gated", async () => {
