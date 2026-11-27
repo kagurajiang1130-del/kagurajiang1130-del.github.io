@@ -39,6 +39,9 @@ test("renders the multilingual brand site", async () => {
   assert.match(html, /class="guest-demo reveal"/);
   assert.match(html, /class="guest-language"/);
   assert.match(html, /class="guest-request-list"/);
+  assert.match(html, /class="studio-card reveal"/);
+  assert.match(html, /class="studio-method reveal"/);
+  assert.match(html, /class="about-demo-link" href="#experience"/);
   for (const field of ["name", "company", "email", "website", "service", "message"]) {
     assert.match(html, new RegExp(`(?:name|id)="${field}"`));
   }
@@ -80,6 +83,8 @@ test("keeps content centralized and motion locally hosted", async () => {
   assert.match(page, /aria-live="polite"/);
   assert.match(page, /activeGuestRequest\.visitor\[guestLanguage\]/);
   assert.match(page, /activeGuestRequest\.staffJa/);
+  assert.match(page, /c\.about\.evidenceNote/);
+  assert.match(page, /c\.about\.method\.map/);
   assert.match(page, /const \[localeReady, setLocaleReady\] = useState\(false\)/);
   assert.match(page, /setLocaleReady\(true\)/);
   assert.match(page, /if \(!localeReady\) return/);
@@ -105,6 +110,8 @@ test("keeps content centralized and motion locally hosted", async () => {
   assert.match(css, /\.reveal \{ opacity: 1; \}/);
   assert.match(css, /html\.motion-ready \.reveal/);
   assert.match(css, /\.guest-demo-grid/);
+  assert.match(css, /\.studio-card/);
+  assert.match(css, /\.studio-method-grid/);
   assert.match(css, /@keyframes guest-screen-in/);
   assert.doesNotMatch(css, /@import\s+url|url\(\s*["']?https?:\/\//i);
   assert.match(layout, /metadataBase:\s*new URL\(siteSettings\.publicUrl\)/);

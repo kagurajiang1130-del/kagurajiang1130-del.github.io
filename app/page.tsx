@@ -502,10 +502,19 @@ export default function Home() {
       <section className="section about" id="about">
         <SectionIntro number="10" {...c.sections.about} />
         <div className="about-grid">
-          <VisualPlaceholder label={c.about.teamImage} indexLabel={c.ui.visualIndex} />
-          <div className="about-copy reveal"><div><span>{c.ui.team}</span><p>{c.about.team}</p></div><div><span>{c.ui.founder}</span><p>{c.about.founder}</p></div><div><span>{c.ui.background}</span><p>{c.about.background}</p></div><div><span>{c.ui.workingPhilosophy}</span><p>{c.about.philosophy}</p></div></div>
+          <div className="studio-card reveal" aria-label={c.about.cardLabel}>
+            <div className="studio-card-top"><span>{c.about.cardLabel}</span><span>{c.about.cardLocation}</span></div>
+            <h3>{c.about.teamImage.split("\n").map((line) => <span key={line}>{line}</span>)}</h3>
+            <div className="studio-card-seal" aria-hidden="true">{c.ui.seal}</div>
+            <div className="studio-card-evidence"><span>{c.about.evidenceLabel}</span><p>{c.about.evidenceNote}</p></div>
+            <div className="studio-card-checks">{c.about.partnerLogos.map((item, index) => <span key={item}><i>0{index + 1}</i>{item}</span>)}</div>
+          </div>
+          <div className="about-copy reveal"><div><span>{c.ui.team}</span><p>{c.about.team}</p></div><div><span>{c.ui.founder}</span><p>{c.about.founder}</p></div><div><span>{c.ui.background}</span><p>{c.about.background}</p></div><div><span>{c.ui.workingPhilosophy}</span><p>{c.about.philosophy}</p></div><a className="about-demo-link" href="#experience"><span>{c.ui.aboutDemoAction}</span><i>↘</i></a></div>
         </div>
-        <div className="logo-strip reveal"><span>{c.ui.partners}</span>{c.about.partnerLogos.map((logo, index) => <i key={`${logo}-${index}`}>{logo}</i>)}</div>
+        <div className="studio-method reveal">
+          <p>{c.ui.partners}</p>
+          <div className="studio-method-grid">{c.about.method.map((item, index) => <article key={item.title}><span>0{index + 1}</span><h3>{item.title}</h3><p>{item.text}</p></article>)}</div>
+        </div>
       </section>
 
       <section className="section faq" id="faq">

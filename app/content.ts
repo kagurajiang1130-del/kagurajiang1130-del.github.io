@@ -11,7 +11,7 @@ export interface SiteCopy {
     from: string; visualIndex: string; consultService: string; comingSoon: string;
     servicesLabel: string; resultLabel: string; viewCase: string; recommended: string;
     startConversation: string; team: string; founder: string; background: string;
-    workingPhilosophy: string; partners: string; faqMissing: string; faqContact: string;
+    workingPhilosophy: string; partners: string; aboutDemoAction: string; faqMissing: string; faqContact: string;
     contactLabel: string; contactTitle: string; contactIntro: string; contact: string;
     backToTop: string; seal: string; skipToContent: string;
   };
@@ -32,7 +32,12 @@ export interface SiteCopy {
   cases: CaseStudy[];
   pricing: Array<{ name: string; audience: string; price: string; features: string[]; action: string; featured: boolean }>;
   vision: { label: string; title: string; text: string };
-  about: { team: string; founder: string; background: string; philosophy: string; teamImage: string; partnerLogos: string[] };
+  about: {
+    team: string; founder: string; background: string; philosophy: string;
+    teamImage: string; partnerLogos: string[];
+    cardLabel: string; cardLocation: string; evidenceLabel: string; evidenceNote: string;
+    method: ListItem[];
+  };
   faqs: Array<{ question: string; answer: string }>;
   contact: {
     email: string; note: string; services: string[]; socials: Array<{ label: string; href: string }>;
@@ -152,11 +157,12 @@ export const siteContent: Record<Locale, SiteCopy> = {
       viewCase: "この運用場面を相談",
       recommended: "現在の主な支援",
       startConversation: "ブランド相談を申し込む",
-      team: "現在の体制",
-      founder: "澜顷が担うこと",
-      background: "企業・店舗に確認いただくこと",
-      workingPhilosophy: "運用方針",
-      partners: "協業の進め方",
+      team: "スタジオ",
+      founder: "主担当",
+      background: "進行記録",
+      workingPhilosophy: "境界線",
+      partners: "仕事の進め方",
+      aboutDemoAction: "操作できるサンプルを見る",
       faqMissing: "ほかに確認したいことはありますか？",
       faqContact: "メールで直接質問する →",
       contactLabel: "12 / Contact",
@@ -302,8 +308,8 @@ export const siteContent: Record<Locale, SiteCopy> = {
       },
       about: {
         label: "Roles",
-        title: "誰が作り、誰が確認するか。",
-        intro: "ブランド情報、画像権利、公開権限を確認し、企画、制作、運用の責任範囲を決めます。"
+        title: "小さなスタジオでも、責任は曖昧にしない。",
+        intro: "澜顷は福岡を拠点とする小さな独立スタジオです。公開できる顧客事例がまだないため、チーム規模や曖昧な実績では信頼を作りません。このサイトのサンプル、作業範囲、確認記録から、一緒に進められるかを判断してください。"
       },
       faq: {
         label: "FAQ",
@@ -546,16 +552,38 @@ export const siteContent: Record<Locale, SiteCopy> = {
       text: "企業や店舗が大切にしてきた価値が、中国語圏でも正しく伝わる。そのために必要な内容、運用、店舗情報を、澜顷は一つずつ整えていきます。"
     },
     about: {
-      team: "澜顷は福岡を拠点とする個人プロジェクトです。多言語コンテンツと中国SNS運用を、単発診断または月次支援として提供します。",
-      founder: "澜顷がブランド整理、コンテンツ企画、多言語表現、アカウント運用を担当します。対象平台と公開権限は案件ごとに確認します。",
-      background: "企業・店舗には、商品、価格、店舗、予約、素材権利、アカウント権限を確認していただきます。",
-      philosophy: "広告、インフルエンサー、DM対応、成果保証は別条件です。内容と運用の範囲を先に決め、記録を残します。",
-      teamImage: "ブランド整理から運用までの責任",
+      team: "現在は福岡を拠点とする個人スタジオです。初回相談から範囲確定、進捗確認、納品まで、同じ担当者が窓口になります。",
+      founder: "ブランド整理、コンテンツ企画、多言語表現、Web制作とアカウント実行の範囲を担当します。作業内容は開始前に項目化します。",
+      background: "商品、価格、店舗ルール、素材の権利、公開権限はクライアントに確認していただきます。未確認の情報は公開原稿へ入れません。",
+      philosophy: "広告、撮影、インフルエンサー、プラットフォーム認証、DM対応、成果保証は別条件です。見積書と作業範囲にない事項は含めません。",
+      teamImage: "方法を確かめられることから、\n仕事は始まる。",
       partnerLogos: [
-        "ブランド情報を共同確認",
-        "内容設計を公開前に決定",
-        "アカウント権限を明確化",
-        "月次レビューで調整"
+        "このサイトをそのまま試せる",
+        "範囲と責任者を先に明記",
+        "アカウント・素材権限を分離",
+        "制作・公開・成果を別々に合意"
+      ],
+      cardLabel: "STUDIO NOTE / 01",
+      cardLocation: "FUKUOKA · JP",
+      evidenceLabel: "公開できる証拠について",
+      evidenceNote: "多言語の顧客サービスページは操作できるサンプルです。顧客名、評価、成果は、公開許可と検収が確認できた場合にのみ掲載します。",
+      method: [
+        {
+          title: "先に確認し、その後に作る",
+          text: "事実の出典、確認する人、使える素材を制作前に決めます。"
+        },
+        {
+          title: "範囲を検収できる形にする",
+          text: "納品物、修正回数、期限、含まない作業を同じ説明にまとめます。"
+        },
+        {
+          title: "証拠の種類を混ぜない",
+          text: "サンプル、テスト、公開状態、実在する顧客事例を分けて表示します。"
+        },
+        {
+          title: "交付まで追跡できるようにする",
+          text: "版、権限、残作業、次の担当者を記録して引き継ぎます。"
+        }
       ]
     },
     faqs: [
@@ -658,11 +686,12 @@ export const siteContent: Record<Locale, SiteCopy> = {
       viewCase: "Discuss this operating scenario",
       recommended: "Current focus",
       startConversation: "Book a brand consultation",
-      team: "Current setup",
-      founder: "What 澜顷 handles",
-      background: "What the business confirms",
-      workingPhilosophy: "Operating principles",
-      partners: "How we work",
+      team: "Studio",
+      founder: "Principal",
+      background: "Project record",
+      workingPhilosophy: "Boundaries",
+      partners: "How the work stays visible",
+      aboutDemoAction: "Open the working sample",
       faqMissing: "Have another question?",
       faqContact: "Ask by email →",
       contactLabel: "12 / Contact",
@@ -808,8 +837,8 @@ export const siteContent: Record<Locale, SiteCopy> = {
       },
       about: {
         label: "Roles",
-        title: "Who creates the content, and who approves it.",
-        intro: "Brand facts, media rights and account permissions are confirmed before we define production and operating responsibilities."
+        title: "Small studio. Clear responsibility.",
+        intro: "澜顷 is a small independent studio based in Fukuoka. We have no publishable client cases yet, so we do not borrow credibility from team size or vague credentials. Use this site's working sample, project scope and confirmation record to judge whether we are a fit."
       },
       faq: {
         label: "FAQ",
@@ -1052,16 +1081,38 @@ export const siteContent: Record<Locale, SiteCopy> = {
       text: "The value a business has built should carry clearly into Chinese-language markets. 澜顷 organizes the content, operations and shop information needed for that to happen."
     },
     about: {
-      team: "澜顷 is currently an independent project based in Fukuoka, providing multilingual content and China social media operations through one-off diagnosis or monthly support.",
-      founder: "澜顷 handles brand review, content strategy, multilingual expression and account operations. Platform access and publishing authority are confirmed per project.",
-      background: "The business confirms products, prices, store information, booking details, media rights and account permissions.",
-      philosophy: "Ads, creators, direct-message handling and performance guarantees require separate terms. The content and operating scope are agreed and recorded first.",
-      teamImage: "RESPONSIBILITY FROM BRAND REVIEW TO OPERATIONS",
+      team: "Currently an independent studio based in Fukuoka. The same lead handles the first conversation, scope confirmation, progress checks and delivery.",
+      founder: "澜顷 handles brand review, content planning, multilingual expression, web production and the agreed account work. Each task is itemized before work begins.",
+      background: "The client confirms products, prices, store rules, media rights and publishing permissions. Unconfirmed information does not enter public copy.",
+      philosophy: "Ads, photography, creators, platform verification, direct-message handling and performance guarantees require separate terms. Work absent from the quote and scope is not included by default.",
+      teamImage: "The work begins when\nthe process can be checked.",
       partnerLogos: [
-        "Brand facts confirmed together",
-        "Content strategy approved before publishing",
-        "Account access made explicit",
-        "Monthly review guides the next round"
+        "Try the sample on this site",
+        "Scope and owner stated first",
+        "Account and asset access separated",
+        "Production, publishing and outcomes agreed separately"
+      ],
+      cardLabel: "STUDIO NOTE / 01",
+      cardLocation: "FUKUOKA · JP",
+      evidenceLabel: "WHAT COUNTS AS PUBLIC PROOF",
+      evidenceNote: "The multilingual guest service page is an interactive sample. Client names, feedback and outcomes appear only after publication permission and sign-off are available.",
+      method: [
+        {
+          title: "Confirm first, create second",
+          text: "Sources, approvers and usable assets are agreed before production starts."
+        },
+        {
+          title: "Make the scope inspectable",
+          text: "Deliverables, revision rounds, dates and exclusions live in one written brief."
+        },
+        {
+          title: "Keep evidence categories separate",
+          text: "Samples, tests, publication status and real client work are clearly labeled."
+        },
+        {
+          title: "Make delivery traceable",
+          text: "Versions, access, open tasks and the next owner are recorded at handoff."
+        }
       ]
     },
     faqs: [
@@ -1164,11 +1215,12 @@ export const siteContent: Record<Locale, SiteCopy> = {
       viewCase: "咨询这个运营场景",
       recommended: "当前主推",
       startConversation: "预约品牌咨询",
-      team: "当前团队",
-      founder: "澜顷负责",
-      background: "客户确认",
-      workingPhilosophy: "运营原则",
-      partners: "合作方式",
+      team: "工作室",
+      founder: "主理人",
+      background: "项目记录",
+      workingPhilosophy: "边界",
+      partners: "专业度看这四件事",
+      aboutDemoAction: "查看可操作样片",
       faqMissing: "还有其他想问的吗？",
       faqContact: "直接发邮件提问 →",
       contactLabel: "12 / Contact",
@@ -1314,8 +1366,8 @@ export const siteContent: Record<Locale, SiteCopy> = {
       },
       about: {
         label: "分工",
-        title: "谁负责内容，谁负责确认。",
-        intro: "品牌事实、素材权利和账号权限确认后，再确定策划、制作与运营的责任。"
+        title: "工作室不大，责任不模糊。",
+        intro: "澜顷是位于福冈的小型独立工作室。暂时没有可公开的客户案例，因此不借团队规模或模糊资历制造信任；请从本站样片、项目范围和确认记录判断我们是否适合一起工作。"
       },
       faq: {
         label: "常见问题",
@@ -1558,16 +1610,38 @@ export const siteContent: Record<Locale, SiteCopy> = {
       text: "企业或门店长期积累的价值，应当在中文语境里被正确理解。澜顷把内容、运营和门店信息放在一起整理，让品牌从被发现开始，走向被选择和被记住。"
     },
     about: {
-      team: "澜顷目前是位于福冈的个人项目，提供多语言内容与中国社交媒体运营支持。可以单次诊断开始，也可以按月合作。",
-      founder: "澜顷负责品牌梳理、内容策划、多语言表达与账号运营。具体平台、账号权限和发布工作按项目确认。",
-      background: "客户确认品牌、商品、价格、门店、预约、素材使用权和账号权限。",
-      philosophy: "广告、达人、评论管理和效果承诺按具体条件另行确认。内容与运营范围先定清楚，并保留执行记录。",
-      teamImage: "从品牌梳理到内容运营的责任",
+      team: "目前是位于福冈的个人工作室。首次沟通、范围确认、进度核对和交付由同一位负责人跟进。",
+      founder: "负责品牌梳理、内容策划、多语言表达、网站制作与约定范围内的账号执行；具体工作会在开始前逐项列明。",
+      background: "商品、价格、门店规则、素材权利和公开权限由客户确认；未经确认的信息不会写入公开内容。",
+      philosophy: "广告、拍摄、达人、平台认证、评论回复和效果结果另列条件；报价与项目书中未写入的工作不默认包含。",
+      teamImage: "方法能被检查，\n合作才值得开始。",
       partnerLogos: [
-        "品牌信息共同确认",
-        "内容策略先于发布",
-        "账号权限清楚交接",
-        "每月复盘再调整"
+        "本站可直接操作检查",
+        "范围与责任人先写清",
+        "账号、素材权限分列",
+        "制作、发布、结果分开约定"
+      ],
+      cardLabel: "STUDIO NOTE / 01",
+      cardLocation: "FUKUOKA · JP",
+      evidenceLabel: "什么算可公开的证据",
+      evidenceNote: "多语言顾客服务页是可直接操作的样片。客户名称、评价和成果，只在取得公开许可并完成验收后展示。",
+      method: [
+        {
+          title: "先确认，再动笔",
+          text: "事实来源、确认人和可用素材，在制作前写清。"
+        },
+        {
+          title: "范围能被验收",
+          text: "交付物、修改次数、时间点和不包含事项，放进同一份说明。"
+        },
+        {
+          title: "证据不混用",
+          text: "样片、测试、上线状态和真实客户案例，分别标注。"
+        },
+        {
+          title: "交付可以追溯",
+          text: "版本、权限、待办和下一责任人都留有记录。"
+        }
       ]
     },
     faqs: [
