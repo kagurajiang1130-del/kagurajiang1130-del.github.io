@@ -22,13 +22,13 @@ export const caseStudies: Record<"ja" | "en" | "zh", CaseStudy[]> = {
       image: "CULTURAL BRIDGE / DEMO 01"
     },
     {
-      title: "ブランドアカウント｜素材を継続運用できる内容へ",
+      title: "多言語サービスサイト｜迷わず選べる店頭画面",
       client: "架空のサービス活用場面。実在の顧客ではありません",
-      industry: "ブランドSNS運用 · DEMO",
-      summary: "既存の写真や短い動画を整理し、中国SNSで継続して公開できる連載と制作の流れに変える想定です。",
-      services: "素材分析／連載設計／プラットフォーム別制作",
-      result: "想定納品：素材マップ、投稿連載、制作ルール、月間カレンダー",
-      image: "CONTENT SYSTEM / DEMO 02"
+      industry: "サービスサイト · DEMO",
+      summary: "QRから開き、言語を選び、サービスやお願いをタップすると、相手の言語と日本語が並んで表示される想定です。",
+      services: "情報設計／多言語サイト／店員向け表示",
+      result: "想定納品：操作できる試作、対照原稿、店員向け表示、公開版",
+      image: "SERVICE SITE / DEMO 02"
     },
     {
       title: "多言語ブランド｜同じ価値を自然な中国語へ",
@@ -51,13 +51,13 @@ export const caseStudies: Record<"ja" | "en" | "zh", CaseStudy[]> = {
       image: "CULTURAL BRIDGE / DEMO 01"
     },
     {
-      title: "Brand account｜Turn assets into repeatable content",
+      title: "Multilingual service site｜A guest screen with a clear next step",
       client: "Fictional service scenario, not a real client",
-      industry: "BRAND SOCIAL OPERATIONS · DEMO",
-      summary: "A possible operation that organizes existing photos and short videos into editorial series and a repeatable production rhythm for Chinese social media.",
-      services: "Asset analysis / editorial planning / platform production",
-      result: "Example deliverables: asset map, content series, production rules and a monthly calendar",
-      image: "CONTENT SYSTEM / DEMO 02"
+      industry: "SERVICE SITE · DEMO",
+      summary: "A possible mobile site opened from a QR code. The visitor chooses a language and taps a service or request, then sees their language and Japanese side by side.",
+      services: "Information design / multilingual site / staff view",
+      result: "Example deliverables: clickable prototype, bilingual content, staff-facing screen and public build",
+      image: "SERVICE SITE / DEMO 02"
     },
     {
       title: "Multilingual brand｜Carry the same value into natural Chinese",
@@ -80,13 +80,13 @@ export const caseStudies: Record<"ja" | "en" | "zh", CaseStudy[]> = {
       image: "跨文化沟通 / DEMO 01"
     },
     {
-      title: "品牌账号｜把现有素材变成可持续更新",
+      title: "多语言服务网站｜外国顾客不用问，也能找到下一步",
       client: "虚构服务场景，不是真实客户",
-      industry: "品牌社媒运营 · DEMO",
-      summary: "把现有照片和短视频整理成栏目、视觉规则与每月生产节奏，让账号可以持续发布，而不是每次从零开始。",
-      services: "素材分析／栏目策划／跨平台制作",
-      result: "可能交付：素材地图、内容栏目、制作规则、月度日历",
-      image: "内容系统 / DEMO 02"
+      industry: "服务网站 · DEMO",
+      summary: "设想顾客扫码打开网站，选择语言和服务，点一下“需要帮助”或“饮食限制”，屏幕同时显示自己的语言与日语，可以直接给店员看。",
+      services: "信息结构／多语言网站／店员展示界面",
+      result: "可能交付：可点击原型、双语内容表、店员展示页、公开版本",
+      image: "服务网站 / DEMO 02"
     },
     {
       title: "多语言品牌｜把同一价值写成自然中文",

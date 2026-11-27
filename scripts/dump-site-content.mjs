@@ -30,4 +30,6 @@ const contentModule = loadTypeScript(contentSource, "content.ts", (specifier) =>
 process.stdout.write(JSON.stringify({
   siteSettings: contentModule.siteSettings,
   siteContent: contentModule.siteContent,
+  guestLanguageOptions: contentModule.guestLanguageOptions,
+  guestServiceRequests: contentModule.guestServiceRequests,
 }, null, 2));

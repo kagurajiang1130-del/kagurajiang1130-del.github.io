@@ -24,7 +24,10 @@ export interface SiteCopy {
   problems: ListItem[];
   approach: ListItem[];
   services: Array<{ name: string; summary: string; detail: string; status: string; action: string; available: boolean }>;
-  experienceGuide: { label: string; title: string; text: string; centerLabel: string; items: string[]; visualLabel: string };
+  experienceGuide: {
+    label: string; title: string; text: string; centerLabel: string; items: string[]; visualLabel: string;
+    chooseLanguage: string; requestListLabel: string; staffLabel: string; demoHint: string;
+  };
   process: ListItem[];
   cases: CaseStudy[];
   pricing: Array<{ name: string; audience: string; price: string; features: string[]; action: string; featured: boolean }>;
@@ -44,6 +47,82 @@ export const localeOptions: Array<{ code: Locale; short: string; label: string; 
   { code: "zh", short: "中", label: "简体中文", htmlLang: "zh-CN" },
 ];
 
+export type GuestLanguage = "ja" | "en" | "zh";
+
+export const guestLanguageOptions: Array<{ code: GuestLanguage; short: string; label: string }> = [
+  { code: "zh", short: "中", label: "简体中文" },
+  { code: "en", short: "EN", label: "English" },
+  { code: "ja", short: "JP", label: "日本語" },
+];
+
+export const guestServiceRequests: Array<{
+  id: string;
+  label: Record<GuestLanguage, string>;
+  visitor: Record<GuestLanguage, string>;
+  staffJa: string;
+}> = [
+  {
+    id: "services",
+    label: { ja: "サービス", en: "Services", zh: "店内服务" },
+    visitor: {
+      ja: "サービス内容を確認したいです。",
+      en: "I would like to ask about your services.",
+      zh: "我想了解一下店里的服务。",
+    },
+    staffJa: "サービス内容を確認したいです。",
+  },
+  {
+    id: "booking",
+    label: { ja: "予約", en: "Booking", zh: "预约" },
+    visitor: {
+      ja: "予約について確認したいです。",
+      en: "I would like to ask about a reservation.",
+      zh: "我想确认预约。",
+    },
+    staffJa: "予約について確認したいです。",
+  },
+  {
+    id: "order",
+    label: { ja: "注文", en: "Order", zh: "点单" },
+    visitor: {
+      ja: "注文をお願いします。",
+      en: "I would like to order.",
+      zh: "我想点单。",
+    },
+    staffJa: "注文をお願いします。",
+  },
+  {
+    id: "dietary",
+    label: { ja: "食事制限", en: "Dietary needs", zh: "饮食限制" },
+    visitor: {
+      ja: "食事制限について確認したいです。",
+      en: "I need to ask about a dietary restriction.",
+      zh: "我需要确认饮食限制。",
+    },
+    staffJa: "食事制限について確認したいです。",
+  },
+  {
+    id: "payment",
+    label: { ja: "支払い", en: "Payment", zh: "支付" },
+    visitor: {
+      ja: "支払い方法を確認したいです。",
+      en: "I would like to ask about payment.",
+      zh: "我想确认支付方式。",
+    },
+    staffJa: "支払い方法を確認したいです。",
+  },
+  {
+    id: "help",
+    label: { ja: "助けが必要", en: "Need help", zh: "需要帮助" },
+    visitor: {
+      ja: "少し助けが必要です。",
+      en: "I need a little help.",
+      zh: "我需要一点帮助。",
+    },
+    staffJa: "少し助けが必要です。",
+  },
+];
+
 export const siteSettings = {
   publicUrl: "https://kagurajiang1130-del.github.io/",
   defaultLocale: "ja" as Locale,
@@ -54,8 +133,8 @@ export const siteSettings = {
 export const siteContent: Record<Locale, SiteCopy> = {
   ja: {
     seo: {
-      title: "澜顷｜異文化コミュニケーション・中国SNS運用支援",
-      description: "日本国内の企業・店舗・ブランドに向けて、多言語表現、文化差の整理、中国SNSのコンテンツ設計とアカウント運用を支援します。"
+      title: "澜顷｜多言語サービスサイト・中国SNS運用",
+      description: "日本国内の企業・店舗・ブランドに向けて、外国客向けの多言語サービスサイト、店頭案内、中国SNSのコンテンツ設計と運用を支援します。"
     },
     ui: {
       language: "言語を選択",
@@ -90,8 +169,8 @@ export const siteContent: Record<Locale, SiteCopy> = {
     },
     brand: {
       name: "澜顷",
-      eyebrow: "異文化コミュニケーション × 中国SNS運用",
-      description: "澜顷は、日本国内の企業・店舗・ブランドの価値を、多言語表現、文化差の整理、中国SNSのコンテンツ設計・アカウント運用で伝えるプロジェクトです。"
+      eyebrow: "多言語サービスサイト × 中国SNS運用",
+      description: "澜顷は、日本国内の企業・店舗・ブランドのために、外国からのお客様が使いやすい多言語サービスサイトをつくり、文化差の整理と中国SNS運用まで支援します。"
     },
     navigation: [
       {
@@ -203,8 +282,8 @@ export const siteContent: Record<Locale, SiteCopy> = {
       },
       services: {
         label: "Services",
-        title: "企業・店舗アカウントを、企画から運用まで。",
-        intro: "アカウント診断、コンテンツ設計、多言語表現、文化差の整理、投稿運用を組み合わせます。"
+        title: "外国客のためのサービスサイトから、SNS運用まで。",
+        intro: "店舗情報、メニュー、予約、支払い、お願いごとを多言語で整理し、必要に応じて中国SNSの運営までつなげます。"
       },
       process: {
         label: "Process",
@@ -218,8 +297,8 @@ export const siteContent: Record<Locale, SiteCopy> = {
       },
       pricing: {
         label: "Work & Quotes",
-        title: "まず診断し、その後に運用範囲を決めます。",
-        intro: "プラットフォーム、投稿数、撮影、公開、コメント対応、レポートの範囲で個別見積りを作ります。"
+        title: "サイト、コンテンツ、運用を分けて見積り。",
+        intro: "多言語サービスサイト、コンテンツ制作、SNS運用を別々に始められます。"
       },
       about: {
         label: "Roles",
@@ -233,8 +312,8 @@ export const siteContent: Record<Locale, SiteCopy> = {
     },
     hero: {
       title: "その存在を、\n見つけられるものへ。",
-      subtitle: "多言語での自然な表現を追求し、文化差から生まれる誤解も整理。中国SNSのコンテンツ、顧客対応、アカウント運用を支援します。",
-      kicker: "日本国内の企業・店舗 × 中国の顧客",
+      subtitle: "多言語のサービスサイトで、外国からのお客様がメニュー、予約、支払い、お願いしたいことをすぐ確認できる形に。文化差の整理と中国SNS運用まで支援します。",
+      kicker: "日本国内の企業・店舗 × 外国からのお客様",
       rotatingWords: [
         "見つけられる",
         "理解される",
@@ -242,14 +321,14 @@ export const siteContent: Record<Locale, SiteCopy> = {
         "記憶される"
       ],
       primaryAction: {
-        label: "運用支援を見る",
+        label: "サービスサイトを見る",
         href: "#services"
       },
       secondaryAction: {
         label: "ブランド相談を申し込む",
         href: "#contact"
       },
-      visualLabel: "多言語コンテンツ · 中国SNS運用",
+      visualLabel: "多言語サービスサイト · 店頭案内 · SNS運用",
       marquee: "PRESENCE · CONTENT · OPERATION · DISCOVERY · その存在を、見つけられるものへ。 · "
     },
     philosophy: {
@@ -303,40 +382,40 @@ export const siteContent: Record<Locale, SiteCopy> = {
     ],
     services: [
       {
-        name: "中国SNSアカウント運用",
-        summary: "現在の主な支援。プロフィールから投稿、公開、改善まで。",
-        detail: "ひとつのプラットフォームを対象に、月間テーマ、コンテンツ制作、公開リズム、プロフィール情報、運用レビューを設計します。小紅書を中心に、WeChat、抖音、大衆点評等は各平台の条件と対応範囲を確認します。撮影、広告、インフルエンサー、DM対応は別途見積ります。",
+        name: "多言語サービスサイト",
+        summary: "現在の主な支援。外国客が必要な情報とお願いを、短い操作で見つけられる。",
+        detail: "外国からのお客様が、メニュー、予約、支払い、サービス内容、お願いごとを確認できるサイトを設計・制作します。日本語・英語・中国語を基本に、QRコードから開く店頭利用、店員に見せる二言語画面に対応します。撮影、予約システム接続、外部サービス費用は別範囲です。",
         status: "現在の主な支援｜範囲確認後に見積り",
+        action: "サービスサイトを相談",
+        available: true
+      },
+      {
+        name: "中国SNSアカウント運用",
+        summary: "プロフィール、コンテンツ、公開から改善まで。",
+        detail: "ひとつのプラットフォームを対象に、月間テーマ、コンテンツ制作、公開リズム、プロフィール情報、運用レビューを設計します。小紅書を中心に、WeChat、抖音、大衆点評等は各平台の条件と対応範囲を確認します。撮影、広告、インフルエンサー、DM対応は別途見積ります。",
+        status: "主要サービス｜範囲確認後に見積り",
         action: "アカウント運用を相談",
         available: true
       },
       {
-        name: "異文化コンテンツ・コミュニケーション設計",
+        name: "異文化コンテンツ・顧客コミュニケーション設計",
         summary: "文化差から生まれる誤解を、先に説明できる内容へ。",
         detail: "店舗ルール、生活習慣、注文・支払い・接客の違いを整理し、中国語のFAQ、SNS投稿、プロフィール、短い店頭案内へ落とし込みます。すべての文化を一般化せず、店舗ごとの事実と目的を確認します。",
         status: "主要サービス｜範囲確認後に見積り",
-        action: "コンテンツ設計を相談",
+        action: "コミュニケーションを相談",
         available: true
       },
       {
         name: "多言語コンテンツ・ローカライズ",
-        summary: "その市場で自然に読める表現へ。",
+        summary: "翻訳調ではなく、その市場で自然に読める表現へ。",
         detail: "中国語、日本語、英語などのブランド情報、Web、メニュー、SNS投稿、店舗案内を整理します。事実確認、用語統一、読みやすさの調整を含めます。",
         status: "主要サービス｜範囲確認後に見積り",
         action: "多言語化を相談",
         available: true
       },
       {
-        name: "店舗情報・顧客コミュニケーション設計",
-        summary: "知らないと選べない情報を、入店前と店内で同じにする。",
-        detail: "店名、住所、営業時間、メニュー、予約、支払い、利用条件などを整理し、各接点で一貫した表記にします。専門的判断が必要な事項は確認先を分けます。",
-        status: "主要サービス｜範囲確認後に見積り",
-        action: "情報を整理したい",
-        available: true
-      },
-      {
         name: "プラットフォーム別素材制作",
-        summary: "既存の写真や動画を、中国SNS向けに作り直す。",
+        summary: "既存の写真や動画を、SNSや店頭画面向けに作り直す。",
         detail: "Instagram等の既存素材を確認し、タイトル、本文、画像順、短尺動画の構成、プロフィール素材へ再編集します。新規撮影、権利処理、公開は範囲を分けます。",
         status: "主要サービス｜範囲確認後に見積り",
         action: "素材を見直したい",
@@ -344,31 +423,31 @@ export const siteContent: Record<Locale, SiteCopy> = {
       },
       {
         name: "コンテンツ改善・運用レビュー",
-        summary: "公開後の内容と運用を、記録から見直す。",
-        detail: "取得できる平台データ、保存・反応、顧客側のフィードバックを整理し、次の投稿テーマやプロフィール改善を提案します。売上や集客結果は保証しません。",
+        summary: "サイトとSNSの反応を、次の改善につなげる。",
+        detail: "取得できる平台データ、保存・反応、サイト上でよく選ばれる項目、顧客側のフィードバックを整理し、内容と導線の改善を提案します。売上や集客結果は保証しません。",
         status: "条件確認後に実施",
-        action: "運用を改善したい",
+        action: "改善を相談",
         available: true
       }
     ],
     experienceGuide: {
-      label: "05 / Account Operation",
-      title: "アカウント、コンテンツ、店舗情報を同じ運用線へ。",
-      text: "投稿だけを増やしても、プロフィール、固定投稿、店舗情報、予約導線がばらばらではブランドとして伝わりません。澜顷は、内容と運用を一つの流れとして整えます。",
-      centerLabel: "BRAND\nOPERATION",
+      label: "05 / Guest Service Site",
+      title: "ことばを選び、店員にそのまま見せる。",
+      text: "外国客がよく使うサービスやお願いを選ぶと、相手の言語と日本語を同時に表示します。メニュー、予約、支払いなどの案内を、店頭でもWebでも同じ情報に整えます。",
+      centerLabel: "GUEST\nSERVICE",
       items: [
-        "アカウント定位",
-        "プロフィール",
-        "ビジュアル",
-        "投稿テーマ",
-        "画像投稿",
-        "短尺動画",
-        "公開リズム",
-        "コメント対応",
-        "店舗情報",
-        "月次レビュー"
+        "サービス",
+        "予約",
+        "注文",
+        "食事制限",
+        "支払い",
+        "助けが必要"
       ],
-      visualLabel: "ブランドから中国SNS運用まで"
+      visualLabel: "多言語サービスサイトの操作例",
+      chooseLanguage: "お客様の言語",
+      requestListLabel: "よく使うサービス・お願い",
+      staffLabel: "店員に見せる日本語",
+      demoHint: "項目を選ぶと、表示が切り替わります。"
     },
     process: [
       {
@@ -403,13 +482,13 @@ export const siteContent: Record<Locale, SiteCopy> = {
         image: "CULTURAL BRIDGE / DEMO 01"
       },
       {
-        title: "ブランドアカウント｜素材を継続運用できる内容へ",
+        title: "多言語サービスサイト｜迷わず選べる店頭画面",
         client: "架空のサービス活用場面。実在の顧客ではありません",
-        industry: "ブランドSNS運用 · DEMO",
-        summary: "既存の写真や短い動画を整理し、中国SNSで継続して公開できる連載と制作の流れに変える想定です。",
-        services: "素材分析／連載設計／プラットフォーム別制作",
-        result: "想定納品：素材マップ、投稿連載、制作ルール、月間カレンダー",
-        image: "CONTENT SYSTEM / DEMO 02"
+        industry: "サービスサイト · DEMO",
+        summary: "QRから開き、言語を選び、サービスやお願いをタップすると、相手の言語と日本語が並んで表示される想定です。",
+        services: "情報設計／多言語サイト／店員向け表示",
+        result: "想定納品：操作できる試作、対照原稿、店員向け表示、公開版",
+        image: "SERVICE SITE / DEMO 02"
       },
       {
         title: "多言語ブランド｜同じ価値を自然な中国語へ",
@@ -423,39 +502,39 @@ export const siteContent: Record<Locale, SiteCopy> = {
     ],
     pricing: [
       {
-        name: "アカウント診断",
-        audience: "現在のSNS、プロフィール、素材、店舗情報を整理したい企業・店舗",
+        name: "サイト・アカウント診断",
+        audience: "既存のWeb、SNS、店内案内を見直したい企業・店舗",
         price: "固定範囲で個別見積り",
         features: [
-          "現状のアカウントを確認",
-          "ブランド情報と素材の不足を整理",
-          "優先課題と運用案を提示"
+          "外国客の導線と情報の抜けを確認",
+          "ブランド・文化差・素材の課題を整理",
+          "サービスサイトと運用の優先順位を提示"
         ],
         action: "診断を相談",
         featured: false
       },
       {
-        name: "単月コンテンツ",
-        audience: "まず一か月分の企画、原稿、素材制作を試したい企業・店舗",
+        name: "多言語サービスサイト",
+        audience: "外国客がサービス、メニュー、予約、支払いをすぐ確認できるサイトが必要な企業・店舗",
         price: "固定範囲で個別見積り",
         features: [
-          "月間テーマと投稿設計",
-          "合意本数のコンテンツ制作",
-          "プロフィール・固定投稿の整理",
-          "公開後の簡易レビュー"
+          "日英中のサービスサイト",
+          "よく使うお願いと店員向け表示",
+          "スマートフォン・QR導線",
+          "決めた範囲の修正と公開"
         ],
-        action: "単月で相談",
+        action: "サイト制作を相談",
         featured: false
       },
       {
-        name: "月次アカウント運用",
-        audience: "継続して中国SNSを運用したい企業・店舗",
+        name: "SNSアカウント運用",
+        audience: "サービスサイトと合わせて中国SNSを継続運用したい企業・店舗",
         price: "固定範囲で個別見積り",
         features: [
-          "月間の企画・制作・公開",
-          "プロフィールと店舗情報の維持",
-          "公開記録と月次レビュー",
-          "追加作業は事前確認"
+          "月間テーマと投稿制作",
+          "プロフィールと固定投稿",
+          "公開と運用記録",
+          "月次レビュー"
         ],
         action: "運用を相談",
         featured: false
@@ -482,7 +561,11 @@ export const siteContent: Record<Locale, SiteCopy> = {
     faqs: [
       {
         question: "具体的には何を支援していますか？",
-        answer: "中国SNSのアカウント診断、コンテンツ設計、多言語ローカライズ、投稿制作、運用レビューです。企業・店舗ごとに必要な範囲を組み合わせます。"
+        answer: "多言語サービスサイト、中国SNSアカウント運用、異文化コミュニケーション設計、多言語ローカライズ、素材制作、運用レビューです。WebとSNSを一緒に整えることも、片方だけから始めることもできます。"
+      },
+      {
+        question: "多言語のサービスサイトだけ作れますか？",
+        answer: "できます。日英中を基本に、店舗情報、メニュー、予約、支払い、お願いごとを整理し、スマートフォンからすぐ開ける構成にします。撮影、予約システム連携、公開後の運用は別途確認します。"
       },
       {
         question: "小紅書のアカウント運用も相談できますか？",
@@ -494,7 +577,7 @@ export const siteContent: Record<Locale, SiteCopy> = {
       },
       {
         question: "投稿の公開やコメント返信も含まれますか？",
-        answer: "案件ごとに決めます。公開権限、確認体制、対応時間、緊急時の扱いを確認したうえで、範囲に含めるか判断します。"
+        answer: "制作と公開は分けています。SNS投稿、コメント、DM、サイト更新が必要な場合は、権限、媒体ルール、作業時間を確認したうえで別途判断します。"
       },
       {
         question: "料金はどのように決まりますか？",
@@ -517,10 +600,10 @@ export const siteContent: Record<Locale, SiteCopy> = {
       email: "wanslan1130@gmail.com",
       note: "送信ボタンを押すと、入力内容がお使いのメールアプリへ引き継がれます。このサイト上には保存されません。",
       services: [
+        "多言語サービスサイト",
         "中国SNSアカウント運用",
-        "企業・店舗のコンテンツ設計",
+        "異文化コンテンツ・顧客コミュニケーション設計",
         "多言語コンテンツ・ローカライズ",
-        "店舗・ブランド情報の設計",
         "プラットフォーム別素材制作",
         "コンテンツ改善・運用レビュー",
         "その他"
@@ -536,13 +619,13 @@ export const siteContent: Record<Locale, SiteCopy> = {
         service: "ご相談内容",
         choose: "選択してください",
         message: "メッセージ *",
-        messagePlaceholder: "企業・店舗の概要、現在のSNS、手元の素材、文化差で困っている場面、希望する運用範囲をご記入ください。",
+        messagePlaceholder: "企業・店舗の概要、現在のWebやSNS、必要な言語、載せたいサービスやお願い、困っている場面をご記入ください。",
         submit: "メールで相談を送る",
         notice: "メールアプリを開きました。起動しない場合は、表示されているメールアドレスへ直接お送りください。"
       }
     },
     footer: {
-      description: "日本国内の企業・店舗・ブランドが、多言語表現と文化差の整理を通じて、中国の顧客から見つけられ、理解され、選ばれる状態をつくります。",
+      description: "日本国内の企業・店舗・ブランドが、多言語サービスサイトと中国SNS運用を通じて、外国のお客様から見つけられ、理解され、選ばれる状態をつくります。",
       motifWords: [
         "PRESENCE",
         "CONTENT",
@@ -556,8 +639,8 @@ export const siteContent: Record<Locale, SiteCopy> = {
   },
   en: {
     seo: {
-      title: "澜顷 | Cross-Cultural Content & China Social Media Operations",
-      description: "We help Japan-based businesses and shops with multilingual expression, cultural context and account operations for Chinese social media."
+      title: "澜顷 | Multilingual Service Sites & China Social Media Operations",
+      description: "We build multilingual service sites for foreign customers and support China social media content, cultural communication and account operations for Japan-based businesses."
     },
     ui: {
       language: "Choose language",
@@ -592,8 +675,8 @@ export const siteContent: Record<Locale, SiteCopy> = {
     },
     brand: {
       name: "澜顷",
-      eyebrow: "Cross-cultural communication × China social media operations",
-      description: "澜顷 helps Japan-based businesses and shops carry their value into Chinese social media through multilingual expression, cultural context and consistent account operations."
+      eyebrow: "Multilingual service sites × China social media operations",
+      description: "澜顷 builds easy multilingual service sites for foreign customers and supports Japan-based businesses with cultural communication and China social media operations."
     },
     navigation: [
       {
@@ -705,8 +788,8 @@ export const siteContent: Record<Locale, SiteCopy> = {
       },
       services: {
         label: "Services",
-        title: "Social media operations for brands and shops.",
-        intro: "Account diagnosis, content strategy, multilingual expression, cultural review and publishing support can be combined as needed."
+        title: "From the first page a visitor opens to ongoing social operations.",
+        intro: "Organize shop information, menus, booking, payment and common requests in multiple languages, then continue into China social media if needed."
       },
       process: {
         label: "Process",
@@ -720,8 +803,8 @@ export const siteContent: Record<Locale, SiteCopy> = {
       },
       pricing: {
         label: "Work & Quotes",
-        title: "Start with a diagnosis, then define the operating scope.",
-        intro: "Platform, publishing volume, photography, community management and reporting determine the quote."
+        title: "Quote the site, content and operations separately.",
+        intro: "A multilingual service site, content production and social operations can each start separately."
       },
       about: {
         label: "Roles",
@@ -735,8 +818,8 @@ export const siteContent: Record<Locale, SiteCopy> = {
     },
     hero: {
       title: "Let your presence\nbe discovered.",
-      subtitle: "We help businesses express themselves naturally across languages, make sense of cultural misunderstandings, and operate content, customer communication and social accounts for Chinese audiences.",
-      kicker: "Japan-based businesses and shops × Chinese customers",
+      subtitle: "We build multilingual service sites where foreign customers can quickly find menus, booking, payment and common requests, with cultural context and China social media operations built in.",
+      kicker: "Japan-based businesses and shops × international customers",
       rotatingWords: [
         "be found",
         "be understood",
@@ -744,14 +827,14 @@ export const siteContent: Record<Locale, SiteCopy> = {
         "be remembered"
       ],
       primaryAction: {
-        label: "Explore operations",
+        label: "Explore service sites",
         href: "#services"
       },
       secondaryAction: {
         label: "Book a consultation",
         href: "#contact"
       },
-      visualLabel: "Multilingual content · China social media operations",
+      visualLabel: "Multilingual service sites · guest guidance · social operations",
       marquee: "PRESENCE · CONTENT · OPERATION · DISCOVERY · HELP YOUR BRAND BE FOUND · "
     },
     philosophy: {
@@ -805,72 +888,72 @@ export const siteContent: Record<Locale, SiteCopy> = {
     ],
     services: [
       {
-        name: "China social media account operations",
-        summary: "Our current focus. From profile and content to publishing and review.",
-        detail: "For one platform, we design monthly themes, production, publishing rhythm, profile information and an operating review. Xiaohongshu is the starting point; WeChat, Douyin and Dianping require a separate platform review. Photography, ads, creators and community management are quoted separately.",
+        name: "Multilingual service sites",
+        summary: "Our current focus. Make essential information and common requests easy to find in a few taps.",
+        detail: "We design and build a site where international customers can check services, menus, booking, payment and common requests. Japanese, English and Chinese are the baseline, with QR access and a bilingual screen the customer can show to staff. Photography, booking-system integration and third-party fees are separate.",
         status: "Current focus | Quote after review",
+        action: "Discuss a service site",
+        available: true
+      },
+      {
+        name: "China social media account operations",
+        summary: "From profile and content to publishing and review.",
+        detail: "For one platform, we design monthly themes, production, publishing rhythm, profile information and an operating review. Xiaohongshu is the starting point; WeChat, Douyin and Dianping require a separate platform review.",
+        status: "Core service | Quote after review",
         action: "Discuss account operations",
         available: true
       },
       {
-        name: "Cross-cultural content and communication strategy",
+        name: "Cross-cultural content and customer communication",
         summary: "Explain the cultural gap before it is read as bad behaviour.",
-        detail: "We organize shop rules, everyday habits, ordering, payment and service expectations into Chinese FAQs, social posts, profile content and short storefront guidance. We do not reduce a culture to one stereotype; each project is grounded in the specific business and audience.",
+        detail: "We organize shop rules, everyday habits, ordering, payment and service expectations into Chinese FAQs, social posts, profile content and short storefront guidance. We avoid cultural stereotypes and ground the work in the specific business.",
         status: "Core service | Quote after review",
-        action: "Discuss content strategy",
+        action: "Discuss communication",
         available: true
       },
       {
         name: "Multilingual content and localization",
-        summary: "Natural language for the platform and the audience.",
-        detail: "We adapt brand information, websites, menus, social posts and visitor guidance across Chinese, Japanese and English. The scope includes fact checks, terminology and readability.",
+        summary: "Natural language for the audience, not translation-shaped text.",
+        detail: "We adapt brand information, websites, menus, social posts and visitor guidance across Chinese, Japanese and English, including fact checks, terminology and readability.",
         status: "Core service | Quote after review",
         action: "Discuss localization",
         available: true
       },
       {
-        name: "Store information and customer communication design",
-        summary: "Keep decision-critical information consistent before entry and inside the store.",
-        detail: "We align names, addresses, hours, menus, booking, payment and visitor conditions across customer touchpoints. Regulated or specialist claims remain with the appropriate professional.",
-        status: "Core service | Quote after review",
-        action: "Review the information",
-        available: true
-      },
-      {
         name: "Cross-platform asset production",
-        summary: "Rebuild existing photos and video for Chinese social media.",
-        detail: "We review assets from Instagram and other channels, then reshape titles, captions, image order, short-video structure and profile visuals. New photography, rights and publishing are separate.",
+        summary: "Rebuild existing photos and video for social and in-store screens.",
+        detail: "We review existing assets and reshape titles, captions, image order, short-video structure and profile visuals. New photography, rights and publishing are separate.",
         status: "Core service | Quote after review",
         action: "Review current assets",
         available: true
       },
       {
-        name: "Content review and account optimization",
-        summary: "Use available records to improve the next round.",
-        detail: "We review accessible platform data, saves and responses, plus client feedback, then recommend content and profile changes. We do not guarantee audience, visit or sales outcomes.",
+        name: "Content review and experience optimization",
+        summary: "Use available signals to improve the next version.",
+        detail: "We review accessible platform data, saves and responses, the items visitors select most often on the site, and client feedback. We do not guarantee traffic, visits or sales outcomes.",
         status: "Subject to account access",
-        action: "Improve the account",
+        action: "Discuss improvements",
         available: true
       }
     ],
     experienceGuide: {
-      label: "05 / Account Operation",
-      title: "Put the account, content and shop information on one operating line.",
-      text: "Publishing more posts will not create a brand when the profile, pinned content, shop information and booking path remain disconnected. 澜顷 organizes content and operations as one system.",
-      centerLabel: "BRAND\nOPERATION",
+      label: "05 / Guest Service Site",
+      title: "Choose a language. Show it to staff.",
+      text: "The visitor chooses a common service or request and sees their language next to Japanese. Menus, booking and payment guidance stay consistent online and in the store.",
+      centerLabel: "GUEST\nSERVICE",
       items: [
-        "Positioning",
-        "Profile",
-        "Visual system",
-        "Content pillars",
-        "Image posts",
-        "Short video",
-        "Publishing rhythm",
-        "Community",
-        "Shop information",
-        "Monthly review"
+        "Services",
+        "Booking",
+        "Order",
+        "Dietary needs",
+        "Payment",
+        "Need help"
       ],
-      visualLabel: "From brand clarity to China social media operations"
+      visualLabel: "Interactive multilingual service site",
+      chooseLanguage: "Visitor language",
+      requestListLabel: "Common services and requests",
+      staffLabel: "Japanese shown to staff",
+      demoHint: "Choose an item to switch the screen."
     },
     process: [
       {
@@ -905,13 +988,13 @@ export const siteContent: Record<Locale, SiteCopy> = {
         image: "CULTURAL BRIDGE / DEMO 01"
       },
       {
-        title: "Brand account｜Turn assets into repeatable content",
+        title: "Multilingual service site｜A guest screen with a clear next step",
         client: "Fictional service scenario, not a real client",
-        industry: "BRAND SOCIAL OPERATIONS · DEMO",
-        summary: "A possible operation that organizes existing photos and short videos into editorial series and a repeatable production rhythm for Chinese social media.",
-        services: "Asset analysis / editorial planning / platform production",
-        result: "Example deliverables: asset map, content series, production rules and a monthly calendar",
-        image: "CONTENT SYSTEM / DEMO 02"
+        industry: "SERVICE SITE · DEMO",
+        summary: "A possible mobile site opened from a QR code. The visitor chooses a language and taps a service or request, then sees their language and Japanese side by side.",
+        services: "Information design / multilingual site / staff view",
+        result: "Example deliverables: clickable prototype, bilingual content, staff-facing screen and public build",
+        image: "SERVICE SITE / DEMO 02"
       },
       {
         title: "Multilingual brand｜Carry the same value into natural Chinese",
@@ -925,41 +1008,41 @@ export const siteContent: Record<Locale, SiteCopy> = {
     ],
     pricing: [
       {
-        name: "Account diagnosis",
-        audience: "For a business that needs to review its current social account, assets and shop information",
+        name: "Site and account diagnosis",
+        audience: "For a business reviewing its current website, social presence and guest guidance",
         price: "Individual quote after fixed-scope review",
         features: [
-          "Review the current account",
-          "Map brand and asset gaps",
-          "Set priorities and an operating direction"
+          "Review the international guest pathway",
+          "Map brand, cultural and asset gaps",
+          "Prioritize site and operating work"
         ],
         action: "Discuss a diagnosis",
         featured: false
       },
       {
-        name: "One-month content",
-        audience: "For a business that wants to test one month of planning, writing and production",
+        name: "Multilingual service site",
+        audience: "For a business that needs foreign customers to find services, menus, booking and payment quickly",
         price: "Individual quote after fixed-scope review",
         features: [
-          "Monthly content plan",
-          "Agreed production volume",
-          "Profile and pinned-content review",
-          "A short post-publishing review"
+          "Japanese, English and Chinese baseline",
+          "Common requests and staff-facing view",
+          "Mobile and QR pathway",
+          "Agreed revisions and release"
         ],
-        action: "Discuss one month",
+        action: "Discuss the site",
         featured: false
       },
       {
-        name: "Monthly account operations",
-        audience: "For a business that wants a continuous Chinese social media operation",
+        name: "Social account operations",
+        audience: "For a business that wants to operate China social media alongside the service site",
         price: "Individual quote after fixed-scope review",
         features: [
-          "Monthly planning, production and publishing",
-          "Profile and shop-information upkeep",
-          "Publishing records and monthly review",
-          "Additional work confirmed in advance"
+          "Monthly themes and production",
+          "Profile and pinned content",
+          "Publishing and operating records",
+          "Monthly review"
         ],
-        action: "Discuss monthly operations",
+        action: "Discuss operations",
         featured: false
       }
     ],
@@ -984,7 +1067,11 @@ export const siteContent: Record<Locale, SiteCopy> = {
     faqs: [
       {
         question: "What exactly do you support?",
-        answer: "China social media account diagnosis, content strategy, multilingual localization, production and operating reviews. We combine the parts each business needs."
+        answer: "Multilingual service sites, China social media account operations, cross-cultural communication design, localization, asset production and operating reviews. We can connect the website and social operation, or begin with either one."
+      },
+      {
+        question: "Can you build only the multilingual service site?",
+        answer: "Yes. We can build a mobile-first site in Japanese, English and Chinese for services, menus, booking, payment and common requests. Photography, booking-system connections and ongoing updates are scoped separately."
       },
       {
         question: "Can you operate a Xiaohongshu account?",
@@ -996,7 +1083,7 @@ export const siteContent: Record<Locale, SiteCopy> = {
       },
       {
         question: "Does operations include publishing and replies?",
-        answer: "That depends on the project. Account access, approval flow, response hours and escalation rules are confirmed before publishing or community management is included."
+        answer: "Production and publishing are separate. Social posting, comments, direct messages and site updates are considered after checking access, platform rules and the work required."
       },
       {
         question: "How is pricing decided?",
@@ -1019,12 +1106,12 @@ export const siteContent: Record<Locale, SiteCopy> = {
       email: "wanslan1130@gmail.com",
       note: "The submit button transfers your message to your own email application. This website does not store the information.",
       services: [
+        "Multilingual service sites",
         "China social media account operations",
-        "Content strategy for brands and shops",
+        "Cross-cultural content and customer communication",
         "Multilingual content and localization",
-        "Brand and store information design",
         "Cross-platform asset production",
-        "Content review and account optimization",
+        "Content review and experience optimization",
         "Other"
       ],
       socials: [],
@@ -1038,13 +1125,13 @@ export const siteContent: Record<Locale, SiteCopy> = {
         service: "What would you like to discuss?",
         choose: "Choose an option",
         message: "Message *",
-        messagePlaceholder: "Tell us about the business, current social channels, available assets, the cultural situations that cause friction and the operating scope you have in mind.",
+        messagePlaceholder: "Tell us about the business, current website and social channels, required languages, services and guest requests to include, and the situations that cause friction.",
         submit: "Send enquiry by email",
         notice: "Your email application has been opened. If it does not launch, email the address shown on this page directly."
       }
     },
     footer: {
-      description: "Helping Japan-based businesses and shops become found, understood and chosen by Chinese customers through multilingual expression and thoughtful cultural context.",
+      description: "Helping Japan-based businesses and shops become found, understood and chosen by international customers through multilingual service sites and China social media operations.",
       motifWords: [
         "PRESENCE",
         "CONTENT",
@@ -1058,8 +1145,8 @@ export const siteContent: Record<Locale, SiteCopy> = {
   },
   zh: {
     seo: {
-      title: "澜顷｜跨文化内容与中国社交媒体运营",
-      description: "面向日本本地企业、门店与品牌，整理多语言表达、文化差异与顾客沟通，并提供中国社交媒体的内容策划和账号运营支持。"
+      title: "澜顷｜多语言服务网站与中国社交媒体运营",
+      description: "面向日本本地企业、门店与品牌，制作方便外国顾客使用的多语言服务网站，并提供文化沟通、内容策划与中国社交媒体运营支持。"
     },
     ui: {
       language: "选择语言",
@@ -1094,8 +1181,8 @@ export const siteContent: Record<Locale, SiteCopy> = {
     },
     brand: {
       name: "澜顷",
-      eyebrow: "跨文化沟通 × 中国社交媒体运营",
-      description: "澜顷帮助日本本地企业、门店与品牌，把多语言表达、文化差异和社交媒体运营放在同一套方法里。"
+      eyebrow: "多语言服务网站 × 中国社交媒体运营",
+      description: "澜顷为日本本地企业、门店与品牌制作方便外国顾客使用的多语言服务网站，并提供文化沟通与中国社交媒体运营支持。"
     },
     navigation: [
       {
@@ -1207,8 +1294,8 @@ export const siteContent: Record<Locale, SiteCopy> = {
       },
       services: {
         label: "服务",
-        title: "企业账号与门店账号，从内容到运营。",
-        intro: "账号诊断、内容策划、多语言表达、文化差异整理与发布运营，按实际需要组合。"
+        title: "从外国顾客打开的第一个页面，到社交媒体运营。",
+        intro: "把门店信息、菜单、预约、支付和常见请求用多种语言整理清楚，需要时再继续接入中国社交媒体运营。"
       },
       process: {
         label: "流程",
@@ -1222,8 +1309,8 @@ export const siteContent: Record<Locale, SiteCopy> = {
       },
       pricing: {
         label: "合作与报价",
-        title: "先做诊断，再决定运营范围。",
-        intro: "平台、内容数量、拍摄、发布、评论管理和复盘范围共同决定报价。"
+        title: "网站、内容和运营，分开计算。",
+        intro: "多语言服务网站、内容制作和社交媒体运营可以分别开始。"
       },
       about: {
         label: "分工",
@@ -1237,8 +1324,8 @@ export const siteContent: Record<Locale, SiteCopy> = {
     },
     hero: {
       title: "让你的存在，\n被发现。",
-      subtitle: "我们致力于多语言内容的自然表达，也帮助企业、门店理解文化差异，处理中国社交媒体上的内容、互动与账号运营。",
-      kicker: "日本本地企业、门店与品牌 × 中国顾客",
+      subtitle: "为外国顾客制作能用、能点、能直接给店员看的服务网站：选择语言，查看菜单、预约、支付和常见请求，也提供文化沟通与中国社交媒体运营。",
+      kicker: "日本本地企业、门店与品牌 × 外国顾客",
       rotatingWords: [
         "被看见",
         "被理解",
@@ -1246,14 +1333,14 @@ export const siteContent: Record<Locale, SiteCopy> = {
         "被记住"
       ],
       primaryAction: {
-        label: "查看运营服务",
+        label: "查看服务网站",
         href: "#services"
       },
       secondaryAction: {
         label: "预约品牌咨询",
         href: "#contact"
       },
-      visualLabel: "多语言内容 · 中国社交媒体运营",
+      visualLabel: "多语言服务网站 · 店内导航 · 社媒运营",
       marquee: "PRESENCE · CONTENT · OPERATION · DISCOVERY · 让你的存在被发现 · "
     },
     philosophy: {
@@ -1307,19 +1394,27 @@ export const siteContent: Record<Locale, SiteCopy> = {
     ],
     services: [
       {
-        name: "中国社交媒体账号运营",
-        summary: "当前主推。从主页、内容到发布与复盘。",
-        detail: "围绕一个平台，设计每月主题、内容制作、发布节奏、主页信息与运营复盘。以小红书为起点，微信公众号、抖音、大众点评等平台需单独确认条件与范围。拍摄、广告、达人和评论管理另计。",
+        name: "多语言服务网站",
+        summary: "当前主推。让外国顾客几步之内找到服务、信息和想提出的请求。",
+        detail: "设计和制作方便外国顾客查看服务、菜单、预约、支付和常见请求的网站。以日语、英语、中文为基础，支持扫码打开、手机浏览，以及顾客点选后直接给店员看的双语界面。拍摄、预约系统对接和第三方服务费用另计。",
         status: "当前主推｜确认范围后报价",
+        action: "咨询服务网站",
+        available: true
+      },
+      {
+        name: "中国社交媒体账号运营",
+        summary: "从主页、内容到发布与复盘。",
+        detail: "围绕一个平台，设计每月主题、内容制作、发布节奏、主页信息与运营复盘。以小红书为起点，微信公众号、抖音、大众点评等平台需单独确认条件与范围。",
+        status: "主要服务｜确认范围后报价",
         action: "咨询账号运营",
         available: true
       },
       {
-        name: "跨文化内容与沟通设计",
+        name: "跨文化内容与顾客沟通",
         summary: "在文化差异被理解成“失礼”之前，先把原因讲清楚。",
-        detail: "梳理门店规则、生活习惯、点单、支付和接待方式的差异，整理成中文 FAQ、社交内容、账号简介和简短店内说明。不会用刻板印象概括整个文化，所有表达都回到具体门店和具体顾客。",
+        detail: "梳理门店规则、生活习惯、点单、支付和接待方式的差异，整理成中文 FAQ、社媒内容、账号简介和简短店内说明。不会用刻板印象概括整个文化，所有表达都回到具体门店。",
         status: "主要服务｜确认范围后报价",
-        action: "咨询内容策划",
+        action: "咨询文化沟通",
         available: true
       },
       {
@@ -1331,48 +1426,40 @@ export const siteContent: Record<Locale, SiteCopy> = {
         available: true
       },
       {
-        name: "门店信息与顾客沟通设计",
-        summary: "把进店前必须知道的信息，与店内说法保持一致。",
-        detail: "统一店名、地址、营业时间、菜单、预约、支付与使用条件，清理各触点之间的冲突。需要专业判断的事项交由相应专业人士确认。",
-        status: "主要服务｜确认范围后报价",
-        action: "咨询信息整理",
-        available: true
-      },
-      {
         name: "跨平台素材再制作",
-        summary: "把现有照片和视频，改成中国社交媒体可用的内容。",
+        summary: "把现有照片和视频，改成社交媒体和店内屏幕都能用的内容。",
         detail: "盘点 Instagram 等现有素材，重新设计标题、正文、图片顺序、短视频结构和主页视觉。新拍摄、版权处理与公开另行确认。",
         status: "主要服务｜确认范围后报价",
         action: "咨询素材改造",
         available: true
       },
       {
-        name: "内容复盘与账号优化",
-        summary: "根据已有记录，调整下一轮内容。",
-        detail: "整理可获取的平台数据、收藏反馈和客户反馈，提出内容与主页调整建议。流量、粉丝、到店与销售结果不作保证。",
-        status: "确认账号权限后承接",
-        action: "咨询运营优化",
+        name: "内容与体验复盘",
+        summary: "根据已有记录，调整下一轮内容和网站。",
+        detail: "整理可获取的平台数据、收藏反馈、网站常被点选的项目和客户反馈，提出内容与路径改进建议。流量、到店和销售结果不作保证。",
+        status: "确认权限后承接",
+        action: "咨询优化方案",
         available: true
       }
     ],
     experienceGuide: {
-      label: "05 / Account Operation",
-      title: "账号、内容、门店信息，放进同一条运营线。",
-      text: "只增加帖子，主页、置顶内容、门店信息和预约路径仍然分散，就无法形成品牌。澜顷把内容与运营整理为一个系统。",
-      centerLabel: "品牌\n运营",
+      label: "05 / Guest Service Site",
+      title: "选择语言，直接给店员看。",
+      text: "外国顾客选择常用服务或请求，屏幕会同时显示顾客语言和日语。菜单、预约、支付等信息在网站和店内保持一致。",
+      centerLabel: "顾客\n服务",
       items: [
-        "账号定位",
-        "主页简介",
-        "视觉风格",
-        "内容栏目",
-        "图文笔记",
-        "短视频",
-        "发布节奏",
-        "评论管理",
-        "门店信息",
-        "月度复盘"
+        "店内服务",
+        "预约",
+        "点单",
+        "饮食限制",
+        "支付",
+        "需要帮助"
       ],
-      visualLabel: "从品牌梳理到中国社交媒体运营"
+      visualLabel: "多语言服务网站交互示例",
+      chooseLanguage: "顾客语言",
+      requestListLabel: "常用服务与请求",
+      staffLabel: "给店员看的日语",
+      demoHint: "点击项目，右侧画面会切换。"
     },
     process: [
       {
@@ -1407,13 +1494,13 @@ export const siteContent: Record<Locale, SiteCopy> = {
         image: "跨文化沟通 / DEMO 01"
       },
       {
-        title: "品牌账号｜把现有素材变成可持续更新",
+        title: "多语言服务网站｜外国顾客不用问，也能找到下一步",
         client: "虚构服务场景，不是真实客户",
-        industry: "品牌社媒运营 · DEMO",
-        summary: "把现有照片和短视频整理成栏目、视觉规则与每月生产节奏，让账号可以持续发布，而不是每次从零开始。",
-        services: "素材分析／栏目策划／跨平台制作",
-        result: "可能交付：素材地图、内容栏目、制作规则、月度日历",
-        image: "内容系统 / DEMO 02"
+        industry: "服务网站 · DEMO",
+        summary: "设想顾客扫码打开网站，选择语言和服务，点一下“需要帮助”或“饮食限制”，屏幕同时显示自己的语言与日语，可以直接给店员看。",
+        services: "信息结构／多语言网站／店员展示界面",
+        result: "可能交付：可点击原型、双语内容表、店员展示页、公开版本",
+        image: "服务网站 / DEMO 02"
       },
       {
         title: "多语言品牌｜把同一价值写成自然中文",
@@ -1427,41 +1514,41 @@ export const siteContent: Record<Locale, SiteCopy> = {
     ],
     pricing: [
       {
-        name: "账号诊断",
-        audience: "需要先看清现有账号、内容与门店信息问题的企业或门店",
+        name: "网站与账号诊断",
+        audience: "想检查现有网站、社交媒体和店内说明的企业或门店",
         price: "固定范围，个别报价",
         features: [
-          "检查现有账号与主页",
-          "梳理品牌与素材缺口",
-          "给出优先问题与运营方向"
+          "检查外国顾客的使用路径",
+          "梳理品牌、文化差异和素材问题",
+          "给出网站与运营的优先顺序"
         ],
-        action: "咨询账号诊断",
+        action: "咨询诊断",
         featured: false
       },
       {
-        name: "单月内容",
-        audience: "想先试一个月策划、撰稿与内容制作的企业或门店",
+        name: "多语言服务网站",
+        audience: "需要外国顾客快速查看服务、菜单、预约和支付方式的商家",
         price: "固定范围，个别报价",
         features: [
-          "月度主题与内容规划",
-          "约定数量的内容制作",
-          "主页与置顶内容整理",
-          "发布后的简短复盘"
+          "日语、英语、中文基础版本",
+          "常用请求与店员展示页",
+          "手机与扫码入口",
+          "约定范围内的修改和发布"
         ],
-        action: "咨询单月内容",
+        action: "咨询网站制作",
         featured: false
       },
       {
-        name: "账号运营",
-        audience: "希望持续经营中国社交媒体的企业或门店",
+        name: "社交媒体账号运营",
+        audience: "希望把服务网站与中国社交媒体一起持续经营的商家",
         price: "固定范围，个别报价",
         features: [
-          "每月策划、制作与发布",
-          "主页和门店信息维护",
-          "发布记录与月度复盘",
-          "额外工作提前确认"
+          "每月主题与内容制作",
+          "主页与置顶内容",
+          "发布和运营记录",
+          "月度复盘"
         ],
-        action: "咨询月度运营",
+        action: "咨询账号运营",
         featured: false
       }
     ],
@@ -1486,7 +1573,11 @@ export const siteContent: Record<Locale, SiteCopy> = {
     faqs: [
       {
         question: "你们具体提供什么服务？",
-        answer: "中国社交媒体账号诊断、内容策划、多语言本地化、素材制作、发布支持与运营复盘。会根据企业和门店需要组合范围。"
+        answer: "多语言服务网站、中国社交媒体账号运营、跨文化内容与顾客沟通、多语言本地化、素材制作和运营复盘。网站和社交媒体可以一起做，也可以从其中一项开始。"
+      },
+      {
+        question: "可以只做多语言服务网站吗？",
+        answer: "可以。以日语、英语、中文为基础，整理服务、菜单、预约、支付和常见请求，做成手机打开就能使用的网站。拍摄、预约系统对接和后续更新会另行确认。"
       },
       {
         question: "可以做小红书账号运营吗？",
@@ -1498,7 +1589,7 @@ export const siteContent: Record<Locale, SiteCopy> = {
       },
       {
         question: "会包含发布和评论回复吗？",
-        answer: "按项目约定。会先确认账号权限、审核流程、响应时间和紧急情况处理方式，再决定是否包含。"
+        answer: "制作与发布分开。发布、发帖、评论、私信和网站更新需要另看权限、平台规则和实际工时，再判断能否承接。"
       },
       {
         question: "价格怎么确定？",
@@ -1521,12 +1612,12 @@ export const siteContent: Record<Locale, SiteCopy> = {
       email: "wanslan1130@gmail.com",
       note: "点击提交后，内容会转到你自己的邮件应用；本网站不会保存你填写的信息。",
       services: [
+        "多语言服务网站",
         "中国社交媒体账号运营",
-        "企业与门店内容策划",
+        "跨文化内容与顾客沟通",
         "多语言内容与本地化",
-        "品牌与门店信息设计",
         "跨平台素材再制作",
-        "内容复盘与账号优化",
+        "内容与体验复盘",
         "其他"
       ],
       socials: [],
@@ -1540,13 +1631,13 @@ export const siteContent: Record<Locale, SiteCopy> = {
         service: "希望咨询的内容",
         choose: "请选择",
         message: "留言 *",
-        messagePlaceholder: "请介绍企业或门店、现有社交账号、手头素材、最容易发生文化误会的场景，以及希望运营到什么程度。",
+        messagePlaceholder: "请介绍企业或门店、现有网站和社交账号、需要的语言、想放上去的服务与顾客请求，以及最容易发生沟通困难的场景。",
         submit: "通过邮件发送咨询",
         notice: "已尝试打开你的邮件应用。如果没有自动打开，请直接发送到页面显示的邮箱。"
       }
     },
     footer: {
-      description: "帮助日本本地企业、门店与品牌，通过自然的多语言表达和对文化差异的理解，被中国顾客看见、理解并选择。",
+      description: "帮助日本本地企业、门店与品牌，通过多语言服务网站和中国社交媒体运营，被外国顾客看见、理解并选择。",
       motifWords: [
         "PRESENCE",
         "CONTENT",

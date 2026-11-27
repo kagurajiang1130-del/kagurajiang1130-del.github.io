@@ -1,7 +1,7 @@
 "use client";
 
 import { FormEvent, useEffect, useRef, useState } from "react";
-import { Locale, localeOptions, siteContent, siteSettings } from "./content";
+import { guestLanguageOptions, guestServiceRequests, Locale, localeOptions, siteContent, siteSettings, type GuestLanguage } from "./content";
 
 const pad = (value: number) => String(value).padStart(2, "0");
 const mailLabel = (value: string) => value.replace(/\s*\*\s*$/, "");
@@ -42,11 +42,14 @@ export default function Home() {
   const [localeReady, setLocaleReady] = useState(false);
   const [reduceMotion, setReduceMotion] = useState(false);
   const [wordIndex, setWordIndex] = useState(0);
+  const [guestLanguage, setGuestLanguage] = useState<GuestLanguage>("zh");
+  const [activeRequest, setActiveRequest] = useState(0);
   const [formNotice, setFormNotice] = useState("");
   const [activeScene, setActiveScene] = useState(0);
   const menuButtonRef = useRef<HTMLButtonElement>(null);
   const headerRef = useRef<HTMLElement>(null);
   const c = siteContent[locale];
+  const activeGuestRequest = guestServiceRequests[activeRequest];
   const contactEmailReady = /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(c.contact.email);
   const contactFormEnabled = Boolean(siteSettings.contactFormAction);
 
@@ -407,12 +410,52 @@ export default function Home() {
 
       <section className="experience" id="experience">
         <div className="experience-heading reveal"><span>{c.experienceGuide.label}</span><h2>{c.experienceGuide.title}</h2><p>{c.experienceGuide.text}</p></div>
-        <div className="experience-layout">
-          <div className="guide-wheel reveal">
-            <span className="wheel-center">{c.experienceGuide.centerLabel.split("\n").map((line) => <span key={line}>{line}</span>)}</span>
-            {c.experienceGuide.items.slice(0, 8).map((item, index) => <span className={`wheel-item wheel-${index + 1}`} key={item}>{item}</span>)}
+        <div className="guest-demo reveal">
+          <div className="guest-demo-toolbar">
+            <div className="guest-language" role="group" aria-label={c.experienceGuide.chooseLanguage}>
+              <span>{c.experienceGuide.chooseLanguage}</span>
+              <div>
+                {guestLanguageOptions.map((option) => (
+                  <button
+                    type="button"
+                    key={option.code}
+                    className={guestLanguage === option.code ? "active" : ""}
+                    aria-pressed={guestLanguage === option.code}
+                    onClick={() => setGuestLanguage(option.code)}
+                  >
+                    <small>{option.short}</small>{option.label}
+                  </button>
+                ))}
+              </div>
+            </div>
+            <p>{c.experienceGuide.demoHint}</p>
           </div>
-          <div className="experience-side reveal"><VisualPlaceholder label={c.experienceGuide.visualLabel} indexLabel={c.ui.visualIndex} dark /><ul>{c.experienceGuide.items.map((item) => <li key={item}><span>↳</span>{item}</li>)}</ul></div>
+          <div className="guest-demo-grid">
+            <div className="guest-request-list" aria-label={c.experienceGuide.requestListLabel}>
+              {guestServiceRequests.map((request, index) => (
+                <button
+                  type="button"
+                  key={request.id}
+                  className={activeRequest === index ? "active" : ""}
+                  aria-pressed={activeRequest === index}
+                  onClick={() => setActiveRequest(index)}
+                >
+                  <span>{pad(index + 1)}</span>
+                  <strong>{request.label[guestLanguage]}</strong>
+                  <i>↗</i>
+                </button>
+              ))}
+            </div>
+            <div className="guest-screen" key={`${guestLanguage}-${activeGuestRequest.id}`} aria-live="polite">
+              <div className="guest-screen-head"><span>{c.experienceGuide.visualLabel}</span><i>{pad(activeRequest + 1)} / {pad(guestServiceRequests.length)}</i></div>
+              <p className="guest-screen-kicker">{c.experienceGuide.requestListLabel}</p>
+              <p className="guest-visitor-phrase" lang={guestLanguage === "zh" ? "zh-CN" : guestLanguage}>{activeGuestRequest.visitor[guestLanguage]}</p>
+              <div className="guest-staff-phrase">
+                <span>{c.experienceGuide.staffLabel}</span>
+                <strong lang="ja">{activeGuestRequest.staffJa}</strong>
+              </div>
+            </div>
+          </div>
         </div>
       </section>
 

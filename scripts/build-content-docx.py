@@ -261,7 +261,26 @@ def build_document(data):
         add_field(doc, "Information points", " / ".join(g["items"]), "experienceGuide.items")
         add_field(doc, "Visual label", g["visualLabel"])
 
-    add_group_title(doc, "08 · Process / 服务流程")
+    add_group_title(doc, "08 · Guest Service Site Demo / 多语言服务网站演示")
+    for locale in locales:
+        g = content[locale]["experienceGuide"]
+        add_locale_heading(doc, locale)
+        add_field(doc, "Language selector", g["chooseLanguage"])
+        add_field(doc, "Request list label", g["requestListLabel"])
+        add_field(doc, "Staff-facing label", g["staffLabel"])
+        add_field(doc, "Demo instruction", g["demoHint"])
+    doc.add_heading("Interactive request phrases", level=2)
+    for request in data["guestServiceRequests"]:
+        doc.add_heading(request["id"], level=3)
+        add_field(doc, "Japanese label", request["label"]["ja"])
+        add_field(doc, "English label", request["label"]["en"])
+        add_field(doc, "Chinese label", request["label"]["zh"])
+        add_field(doc, "Japanese visitor phrase", request["visitor"]["ja"])
+        add_field(doc, "English visitor phrase", request["visitor"]["en"])
+        add_field(doc, "Chinese visitor phrase", request["visitor"]["zh"])
+        add_field(doc, "Japanese staff phrase", request["staffJa"])
+
+    add_group_title(doc, "09 · Process / 服务流程")
     for locale in locales:
         c = content[locale]
         add_locale_heading(doc, locale)
@@ -269,7 +288,7 @@ def build_document(data):
         add_field(doc, "Section intro", c["sections"]["process"]["intro"])
         add_list_items(doc, c["process"], "Step")
 
-    add_group_title(doc, "09 · Use Scenarios / 服务场景", "当前全部是 Demo，不是客户案例。改成真实案例前必须获得公开许可。")
+    add_group_title(doc, "10 · Use Scenarios / 服务场景", "当前全部是 Demo，不是客户案例。改成真实案例前必须获得公开许可。")
     for locale in locales:
         c = content[locale]
         add_locale_heading(doc, locale)
@@ -277,7 +296,7 @@ def build_document(data):
         add_field(doc, "Section intro", c["sections"]["cases"]["intro"])
         add_list_items(doc, c["cases"], "Scenario")
 
-    add_group_title(doc, "10 · Pricing / 服务方案")
+    add_group_title(doc, "11 · Pricing / 服务方案")
     for locale in locales:
         c = content[locale]
         add_locale_heading(doc, locale)
@@ -285,14 +304,14 @@ def build_document(data):
         add_field(doc, "Section intro", c["sections"]["pricing"]["intro"])
         add_list_items(doc, c["pricing"], "Plan")
 
-    add_group_title(doc, "11 · Vision / 理想中的状态")
+    add_group_title(doc, "12 · Vision / 理想中的状态")
     for locale in locales:
         v = content[locale]["vision"]
         add_locale_heading(doc, locale)
         add_field(doc, "Title", v["title"].replace("\n", " / "), "vision.title")
         add_field(doc, "Body", v["text"], "vision.text")
 
-    add_group_title(doc, "12 · About / 关于")
+    add_group_title(doc, "13 · About / 关于")
     for locale in locales:
         c = content[locale]
         a = c["about"]
@@ -304,14 +323,14 @@ def build_document(data):
         add_field(doc, c["ui"]["workingPhilosophy"], a["philosophy"], "about.philosophy")
         add_field(doc, c["ui"]["partners"], " / ".join(a["partnerLogos"]), "about.partnerLogos")
 
-    add_group_title(doc, "13 · FAQ / 常见问题")
+    add_group_title(doc, "14 · FAQ / 常见问题")
     for locale in locales:
         c = content[locale]
         add_locale_heading(doc, locale)
         add_field(doc, "Section title", c["sections"]["faq"]["title"])
         add_list_items(doc, c["faqs"], "FAQ")
 
-    add_group_title(doc, "14 · Contact / 联系咨询")
+    add_group_title(doc, "15 · Contact / 联系咨询")
     for locale in locales:
         c = content[locale]
         form = c["contact"]["form"]
@@ -324,7 +343,7 @@ def build_document(data):
         add_field(doc, "Submit", form["submit"], "contact.form.submit")
         add_field(doc, "Form note", c["contact"]["note"], "contact.note")
 
-    add_group_title(doc, "15 · Footer 与隐私说明")
+    add_group_title(doc, "16 · Footer 与隐私说明")
     for locale in locales:
         f = content[locale]["footer"]
         add_locale_heading(doc, locale)

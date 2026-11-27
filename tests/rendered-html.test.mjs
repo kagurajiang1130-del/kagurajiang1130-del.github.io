@@ -36,6 +36,9 @@ test("renders the multilingual brand site", async () => {
   assert.match(html, /<main id="main-content"/);
   assert.match(html, /role="img" aria-label=/);
   assert.match(html, /aria-current="location"/);
+  assert.match(html, /class="guest-demo reveal"/);
+  assert.match(html, /class="guest-language"/);
+  assert.match(html, /class="guest-request-list"/);
   for (const field of ["name", "company", "email", "website", "service", "message"]) {
     assert.match(html, new RegExp(`(?:name|id)="${field}"`));
   }
@@ -59,6 +62,8 @@ test("keeps content centralized and motion locally hosted", async () => {
   assert.match(content, /en:\s*\{/);
   assert.match(content, /zh:\s*\{/);
   assert.equal((content.match(/cases:\s*\[/g) ?? []).length, 3);
+  assert.match(content, /guestLanguageOptions/);
+  assert.match(content, /guestServiceRequests/);
   assert.equal((cases.match(/image:\s*"[^"]+ \/ DEMO 0[1-3]"/g) ?? []).length, 9);
   assert.match(page, /--scene-title-x/);
   assert.match(page, /--scene-runner-x/);
@@ -71,7 +76,10 @@ test("keeps content centralized and motion locally hosted", async () => {
   assert.match(page, /--scene-emphasis/);
   assert.match(page, /visibleWordIndex = reduceMotion \? 0 : wordIndex/);
   assert.match(page, /document\.documentElement\.classList\.add\("motion-ready"\)/);
-  assert.doesNotMatch(page, /aria-live="polite"/);
+  assert.match(page, /className="guest-demo reveal"/);
+  assert.match(page, /aria-live="polite"/);
+  assert.match(page, /activeGuestRequest\.visitor\[guestLanguage\]/);
+  assert.match(page, /activeGuestRequest\.staffJa/);
   assert.match(page, /const \[localeReady, setLocaleReady\] = useState\(false\)/);
   assert.match(page, /setLocaleReady\(true\)/);
   assert.match(page, /if \(!localeReady\) return/);
@@ -96,6 +104,8 @@ test("keeps content centralized and motion locally hosted", async () => {
   assert.match(css, /main > section \{ animation:\s*none !important/);
   assert.match(css, /\.reveal \{ opacity: 1; \}/);
   assert.match(css, /html\.motion-ready \.reveal/);
+  assert.match(css, /\.guest-demo-grid/);
+  assert.match(css, /@keyframes guest-screen-in/);
   assert.doesNotMatch(css, /@import\s+url|url\(\s*["']?https?:\/\//i);
   assert.match(layout, /metadataBase:\s*new URL\(siteSettings\.publicUrl\)/);
   assert.match(layout, /icons:\s*\{\s*icon:\s*"\/favicon\.svg"/);

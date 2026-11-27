@@ -16,8 +16,8 @@ This is a living context file generated from the website interview workflow. It 
 ## Product / Service
 
 - **Confirmed direction (2026-11-27):** Cross-cultural communication, multilingual content and China social-media content planning and account operations for Japan-based businesses, shops and brands.
-- **Current offer:** Account diagnosis, brand and shop content strategy, multilingual localization, brand/store information design, cross-platform asset production, and content review.
-- **Current focus:** China social-media account operations, starting with one platform and a fixed scope. Photography, ads, creators, direct messages, account access and publishing are confirmed separately.
+- **Current offer:** Multilingual service sites for international customers, in-store guest navigation, account diagnosis, brand and shop content strategy, multilingual localization, cross-platform asset production, and content review.
+- **Current focus:** A multilingual service site where visitors choose a language, find common services and requests, and show a bilingual visitor/staff screen. China social-media account operations are a second core offer.
 - **Needs confirmation:** Which platform and industries produce the first repeatable paid work; actual delivery hours, cost, contract terms and validated price.
 
 ## Audience
@@ -28,7 +28,7 @@ This is a living context file generated from the website interview workflow. It 
 ## Positioning and Narrative
 
 - **Confirmed direction:** “Let your presence be discovered.” The brand combines multilingual expression with the operating discipline of a social-media account: positioning, profile, content system, publishing rhythm and a pathway to booking, visits or enquiries.
-- **Difference:** The work is presented as an operating system, not a one-off translation job. It connects cultural defaults, store rules, customer communication and account operations. Facts are confirmed by the business; content and account operations are handled as one sequence.
+- **Difference:** The work is presented as an operating system, not a one-off translation job. It connects a usable multilingual service interface, cultural defaults, store rules, customer communication and account operations.
 
 ## Proof
 
@@ -38,7 +38,7 @@ This is a living context file generated from the website interview workflow. It 
 ## Website Goal
 
 - **Confirmed:** The site uses one shared Japanese / English / Simplified Chinese structure, with Japanese as the default language.
-- **Confirmed:** Primary action is a brand/operations consultation by email. Pricing is quoted after scope review; performance outcomes are not guaranteed.
+- **Confirmed:** Primary action is a service-site and operations consultation by email. Pricing is quoted after scope review; performance outcomes are not guaranteed.
 
 ## Voice
 

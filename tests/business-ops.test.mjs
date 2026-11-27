@@ -263,9 +263,9 @@ test("keeps the O-01 five-man-yen price behind human and customer evidence", asy
   assert.match(activation, /不得更新公网价格/);
   assert.match(index, /19-O01五万日元试行价激活路径/);
 
-  assert.match(content, /まず診断し、その後に運用範囲を決めます。/);
-  assert.match(content, /Start with a diagnosis, then define the operating scope\./);
-  assert.match(content, /先做诊断，再决定运营范围。/);
+  assert.match(content, /サイト、コンテンツ、運用を分けて見積り。/);
+  assert.match(content, /Quote the site, content and operations separately\./);
+  assert.match(content, /网站、内容和运营，分开计算。/);
   assert.doesNotMatch(content, /50,000円/);
 
   for (const id of ["A-05", "A-06", "A-07", "A-08", "B-06", "B-07", "B-08", "B-09"]) {

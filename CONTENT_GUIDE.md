@@ -34,8 +34,9 @@
 | 客户问题 | `problems` |
 | 四步方法 | `approach` |
 | 六项服务 | `services` |
-| 体验与接待信息 | `experienceGuide` |
-| 六步流程 | `process` |
+| 多语言服务网站演示说明 | `experienceGuide` |
+| 顾客语言按钮与常用请求卡 | `guestLanguageOptions`、`guestServiceRequests` |
+| 服务流程 | `process` |
 | 三套报价结构 | `pricing` |
 | 愿景 | `vision` |
 | 关于与公开原则 | `about` |
@@ -69,13 +70,13 @@
 
 ## 修改邮箱和 SNS
 
-公开邮箱集中在 `app/content.ts` 顶部附近的：
+公开邮箱集中在 `app/content.ts` 三个语言区的 `contact.email`：
 
 ```ts
-const email = "wanslan1130@gmail.com";
+contact.email
 ```
 
-修改这一处，页面联系区、页脚和邮件表单都会一起更新。
+修改时必须保持三个语言区一致。页面联系区、页脚和邮件表单会一起使用这个地址。
 
 现在只公开 Gmail。要增加 Instagram、小红书或其他 SNS，请在 `socials` 数组中添加真实 HTTPS 链接；没有真实链接时不要放空按钮。
 
