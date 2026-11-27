@@ -54,8 +54,8 @@ export const siteSettings = {
 export const siteContent: Record<Locale, SiteCopy> = {
   ja: {
     seo: {
-      title: "澜顷｜多言語コンテンツ・中国SNS運用支援",
-      description: "日本国内の企業・店舗・ブランドに向けて、多言語コンテンツ、中国語表現、中国SNSのコンテンツ設計・アカウント運用を支援します。"
+      title: "澜顷｜異文化コミュニケーション・中国SNS運用支援",
+      description: "日本国内の企業・店舗・ブランドに向けて、多言語表現、文化差の整理、中国SNSのコンテンツ設計とアカウント運用を支援します。"
     },
     ui: {
       language: "言語を選択",
@@ -90,8 +90,8 @@ export const siteContent: Record<Locale, SiteCopy> = {
     },
     brand: {
       name: "澜顷",
-      eyebrow: "多言語コンテンツ × 中国SNS運用",
-      description: "澜顷は、日本国内の企業・店舗・ブランドの価値を、多言語の自然な表現と中国SNSのコンテンツ設計・アカウント運用で伝える制作・運用プロジェクトです。"
+      eyebrow: "異文化コミュニケーション × 中国SNS運用",
+      description: "澜顷は、日本国内の企業・店舗・ブランドの価値を、多言語表現、文化差の整理、中国SNSのコンテンツ設計・アカウント運用で伝えるプロジェクトです。"
     },
     navigation: [
       {
@@ -188,32 +188,32 @@ export const siteContent: Record<Locale, SiteCopy> = {
     sections: {
       philosophy: {
         label: "Philosophy",
-        title: "良いアカウントは、一本のバズでは育たない。",
-        intro: "明確な定位、安定した内容、統一された表現、そして来店や相談につながる導線が必要です。"
+        title: "言葉の向こうに、もう一つの常識がある。",
+        intro: "相手も自分も、説明されていない前提を共有していると思い込んでいることがあります。"
       },
       problems: {
         label: "Problems",
         title: "投稿はある。でも、ブランドとして積み上がっていない。",
-        intro: "アカウント全体を見直すことで、ブランドの伝わり方と日々の運用負担が変わります。"
+        intro: "店側の「なぜ守らないのか」と、顧客側の「なぜ分かってもらえないのか」。必要なのは説明と、次の行動が分かる案内です。"
       },
       approach: {
         label: "Approach",
-        title: "ブランド整理から、継続運用まで。",
+        title: "違いを理解し、伝わる運用へ。",
         intro: "誰に、何を、どの順番で伝えるかを決めてから、コンテンツと運用を組み立てます。"
       },
       services: {
         label: "Services",
         title: "企業・店舗アカウントを、企画から運用まで。",
-        intro: "中国SNSのアカウント診断、コンテンツ設計、多言語ローカライズ、投稿運用を組み合わせます。"
+        intro: "アカウント診断、コンテンツ設計、多言語表現、文化差の整理、投稿運用を組み合わせます。"
       },
       process: {
         label: "Process",
         title: "戦略を決めてから、安定した制作へ。",
-        intro: "ブランド整理、内容設計、制作、公開、改善を分け、各段階の責任を明確にします。"
+        intro: "文化差とブランド情報を整理してから、制作、公開、改善のリズムをつくります。"
       },
       cases: {
         label: "Use Scenarios",
-        title: "三つの運用場面。",
+        title: "説明が必要な三つの場面。",
         intro: "以下はサービス範囲を説明するための架空の場面です。実在の顧客、実績、成果ではありません。"
       },
       pricing: {
@@ -233,8 +233,8 @@ export const siteContent: Record<Locale, SiteCopy> = {
     },
     hero: {
       title: "その存在を、\n見つけられるものへ。",
-      subtitle: "多言語での自然な表現を追求し、企業・店舗の中国SNS向けコンテンツ設計とアカウント運用を支援します。",
-      kicker: "日本国内の企業・店舗 × 中国SNS",
+      subtitle: "多言語での自然な表現を追求し、文化差から生まれる誤解も整理。中国SNSのコンテンツ、顧客対応、アカウント運用を支援します。",
+      kicker: "日本国内の企業・店舗 × 中国の顧客",
       rotatingWords: [
         "見つけられる",
         "理解される",
@@ -253,52 +253,52 @@ export const siteContent: Record<Locale, SiteCopy> = {
       marquee: "PRESENCE · CONTENT · OPERATION · DISCOVERY · その存在を、見つけられるものへ。 · "
     },
     philosophy: {
-      body: "企業や店舗のSNSは、投稿だけでは形になりません。プロフィール、ビジュアル、テーマ、言葉の温度、更新のリズム、来店情報が揃って、はじめてブランドとして伝わります。澜顷は、企業・店舗が持つ事実と魅力を整理し、中国語圏で継続して運用できる内容へ落とし込みます。",
-      quote: "ブランドを別物に変えず、中国語圏でも同じ魅力が伝わるアカウントへ。",
+      body: "同じ行動でも、育った環境によって意味は変わります。ある人には自然な習慣が、別の人には失礼に見えることがあります。逆に、店側にとって当たり前のルールが、顧客には理由の分からない制限に見えることもあります。澜顷は、この前提のずれを整理し、相手を決めつけずに理解と次の行動へつなげる内容を作ります。",
+      quote: "「失礼」や「差別」と解釈する前に、双方が知らないルールを一度ほどく。",
       visualLabel: "ブランドを整理する · 運用へつなぐ"
     },
     problems: [
       {
-        title: "投稿はあるが、定位が曖昧",
-        text: "何を発信するアカウントなのかが伝わらず、フォローする理由が弱くなります。"
+        title: "同じ行動が、別の意味になる",
+        text: "飲み物や食べ物の扱い、分け方、注文の仕方など、当たり前だと思う行動が別の印象を与えることがあります。"
       },
       {
-        title: "中国語は読めるが、翻訳稿に見える",
-        text: "文法的に正しくても、現地のSNSで自然に読める言葉になっていないことがあります。"
+        title: "店のルールが、顧客には見えない",
+        text: "最低注文、ワンドリンク、席料、支払い方法など、知っていれば選べる情報が入店前に伝わっていません。"
       },
       {
-        title: "素材はあるが、更新が続かない",
-        text: "写真や情報が散らばり、毎回ゼロから考えないと投稿できない状態になります。"
+        title: "言葉が通じても、意図が伝わらない",
+        text: "遠回しな表現や断り方、感情の表し方は、言葉を置き換えるだけでは伝わらないことがあります。"
       },
       {
-        title: "プロフィールに次の行動がない",
-        text: "内容を見た人が、予約、来店、相談へ進むための情報が不足します。"
+        title: "コメントやDMで誤解が大きくなる",
+        text: "短い返信や公開コメントは、意図と違う印象を与え、店舗と顧客の関係を難しくすることがあります。"
       },
       {
-        title: "店舗情報とSNSがつながっていない",
-        text: "営業時間、場所、メニュー、予約方法が投稿と一致せず、信頼を落とします。"
+        title: "コンテンツは見られるが、理解されない",
+        text: "写真や流行語だけでは、店の考え方、ルールの理由、選ぶ基準まで伝わりません。"
       },
       {
-        title: "運用にリズムがなく、改善できない",
-        text: "誰が、いつ、何を確認するかが決まっておらず、投稿後の振り返りも残りません。"
+        title: "説明が人によって変わる",
+        text: "店長、スタッフ、SNS担当が別々に説明すると、同じブランドなのに違う印象を与えます。"
       }
     ],
     approach: [
       {
-        title: "ブランドを整理する",
-        text: "企業・店舗の事実、強み、顧客、既存素材を確認し、中国語圏で伝える軸を定めます。"
+        title: "前提をほどく",
+        text: "文化差、生活習慣、店舗ルール、顧客の期待を整理し、誤解が生まれる場面を特定します。"
       },
       {
-        title: "内容を設計する",
-        text: "プロフィール、投稿テーマ、連載、ビジュアル、言葉づかいを一つの運用設計にまとめます。"
+        title: "説明を設計する",
+        text: "ルールの理由と代替案を、SNS、プロフィール、FAQ、店頭案内で一貫した言葉にします。"
       },
       {
-        title: "アカウントを運用する",
-        text: "企画、原稿、制作、公開を合意した範囲で回し、顧客側の確認フローを固定します。"
+        title: "運用へ組み込む",
+        text: "投稿、コメント、DM、接客の確認フローに組み込み、担当者によって説明が変わらないようにします。"
       },
       {
-        title: "行動へつなげる",
-        text: "予約、来店、問い合わせに必要な情報をプロフィール、固定投稿、各コンテンツへ配置します。"
+        title: "対話から改善する",
+        text: "実際の反応や質問を振り返り、誤解が起きやすい表現を次の運用で調整します。"
       }
     ],
     services: [
@@ -311,9 +311,9 @@ export const siteContent: Record<Locale, SiteCopy> = {
         available: true
       },
       {
-        name: "企業・店舗のコンテンツ設計",
-        summary: "何を、誰に、どの順番で発信するかを決める。",
-        detail: "ブランドの定位、顧客像、投稿テーマ、連載、プロフィール、固定投稿、コンテンツカレンダーを整理します。制作や公開を含めるかは別に確認します。",
+        name: "異文化コンテンツ・コミュニケーション設計",
+        summary: "文化差から生まれる誤解を、先に説明できる内容へ。",
+        detail: "店舗ルール、生活習慣、注文・支払い・接客の違いを整理し、中国語のFAQ、SNS投稿、プロフィール、短い店頭案内へ落とし込みます。すべての文化を一般化せず、店舗ごとの事実と目的を確認します。",
         status: "主要サービス｜範囲確認後に見積り",
         action: "コンテンツ設計を相談",
         available: true
@@ -327,8 +327,8 @@ export const siteContent: Record<Locale, SiteCopy> = {
         available: true
       },
       {
-        name: "店舗・ブランド情報の設計",
-        summary: "SNS、地図、Web、店頭で同じ情報が伝わるように。",
+        name: "店舗情報・顧客コミュニケーション設計",
+        summary: "知らないと選べない情報を、入店前と店内で同じにする。",
         detail: "店名、住所、営業時間、メニュー、予約、支払い、利用条件などを整理し、各接点で一貫した表記にします。専門的判断が必要な事項は確認先を分けます。",
         status: "主要サービス｜範囲確認後に見積り",
         action: "情報を整理したい",
@@ -394,13 +394,13 @@ export const siteContent: Record<Locale, SiteCopy> = {
     ],
     cases: [
       {
-        title: "店舗アカウント｜投稿から来店までを一つにつなぐ",
+        title: "文化の誤解｜「失礼」の前に、説明されていないルールを見る",
         client: "架空のサービス活用場面。実在の顧客ではありません",
-        industry: "店舗SNS運用 · DEMO",
-        summary: "プロフィール、画像投稿、店舗情報、予約導線を一つの運用にまとめる想定です。投稿を見た人が次の行動を取れる構成にします。",
-        services: "アカウント診断／コンテンツ設計／プロフィール改善",
-        result: "想定納品：月間テーマ、投稿案、プロフィール設計、店舗情報チェック",
-        image: "STORES / DEMO 01"
+        industry: "異文化コミュニケーション · DEMO",
+        summary: "飲み物の持ち込み、料理の分け方、注文や支払いの習慣。同じ行動でも、育った環境によって意味が変わります。店のルールと理由を先に説明し、SNS、店頭表示、FAQへ一貫して配置する想定です。",
+        services: "文化差の整理／ルール説明／SNS・店頭コンテンツ",
+        result: "想定納品：誤解されやすい場面、理由と代替案、中国語FAQ、接客用メモ",
+        image: "CULTURAL BRIDGE / DEMO 01"
       },
       {
         title: "ブランドアカウント｜素材を継続運用できる内容へ",
@@ -415,7 +415,7 @@ export const siteContent: Record<Locale, SiteCopy> = {
         title: "多言語ブランド｜同じ価値を自然な中国語へ",
         client: "架空のサービス活用場面。実在の顧客ではありません",
         industry: "多言語コンテンツ · DEMO",
-        summary: "日本語のブランド情報をそのまま翻訳せず、中国語圏の読者に自然な表現へ整える想定です。",
+        summary: "日本語のブランド情報をそのまま置き換えず、中国語圏の読者に自然な表現へ整える想定です。",
         services: "ブランド整理／多言語ローカライズ／表現確認",
         result: "想定納品：ブランド用語集、対照原稿、SNS向け表現ガイド",
         image: "LOCALIZATION / DEMO 03"
@@ -501,8 +501,8 @@ export const siteContent: Record<Locale, SiteCopy> = {
         answer: "対象平台、投稿数、撮影、制作、公開、コメント対応、レポートの範囲で個別見積りになります。"
       },
       {
-        question: "複数言語に対応できますか？",
-        answer: "中国語、日本語、英語を中心に、用途と必要な言語品質を確認して範囲を決めます。"
+        question: "文化の違いによる誤解には、どう対応しますか？",
+        answer: "まず、どの行動がどのように誤解されているかを整理します。そのうえで、店舗のルール、理由、代替案を中国語のFAQやSNS、店頭案内に一貫して配置します。どちらかの文化を正しい・間違いと決めつけません。"
       },
       {
         question: "アカウントがなくても相談できますか？",
@@ -536,13 +536,13 @@ export const siteContent: Record<Locale, SiteCopy> = {
         service: "ご相談内容",
         choose: "選択してください",
         message: "メッセージ *",
-        messagePlaceholder: "企業・店舗の概要、現在のSNS、手元の素材、困っていること、希望する運用範囲をご記入ください。",
+        messagePlaceholder: "企業・店舗の概要、現在のSNS、手元の素材、文化差で困っている場面、希望する運用範囲をご記入ください。",
         submit: "メールで相談を送る",
         notice: "メールアプリを開きました。起動しない場合は、表示されているメールアドレスへ直接お送りください。"
       }
     },
     footer: {
-      description: "日本国内の企業・店舗・ブランドが、多言語の自然な表現と中国SNS運用を通じて見つけられ、理解され、選ばれる状態をつくります。",
+      description: "日本国内の企業・店舗・ブランドが、多言語表現と文化差の整理を通じて、中国の顧客から見つけられ、理解され、選ばれる状態をつくります。",
       motifWords: [
         "PRESENCE",
         "CONTENT",
@@ -556,8 +556,8 @@ export const siteContent: Record<Locale, SiteCopy> = {
   },
   en: {
     seo: {
-      title: "澜顷 | Multilingual Content & China Social Media Operations",
-      description: "We help Japan-based businesses and shops express themselves naturally across languages, with content planning and account operations for Chinese social media."
+      title: "澜顷 | Cross-Cultural Content & China Social Media Operations",
+      description: "We help Japan-based businesses and shops with multilingual expression, cultural context and account operations for Chinese social media."
     },
     ui: {
       language: "Choose language",
@@ -592,8 +592,8 @@ export const siteContent: Record<Locale, SiteCopy> = {
     },
     brand: {
       name: "澜顷",
-      eyebrow: "Multilingual content × China social media operations",
-      description: "澜顷 helps Japan-based businesses and shops communicate their value through natural multilingual content, Chinese social media planning and account operations."
+      eyebrow: "Cross-cultural communication × China social media operations",
+      description: "澜顷 helps Japan-based businesses and shops carry their value into Chinese social media through multilingual expression, cultural context and consistent account operations."
     },
     navigation: [
       {
@@ -690,32 +690,32 @@ export const siteContent: Record<Locale, SiteCopy> = {
     sections: {
       philosophy: {
         label: "Philosophy",
-        title: "A strong account is more than one successful post.",
-        intro: "It needs a clear position, consistent content, a recognizable voice and a path from discovery to booking, visiting or enquiry."
+        title: "Beyond language, another set of default rules.",
+        intro: "Both sides often assume their own unspoken expectations are shared by the other."
       },
       problems: {
         label: "Problems",
         title: "Content is being posted, but the brand is not building.",
-        intro: "The account has to work as a whole, not as a collection of disconnected posts."
+        intro: "The business asks why a rule was ignored. The customer asks why nobody understood them. The answer needs explanation plus a clear next step."
       },
       approach: {
         label: "Approach",
-        title: "From brand clarity to continuous operations.",
+        title: "Understand the difference. Build the operation.",
         intro: "We define who the content is for, what it should say and in what order before building the account."
       },
       services: {
         label: "Services",
         title: "Social media operations for brands and shops.",
-        intro: "Account diagnosis, content strategy, multilingual localization, asset production and publishing support."
+        intro: "Account diagnosis, content strategy, multilingual expression, cultural review and publishing support can be combined as needed."
       },
       process: {
         label: "Process",
         title: "Strategy first. Then a repeatable production rhythm.",
-        intro: "Brand review, content design, production, publishing and improvement are separated with clear responsibilities."
+        intro: "We organize the brand and cultural context first, then build a rhythm for production, publishing and review."
       },
       cases: {
         label: "Use Scenarios",
-        title: "Three operating scenarios.",
+        title: "Three situations that need explanation.",
         intro: "These are fictional service scenarios for explaining scope. They are not real clients, results or testimonials."
       },
       pricing: {
@@ -735,8 +735,8 @@ export const siteContent: Record<Locale, SiteCopy> = {
     },
     hero: {
       title: "Let your presence\nbe discovered.",
-      subtitle: "We help businesses and shops express themselves naturally across languages, with content planning and account operations for Chinese social media.",
-      kicker: "Japan-based businesses and shops × Chinese social media",
+      subtitle: "We help businesses express themselves naturally across languages, make sense of cultural misunderstandings, and operate content, customer communication and social accounts for Chinese audiences.",
+      kicker: "Japan-based businesses and shops × Chinese customers",
       rotatingWords: [
         "be found",
         "be understood",
@@ -755,52 +755,52 @@ export const siteContent: Record<Locale, SiteCopy> = {
       marquee: "PRESENCE · CONTENT · OPERATION · DISCOVERY · HELP YOUR BRAND BE FOUND · "
     },
     philosophy: {
-      body: "A social account does not become a brand through individual posts alone. The profile, visuals, themes, tone, publishing rhythm and shop information all shape how people judge the business. 澜顷 organizes the facts and strengths a business already has, then turns them into a repeatable content and account operation for Chinese-speaking audiences.",
-      quote: "Keep the brand itself. Build an account that carries the same value into a new language.",
+      body: "The same action can carry different meanings depending on where someone learned it. A habit that feels natural to one person may look rude to another. A rule that feels obvious to a business may look like an unexplained restriction to a customer. 澜顷 organizes these gaps in context, without treating either side as the problem, and turns them into information that helps people understand and act.",
+      quote: "Before calling something rude or discriminatory, unpack the rule neither side has explained.",
       visualLabel: "ORGANIZE THE BRAND · BUILD THE OPERATION"
     },
     problems: [
       {
-        title: "Posts exist, but the positioning is unclear",
-        text: "People cannot tell what the account stands for or why they should follow it."
+        title: "The same action means different things",
+        text: "How people bring food or drink, share dishes or order can feel ordinary in one setting and create a different impression in another."
       },
       {
-        title: "The Chinese is correct, but reads like translation",
-        text: "Grammar can be right while the wording still feels unlike the way people speak on the platform."
+        title: "Shop rules are invisible to customers",
+        text: "Minimum orders, one-drink policies, table charges and payment methods are hard to choose around when nobody explains them before entry."
       },
       {
-        title: "Assets exist, but publishing cannot continue",
-        text: "Photos and information are scattered, so every post starts from zero."
+        title: "Words translate; intent still gets lost",
+        text: "Indirect expression, refusal and emotional tone may not survive a word-for-word change."
       },
       {
-        title: "The profile has no next step",
-        text: "Visitors can view the content but are not shown how to book, visit or enquire."
+        title: "Comments and DMs enlarge the misunderstanding",
+        text: "A short public reply can create an impression very different from what the business intended."
       },
       {
-        title: "Social content and shop information do not match",
-        text: "Hours, location, menus and booking details differ across touchpoints and weaken trust."
+        title: "Content gets attention without building understanding",
+        text: "Photos and trending phrases do not explain the business, the reason for a rule or how to choose."
       },
       {
-        title: "Operations have no rhythm or review",
-        text: "No one has defined what gets checked, by whom, or how each month's content will improve."
+        title: "Every staff member explains it differently",
+        text: "When the owner, staff and social team improvise separately, customers meet several versions of the same brand."
       }
     ],
     approach: [
       {
-        title: "Clarify the brand",
-        text: "Review the business facts, strengths, audience and existing assets, then define what should carry into Chinese-language markets."
+        title: "Unpack the assumptions",
+        text: "We review cultural expectations, daily habits, shop rules and customer questions to identify where interpretation breaks."
       },
       {
-        title: "Design the content",
-        text: "Build the profile, content pillars, series, visual direction and voice into one operating plan."
+        title: "Design the explanation",
+        text: "The rule, its reason and a practical alternative become consistent content across the profile, social posts, FAQ and storefront."
       },
       {
-        title: "Operate the account",
-        text: "Plan, write, produce and publish within the agreed scope, with a fixed approval flow."
+        title: "Build it into operations",
+        text: "Publishing, comments, DMs and frontline responses follow an agreed reference so the explanation stays consistent."
       },
       {
-        title: "Create a next step",
-        text: "Place booking, visit and enquiry information in the profile, pinned content and relevant posts."
+        title: "Improve through the conversation",
+        text: "Questions and responses are reviewed to refine the phrases and situations that cause the most confusion."
       }
     ],
     services: [
@@ -813,9 +813,9 @@ export const siteContent: Record<Locale, SiteCopy> = {
         available: true
       },
       {
-        name: "Content strategy for brands and shops",
-        summary: "Decide what to say, to whom and in what order.",
-        detail: "We define the brand position, audience, content pillars, editorial series, profile, pinned content and calendar. Production and publishing are scoped separately.",
+        name: "Cross-cultural content and communication strategy",
+        summary: "Explain the cultural gap before it is read as bad behaviour.",
+        detail: "We organize shop rules, everyday habits, ordering, payment and service expectations into Chinese FAQs, social posts, profile content and short storefront guidance. We do not reduce a culture to one stereotype; each project is grounded in the specific business and audience.",
         status: "Core service | Quote after review",
         action: "Discuss content strategy",
         available: true
@@ -829,8 +829,8 @@ export const siteContent: Record<Locale, SiteCopy> = {
         available: true
       },
       {
-        name: "Brand and store information design",
-        summary: "Keep the same facts consistent across social, maps, web and storefront.",
+        name: "Store information and customer communication design",
+        summary: "Keep decision-critical information consistent before entry and inside the store.",
         detail: "We align names, addresses, hours, menus, booking, payment and visitor conditions across customer touchpoints. Regulated or specialist claims remain with the appropriate professional.",
         status: "Core service | Quote after review",
         action: "Review the information",
@@ -896,13 +896,13 @@ export const siteContent: Record<Locale, SiteCopy> = {
     ],
     cases: [
       {
-        title: "Shop account｜Connect content to the visit",
+        title: "Cultural misunderstanding｜See the unstated rule before calling it rude",
         client: "Fictional service scenario, not a real client",
-        industry: "SHOP SOCIAL OPERATIONS · DEMO",
-        summary: "A possible account operation that connects the profile, visual posts, shop information and booking path, giving viewers a clear next step.",
-        services: "Account diagnosis / content strategy / profile improvement",
-        result: "Example deliverables: monthly themes, post plans, profile structure and a shop-information review",
-        image: "STORES / DEMO 01"
+        industry: "CROSS-CULTURAL COMMUNICATION · DEMO",
+        summary: "Bringing a drink, sharing food, ordering or paying can carry different meanings in different places. A possible project explains the shop's rule and the reason behind it consistently across social content, storefront information and FAQs.",
+        services: "Cultural review / rule explanation / social and in-store content",
+        result: "Example deliverables: friction points, reasons and alternatives, Chinese FAQ and frontline notes",
+        image: "CULTURAL BRIDGE / DEMO 01"
       },
       {
         title: "Brand account｜Turn assets into repeatable content",
@@ -917,7 +917,7 @@ export const siteContent: Record<Locale, SiteCopy> = {
         title: "Multilingual brand｜Carry the same value into natural Chinese",
         client: "Fictional service scenario, not a real client",
         industry: "MULTILINGUAL CONTENT · DEMO",
-        summary: "A possible project that turns Japanese brand information into natural Chinese for the intended audience instead of translating it word for word.",
+        summary: "A possible project that turns Japanese brand information into natural Chinese for the intended audience instead of replacing it word for word.",
         services: "Brand review / localization / language review",
         result: "Example deliverables: terminology, bilingual content and a social-media expression guide",
         image: "LOCALIZATION / DEMO 03"
@@ -1003,8 +1003,8 @@ export const siteContent: Record<Locale, SiteCopy> = {
         answer: "The quote reflects the platform, content volume, photography, production, publishing, community management and reporting."
       },
       {
-        question: "Can you work across several languages?",
-        answer: "Yes. We primarily work in Chinese, Japanese and English and define the required language quality and scope for each project."
+        question: "How do you handle misunderstandings caused by cultural differences?",
+        answer: "We first identify which action is being interpreted in what way. Then we explain the shop's rule, its reason and a possible alternative consistently across Chinese FAQs, social content and storefront guidance. We do not decide that one culture is right and the other is wrong."
       },
       {
         question: "Can we start without an account?",
@@ -1038,13 +1038,13 @@ export const siteContent: Record<Locale, SiteCopy> = {
         service: "What would you like to discuss?",
         choose: "Choose an option",
         message: "Message *",
-        messagePlaceholder: "Tell us about the business, current social channels, available assets, the problem to solve and the operating scope you have in mind.",
+        messagePlaceholder: "Tell us about the business, current social channels, available assets, the cultural situations that cause friction and the operating scope you have in mind.",
         submit: "Send enquiry by email",
         notice: "Your email application has been opened. If it does not launch, email the address shown on this page directly."
       }
     },
     footer: {
-      description: "Helping Japan-based businesses and shops become found, understood and chosen through natural multilingual content and China social media operations.",
+      description: "Helping Japan-based businesses and shops become found, understood and chosen by Chinese customers through multilingual expression and thoughtful cultural context.",
       motifWords: [
         "PRESENCE",
         "CONTENT",
@@ -1058,8 +1058,8 @@ export const siteContent: Record<Locale, SiteCopy> = {
   },
   zh: {
     seo: {
-      title: "澜顷｜多语言内容与中国社交媒体运营",
-      description: "面向日本本地企业、门店与品牌，提供多语言内容、中文表达，以及中国社交媒体的内容策划、账号运营和品牌信息整理。"
+      title: "澜顷｜跨文化内容与中国社交媒体运营",
+      description: "面向日本本地企业、门店与品牌，整理多语言表达、文化差异与顾客沟通，并提供中国社交媒体的内容策划和账号运营支持。"
     },
     ui: {
       language: "选择语言",
@@ -1094,8 +1094,8 @@ export const siteContent: Record<Locale, SiteCopy> = {
     },
     brand: {
       name: "澜顷",
-      eyebrow: "多语言内容 × 中国社交媒体运营",
-      description: "澜顷帮助日本本地企业、门店与品牌，整理中文与多语言内容，并面向中国社交媒体提供内容策划和账号运营支持。"
+      eyebrow: "跨文化沟通 × 中国社交媒体运营",
+      description: "澜顷帮助日本本地企业、门店与品牌，把多语言表达、文化差异和社交媒体运营放在同一套方法里。"
     },
     navigation: [
       {
@@ -1192,32 +1192,32 @@ export const siteContent: Record<Locale, SiteCopy> = {
     sections: {
       philosophy: {
         label: "理念",
-        title: "好的账号，不靠一条爆款。",
-        intro: "它需要清楚的定位、稳定的内容、统一的表达，以及能把关注带向到店或咨询的路径。"
+        title: "语言之外，还有一套默认规则。",
+        intro: "很多沟通困难，来自双方都以为对方知道自己的前提。"
       },
       problems: {
         label: "问题",
         title: "内容有发，品牌却没有真正建立起来。",
-        intro: "账号需要作为一个整体被经营，而不是一组互不相关的帖子。"
+        intro: "店家在想“为什么不遵守”，顾客在想“为什么没人理解我”。这时需要的，是解释和下一步，而不只是更准确的翻译。"
       },
       approach: {
         label: "方法",
-        title: "从品牌梳理，到持续运营。",
+        title: "先理解差异，再建立运营。",
         intro: "先确定对谁说、说什么、按什么顺序说，再建立内容和运营节奏。"
       },
       services: {
         label: "服务",
         title: "企业账号与门店账号，从内容到运营。",
-        intro: "账号诊断、内容策划、多语言本地化、素材制作与发布支持，按实际需要组合。"
+        intro: "账号诊断、内容策划、多语言表达、文化差异整理与发布运营，按实际需要组合。"
       },
       process: {
         label: "流程",
         title: "先定策略，再进入稳定生产。",
-        intro: "品牌梳理、内容设计、制作、发布和复盘分开，每一步的责任与确认方式明确。"
+        intro: "先整理品牌与文化语境，再建立制作、发布和复盘的节奏。"
       },
       cases: {
         label: "场景",
-        title: "三种运营场景。",
+        title: "三种需要被解释的沟通场景。",
         intro: "下面是帮助理解服务范围的虚构场景，不对应真实客户、实绩或成果。"
       },
       pricing: {
@@ -1237,8 +1237,8 @@ export const siteContent: Record<Locale, SiteCopy> = {
     },
     hero: {
       title: "让你的存在，\n被发现。",
-      subtitle: "我们致力于多语言内容的自然表达，也为企业、门店提供中国社交媒体的内容策划与账号运营支持。",
-      kicker: "日本本地企业、门店与品牌 × 中国社交媒体",
+      subtitle: "我们致力于多语言内容的自然表达，也帮助企业、门店理解文化差异，处理中国社交媒体上的内容、互动与账号运营。",
+      kicker: "日本本地企业、门店与品牌 × 中国顾客",
       rotatingWords: [
         "被看见",
         "被理解",
@@ -1257,52 +1257,52 @@ export const siteContent: Record<Locale, SiteCopy> = {
       marquee: "PRESENCE · CONTENT · OPERATION · DISCOVERY · 让你的存在被发现 · "
     },
     philosophy: {
-      body: "一个企业或门店的社交媒体，不该只是零散发帖。简介、视觉、选题、语气、发布节奏与到店信息，共同构成别人对这个品牌的判断。澜顷帮助客户梳理真实品牌信息，再把这些信息转化为适合中文语境、能够持续更新的内容与账号运营方案。",
-      quote: "让品牌在中文语境里被看见，也让每一次发布都像这个品牌本身。",
+      body: "同一个动作，在不同的生活经验里可能有完全不同的含义。有人觉得只是习惯，另一方却可能感到被冒犯；店家眼中的正常规则，在顾客看来也可能像没有理由的限制。澜顷把这些没有被说清的前提整理出来，不急着判断谁对谁错，而是把原因、边界和可替代的做法写进内容与运营。",
+      quote: "在把它理解为“没礼貌”或“被歧视”之前，先把双方都不知道的规则说清。",
       visualLabel: "梳理品牌 · 建立运营"
     },
     problems: [
       {
-        title: "账号有内容，定位却不清楚",
-        text: "别人看不出这个账号代表什么，也找不到持续关注的理由。"
+        title: "同一个动作，被理解成不同意思",
+        text: "自带饮品、分享食物、点单方式或结账习惯，在一方看来很自然，另一方却可能得到完全不同的印象。"
       },
       {
-        title: "中文看得懂，却像翻译稿",
-        text: "语法可能正确，但表达不像中国社交媒体上真正会出现的语言。"
+        title: "店里的规则，顾客事先看不见",
+        text: "最低消费、一人一杯、座位费、支付方式，如果进店前没有说明，顾客就很难提前选择。"
       },
       {
-        title: "素材很多，却无法稳定更新",
-        text: "图片和信息散落各处，每次发内容都要从零开始。"
+        title: "语言翻译了，语气和意图却没有",
+        text: "委婉表达、拒绝方式、情绪强弱，只靠词语替换并不一定能让对方理解真实意思。"
       },
       {
-        title: "主页有流量，却没有下一步",
-        text: "用户看完内容，却不知道怎样预约、到店或咨询。"
+        title: "评论和私信会放大误会",
+        text: "一条很短的公开回复，可能让顾客读到与店家本意完全不同的态度。"
       },
       {
-        title: "门店信息与社媒表达脱节",
-        text: "营业时间、地址、菜单和预约方式彼此不一致，会削弱品牌信任。"
+        title: "内容有热度，却没有解释品牌",
+        text: "照片和流行语能让内容被看见，却不等于说明店铺为什么这样做、顾客该怎样选择。"
       },
       {
-        title: "运营没有节奏，也难以复盘",
-        text: "谁确认、何时发布、如何调整没有固定规则，内容与运营都难以积累。"
+        title: "同一个人一种解释，品牌就不一致",
+        text: "店主、店员和社交媒体负责人如果各自临场解释，顾客会接触到好几个版本的门店形象。"
       }
     ],
     approach: [
       {
-        title: "梳理品牌",
-        text: "确认企业或门店的真实信息、优势、目标客群与现有素材，确定进入中文语境的表达主线。"
+        title: "拆开双方默认的前提",
+        text: "梳理文化习惯、门店规则、顾客疑问和常见反应，找出最容易产生不同理解的位置。"
       },
       {
-        title: "设计内容",
-        text: "把账号简介、内容栏目、选题、视觉和语气整理成一套可执行的运营方案。"
+        title: "把原因和做法写清",
+        text: "把规则、原因与替代方案整理成一致的内容，放进账号简介、帖子、FAQ 和店内说明。"
       },
       {
-        title: "运营账号",
-        text: "按约定范围完成策划、撰稿、制作与发布，并固定客户确认流程。"
+        title: "放进日常运营",
+        text: "把说明接入内容发布、评论、私信和一线接待，让不同人对外表达同一个品牌。"
       },
       {
-        title: "设计转化",
-        text: "把预约、到店和咨询所需的信息放进主页、置顶内容和相关帖子。"
+        title: "从互动里继续调整",
+        text: "观察顾客反复提出的问题与反应，修正最容易造成误解的说法和场景。"
       }
     ],
     services: [
@@ -1315,9 +1315,9 @@ export const siteContent: Record<Locale, SiteCopy> = {
         available: true
       },
       {
-        name: "企业与门店内容策划",
-        summary: "决定说什么、对谁说、按什么顺序说。",
-        detail: "梳理品牌定位、目标客群、内容栏目、连载、主页、置顶内容和内容日历。制作与发布是否包含，另行确认。",
+        name: "跨文化内容与沟通设计",
+        summary: "在文化差异被理解成“失礼”之前，先把原因讲清楚。",
+        detail: "梳理门店规则、生活习惯、点单、支付和接待方式的差异，整理成中文 FAQ、社交内容、账号简介和简短店内说明。不会用刻板印象概括整个文化，所有表达都回到具体门店和具体顾客。",
         status: "主要服务｜确认范围后报价",
         action: "咨询内容策划",
         available: true
@@ -1331,8 +1331,8 @@ export const siteContent: Record<Locale, SiteCopy> = {
         available: true
       },
       {
-        name: "品牌与门店信息设计",
-        summary: "让社交平台、地图、网站和店内信息保持一致。",
+        name: "门店信息与顾客沟通设计",
+        summary: "把进店前必须知道的信息，与店内说法保持一致。",
         detail: "统一店名、地址、营业时间、菜单、预约、支付与使用条件，清理各触点之间的冲突。需要专业判断的事项交由相应专业人士确认。",
         status: "主要服务｜确认范围后报价",
         action: "咨询信息整理",
@@ -1398,13 +1398,13 @@ export const siteContent: Record<Locale, SiteCopy> = {
     ],
     cases: [
       {
-        title: "门店账号｜把内容接到到店这一步",
+        title: "文化误读｜在说“没礼貌”之前，先看清那条没被说明的规则",
         client: "虚构服务场景，不是真实客户",
-        industry: "门店社媒运营 · DEMO",
-        summary: "设想把主页、图文内容、门店信息和预约路径放进同一套运营，让看到内容的人知道下一步做什么。",
-        services: "账号诊断／内容策划／主页优化",
-        result: "可能交付：月度主题、发帖方案、主页结构、门店信息检查",
-        image: "门店账号 / DEMO 01"
+        industry: "跨文化沟通 · DEMO",
+        summary: "自带饮品、分享食物、点单或支付方式，在不同生活经验里可能代表完全不同的事。设想先把门店规则、原因与替代做法说清，并放进社媒内容、店头说明和 FAQ。",
+        services: "文化差异梳理／规则说明／社媒与店内内容",
+        result: "可能交付：易误会场景、原因与替代方案、中文 FAQ、一线沟通提示",
+        image: "跨文化沟通 / DEMO 01"
       },
       {
         title: "品牌账号｜把现有素材变成可持续更新",
@@ -1419,7 +1419,7 @@ export const siteContent: Record<Locale, SiteCopy> = {
         title: "多语言品牌｜把同一价值写成自然中文",
         client: "虚构服务场景，不是真实客户",
         industry: "多语言内容 · DEMO",
-        summary: "把日语品牌资料整理成中文读者看得懂、愿意继续读的表达，而不是逐句翻译。",
+        summary: "把日语品牌资料整理成中文读者看得懂、愿意继续读的表达，而不是逐句替换。",
         services: "品牌梳理／多语言本地化／表达校对",
         result: "可能交付：品牌术语表、双语原稿、社媒表达指南",
         image: "本地化 / DEMO 03"
@@ -1505,8 +1505,8 @@ export const siteContent: Record<Locale, SiteCopy> = {
         answer: "根据平台、内容数量、拍摄、制作、发布、评论管理和复盘范围分别报价。"
       },
       {
-        question: "可以做多种语言吗？",
-        answer: "可以，以中文、日语和英语为主。具体语言质量和交付范围会在项目开始前确认。"
+        question: "文化差异造成的误会，你们怎么处理？",
+        answer: "先确认是哪一种行为被怎样理解，再把门店规则、原因和可选做法整理成一致说明，放进中文 FAQ、社交内容和店内提示。我们不会预设哪一种文化才正确，也不会把个体行为直接归因于整个群体。"
       },
       {
         question: "没有账号可以合作吗？",
@@ -1540,13 +1540,13 @@ export const siteContent: Record<Locale, SiteCopy> = {
         service: "希望咨询的内容",
         choose: "请选择",
         message: "留言 *",
-        messagePlaceholder: "请介绍企业或门店、现有社交账号、手头素材、目前的问题，以及希望运营到什么程度。",
+        messagePlaceholder: "请介绍企业或门店、现有社交账号、手头素材、最容易发生文化误会的场景，以及希望运营到什么程度。",
         submit: "通过邮件发送咨询",
         notice: "已尝试打开你的邮件应用。如果没有自动打开，请直接发送到页面显示的邮箱。"
       }
     },
     footer: {
-      description: "帮助日本本地企业、门店与品牌，通过自然的多语言表达和中国社交媒体运营，被看见、被理解、被选择。",
+      description: "帮助日本本地企业、门店与品牌，通过自然的多语言表达和对文化差异的理解，被中国顾客看见、理解并选择。",
       motifWords: [
         "PRESENCE",
         "CONTENT",

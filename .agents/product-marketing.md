@@ -15,7 +15,7 @@ This is a living context file generated from the website interview workflow. It 
 
 ## Product / Service
 
-- **Confirmed direction (2026-11-27):** Multilingual content and China social-media content planning and account operations for Japan-based businesses, shops and brands.
+- **Confirmed direction (2026-11-27):** Cross-cultural communication, multilingual content and China social-media content planning and account operations for Japan-based businesses, shops and brands.
 - **Current offer:** Account diagnosis, brand and shop content strategy, multilingual localization, brand/store information design, cross-platform asset production, and content review.
 - **Current focus:** China social-media account operations, starting with one platform and a fixed scope. Photography, ads, creators, direct messages, account access and publishing are confirmed separately.
 - **Needs confirmation:** Which platform and industries produce the first repeatable paid work; actual delivery hours, cost, contract terms and validated price.
@@ -28,7 +28,7 @@ This is a living context file generated from the website interview workflow. It 
 ## Positioning and Narrative
 
 - **Confirmed direction:** “Let your presence be discovered.” The brand combines multilingual expression with the operating discipline of a social-media account: positioning, profile, content system, publishing rhythm and a pathway to booking, visits or enquiries.
-- **Difference:** The work is presented as an operating system, not a one-off translation job. Facts are confirmed by the business; content and account operations are handled as one sequence.
+- **Difference:** The work is presented as an operating system, not a one-off translation job. It connects cultural defaults, store rules, customer communication and account operations. Facts are confirmed by the business; content and account operations are handled as one sequence.
 
 ## Proof
 
