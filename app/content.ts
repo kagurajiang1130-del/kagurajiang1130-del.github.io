@@ -394,31 +394,31 @@ export const siteContent: Record<Locale, SiteCopy> = {
     ],
     cases: [
       {
-        title: "短い中国語｜事実を足して、判断できる一文へ",
+        title: "店舗アカウント｜投稿から来店までを一つにつなぐ",
         client: "架空のサービス活用場面。実在の顧客ではありません",
-        industry: "短いコピー · DEMO",
-        summary: "「季節のブレンド」だけでは、味、価格、持ち帰り可否、最寄り駅が分かりません。事実を確認し、店の雰囲気を残したまま来店前に使える中国語へ組み直す想定です。",
-        services: "原稿確認／不足情報の整理／中国語コピー",
-        result: "想定納品：原文との対照、確認質問、日本語に戻して確認できる中国語稿",
-        image: "短文の再編集 / DEMO 01"
+        industry: "店舗SNS運用 · DEMO",
+        summary: "プロフィール、画像投稿、店舗情報、予約導線を一つの運用にまとめる想定です。投稿を見た人が次の行動を取れる構成にします。",
+        services: "アカウント診断／コンテンツ設計／プロフィール改善",
+        result: "想定納品：月間テーマ、投稿案、プロフィール設計、店舗情報チェック",
+        image: "STORES / DEMO 01"
       },
       {
-        title: "文化体験｜背景と参加方法を一緒に書く",
+        title: "ブランドアカウント｜素材を継続運用できる内容へ",
         client: "架空のサービス活用場面。実在の顧客ではありません",
-        industry: "工芸・文化体験 · DEMO",
-        summary: "確認できる背景、体験の流れ、所要時間、持ち物、注意事項を、参加を判断できる一つの案内に組み直します。",
-        services: "文化背景の整理／中国語コピー／体験ガイド",
-        result: "想定納品：体験紹介、用語表、予約前と当日の案内",
-        image: "背景と参加 / DEMO 02"
+        industry: "ブランドSNS運用 · DEMO",
+        summary: "既存の写真や短い動画を整理し、中国SNSで継続して公開できる連載と制作の流れに変える想定です。",
+        services: "素材分析／連載設計／プラットフォーム別制作",
+        result: "想定納品：素材マップ、投稿連載、制作ルール、月間カレンダー",
+        image: "CONTENT SYSTEM / DEMO 02"
       },
       {
-        title: "小売店｜Instagram素材を中国語向けに再編集",
+        title: "多言語ブランド｜同じ価値を自然な中国語へ",
         client: "架空のサービス活用場面。実在の顧客ではありません",
-        industry: "小売・ライフスタイル · DEMO",
-        summary: "権利を確認できる写真と事実を選び、中国語のタイトル、本文、画像順、必要な補足情報へ組み直します。",
-        services: "素材確認／中国語再編集／投稿前の情報整理",
-        result: "想定納品：素材一覧、タイトル案、中国語本文、不足情報リスト",
-        image: "素材再編集 / DEMO 03"
+        industry: "多言語コンテンツ · DEMO",
+        summary: "日本語のブランド情報をそのまま翻訳せず、中国語圏の読者に自然な表現へ整える想定です。",
+        services: "ブランド整理／多言語ローカライズ／表現確認",
+        result: "想定納品：ブランド用語集、対照原稿、SNS向け表現ガイド",
+        image: "LOCALIZATION / DEMO 03"
       }
     ],
     pricing: [
@@ -489,7 +489,7 @@ export const siteContent: Record<Locale, SiteCopy> = {
         answer: "相談できます。対象平台、投稿数、素材、公開権限、コメント対応、撮影の有無を確認し、実施できる範囲を先に決めます。"
       },
       {
-        question: "翻訳や文案だけでも依頼できますか？",
+        question: "翻訳やコンテンツ作成だけでも依頼できますか？",
         answer: "できます。多言語ローカライズや単発コンテンツとして請けます。アカウント運用は別の範囲です。"
       },
       {
@@ -822,7 +822,7 @@ export const siteContent: Record<Locale, SiteCopy> = {
       },
       {
         name: "Multilingual content and localization",
-        summary: "Natural market language, not translation-style copy.",
+        summary: "Natural language for the platform and the audience.",
         detail: "We adapt brand information, websites, menus, social posts and visitor guidance across Chinese, Japanese and English. The scope includes fact checks, terminology and readability.",
         status: "Core service | Quote after review",
         action: "Discuss localization",
@@ -896,31 +896,31 @@ export const siteContent: Record<Locale, SiteCopy> = {
     ],
     cases: [
       {
-        title: "A short sentence｜Add the facts that support a decision",
+        title: "Shop account｜Connect content to the visit",
         client: "Fictional service scenario, not a real client",
-        industry: "SHORT COPY · DEMO",
-        summary: "A phrase such as seasonal blend does not explain flavour, price, takeaway or the nearest station. This example shows how confirmed facts can be added without losing the shop's tone.",
-        services: "Source review / missing-information list / Chinese copy",
-        result: "Example deliverables: bilingual comparison, confirmation questions and back-checkable Chinese copy",
-        image: "SHORT COPY REBUILD / DEMO 01"
+        industry: "SHOP SOCIAL OPERATIONS · DEMO",
+        summary: "A possible account operation that connects the profile, visual posts, shop information and booking path, giving viewers a clear next step.",
+        services: "Account diagnosis / content strategy / profile improvement",
+        result: "Example deliverables: monthly themes, post plans, profile structure and a shop-information review",
+        image: "STORES / DEMO 01"
       },
       {
-        title: "Cultural experience｜Explain both context and participation",
+        title: "Brand account｜Turn assets into repeatable content",
         client: "Fictional service scenario, not a real client",
-        industry: "CRAFT & CULTURE · DEMO",
-        summary: "A possible project that turns confirmed context, the experience flow, duration, what to bring and key cautions into one guide people can use to decide whether to take part.",
-        services: "Cultural context / Chinese copy / experience guide",
-        result: "Example deliverables: experience introduction, terminology, pre-booking and on-site guidance",
-        image: "CONTEXT AND PARTICIPATION / DEMO 02"
+        industry: "BRAND SOCIAL OPERATIONS · DEMO",
+        summary: "A possible operation that organizes existing photos and short videos into editorial series and a repeatable production rhythm for Chinese social media.",
+        services: "Asset analysis / editorial planning / platform production",
+        result: "Example deliverables: asset map, content series, production rules and a monthly calendar",
+        image: "CONTENT SYSTEM / DEMO 02"
       },
       {
-        title: "Retail｜Adapt Instagram content for Chinese readers",
+        title: "Multilingual brand｜Carry the same value into natural Chinese",
         client: "Fictional service scenario, not a real client",
-        industry: "RETAIL & LIFESTYLE · DEMO",
-        summary: "A possible project that selects rights-cleared photos and confirmed facts, then rebuilds the title, body copy, image order and essential context for a Chinese-speaking audience.",
-        services: "Asset review / Chinese adaptation / pre-publishing information",
-        result: "Example deliverables: asset list, title options, Chinese copy and a missing-information list",
-        image: "ASSET ADAPTATION / DEMO 03"
+        industry: "MULTILINGUAL CONTENT · DEMO",
+        summary: "A possible project that turns Japanese brand information into natural Chinese for the intended audience instead of translating it word for word.",
+        services: "Brand review / localization / language review",
+        result: "Example deliverables: terminology, bilingual content and a social-media expression guide",
+        image: "LOCALIZATION / DEMO 03"
       }
     ],
     pricing: [
@@ -991,7 +991,7 @@ export const siteContent: Record<Locale, SiteCopy> = {
         answer: "Yes, subject to a platform review. We confirm the channel, publishing volume, assets, permissions, community management and photography before defining the scope."
       },
       {
-        question: "Can I buy translation or copy only?",
+        question: "Can I buy translation or content production only?",
         answer: "Yes. It can be scoped as multilingual localization or one-off content. Account operations are a separate service."
       },
       {
@@ -1398,31 +1398,31 @@ export const siteContent: Record<Locale, SiteCopy> = {
     ],
     cases: [
       {
-        title: "短文案｜补上事实，写成能做判断的一句",
+        title: "门店账号｜把内容接到到店这一步",
         client: "虚构服务场景，不是真实客户",
-        industry: "短文案 · DEMO",
-        summary: "只有“季节拼配”四个字，访客仍不知道风味、价格、能否外带、离哪站最近。这个示例先确认事实，再在不抹掉店铺语气的前提下，改成到店前能用的中文。",
-        services: "原稿确认／缺失信息整理／中文文案",
-        result: "可能交付：原文对照、待确认问题、可回译核对的中文稿",
-        image: "短文再编辑 / DEMO 01"
+        industry: "门店社媒运营 · DEMO",
+        summary: "设想把主页、图文内容、门店信息和预约路径放进同一套运营，让看到内容的人知道下一步做什么。",
+        services: "账号诊断／内容策划／主页优化",
+        result: "可能交付：月度主题、发帖方案、主页结构、门店信息检查",
+        image: "门店账号 / DEMO 01"
       },
       {
-        title: "文化体验｜背景和参加方法一起写",
+        title: "品牌账号｜把现有素材变成可持续更新",
         client: "虚构服务场景，不是真实客户",
-        industry: "工艺与文化体验 · DEMO",
-        summary: "把可确认的背景、体验步骤、时长、需要准备什么和注意事项，整理成一份能帮助访客判断是否参加的说明。",
-        services: "文化背景整理／中文文案／体验指南",
-        result: "可能交付：体验介绍、术语表、预约前与当天说明",
-        image: "背景与参加 / DEMO 02"
+        industry: "品牌社媒运营 · DEMO",
+        summary: "把现有照片和短视频整理成栏目、视觉规则与每月生产节奏，让账号可以持续发布，而不是每次从零开始。",
+        services: "素材分析／栏目策划／跨平台制作",
+        result: "可能交付：素材地图、内容栏目、制作规则、月度日历",
+        image: "内容系统 / DEMO 02"
       },
       {
-        title: "零售店｜把 Instagram 素材改成中文内容",
+        title: "多语言品牌｜把同一价值写成自然中文",
         client: "虚构服务场景，不是真实客户",
-        industry: "零售与生活方式 · DEMO",
-        summary: "从有授权、事实清楚的照片中选材，重组中文标题、正文、图片顺序和必要补充信息。",
-        services: "素材确认／中文再编辑／发布前信息整理",
-        result: "可能交付：素材清单、标题方案、中文正文、待补信息清单",
-        image: "素材再编辑 / DEMO 03"
+        industry: "多语言内容 · DEMO",
+        summary: "把日语品牌资料整理成中文读者看得懂、愿意继续读的表达，而不是逐句翻译。",
+        services: "品牌梳理／多语言本地化／表达校对",
+        result: "可能交付：品牌术语表、双语原稿、社媒表达指南",
+        image: "本地化 / DEMO 03"
       }
     ],
     pricing: [
@@ -1493,7 +1493,7 @@ export const siteContent: Record<Locale, SiteCopy> = {
         answer: "可以讨论，但会先确认平台、内容数量、素材、账号权限、评论管理和是否需要拍摄，再确定能承接的范围。"
       },
       {
-        question: "可以只做翻译或写文案吗？",
+        question: "可以只做翻译或内容制作吗？",
         answer: "可以，作为多语言本地化或单次内容项目承接。账号运营是另一项服务。"
       },
       {

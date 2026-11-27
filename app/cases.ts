@@ -65,7 +65,7 @@ export const caseStudies: Record<"ja" | "en" | "zh", CaseStudy[]> = {
       industry: "MULTILINGUAL CONTENT · DEMO",
       summary: "A possible project that turns Japanese brand information into natural Chinese for the intended audience instead of translating it word for word.",
       services: "Brand review / localization / language review",
-      result: "Example deliverables: terminology, bilingual copy and a social-media expression guide",
+      result: "Example deliverables: terminology, bilingual content and a social-media expression guide",
       image: "LOCALIZATION / DEMO 03"
     }
   ],
